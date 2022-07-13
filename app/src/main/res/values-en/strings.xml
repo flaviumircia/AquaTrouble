@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcomeText">Welcome!</string>
+    <string name="appDescr">AquaTrouble app shows the daily damage on the heat network in Bucharest. It also provides a heatmap of the affected neighborhoods.</string>
+    <string name="acceptCheckBox">Accept</string>
+    <string name="tosText">terms and conditions</string>
+    <string name="continueButton">Continue</string>
+    <string name="search">Search Here</string>
+    <string name="settings">Settings</string>
+
+</resources>

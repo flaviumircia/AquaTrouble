@@ -1,25 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainMap"
     >
 
-    <ListView
-        android:id="@+id/lv_listView"
+    <ImageView
+        android:id="@+id/light_blue_background"
         android:layout_width="match_parent"
-        android:divider="#C9C1B9"
-        android:dividerHeight="1dp"
-        android:layout_below="@id/searchView"
-        android:layout_height="match_parent" />
+        android:layout_height="260dp"
+        android:contentDescription="@string/light_blue_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/background_round_shape" />
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:iconifiedByDefault="false"
-        android:queryHint="@string/search" />
-</RelativeLayout>
+        android:layout_width="match_parent"
+        app:queryBackground="@android:color/transparent"
+        android:layout_height="53dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/outline_rectangle"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toBottomOf="@+id/light_blue_background"
+        app:layout_constraintEnd_toEndOf="@+id/light_blue_background"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/light_blue_background"
+        app:layout_constraintTop_toTopOf="@+id/light_blue_background"
+        app:layout_constraintVertical_bias="0.077"
+        app:queryHint="@string/search_bar_map"
+        app:searchIcon="@drawable/ic_search_icon"
+        app:theme="@style/search_view_query" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="580dp"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="100dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView">
+
+        <org.osmdroid.views.MapView
+            android:id="@+id/osmdroidMap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

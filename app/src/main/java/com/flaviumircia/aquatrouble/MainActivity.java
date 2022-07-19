@@ -10,6 +10,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.flaviumircia.aquatrouble.database.ActivityChecker;
+import com.flaviumircia.aquatrouble.database.DbExists;
+import com.flaviumircia.aquatrouble.fragments.FirstFragment;
+import com.flaviumircia.aquatrouble.fragments.SecondFragment;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 public class MainActivity extends AppCompatActivity {

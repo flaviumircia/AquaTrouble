@@ -6,7 +6,7 @@
     <string name="welcomeText">Bine ati venit!</string>
     <string name="appDescr">Aplicatia AquaTrouble prezinta defectiunile zilnice ce apar la reteaua de apa si incalzire in Bucuresti. De asemenea, furnizează o statistică a cartierelor cel mai des afectate.</string>
     <string name="acceptCheckBox">Accept</string>
-    <string name="tosText">termenii si conditiile</string>
+    <string name="tosText">Termenii si conditiile</string>
     <string name="continueButton">Continua</string>
     <string name="action_settings" translatable="false">Settings</string>
     <string name="interstitial_ad_sample" translatable="false">Interstitial Ad Sample</string>
@@ -22,5 +22,6 @@
     <string name="engLang" translatable="false">English</string>
     <string name="search">Cauta aici!</string>
     <string name="settings">Setari</string>
+    <string name="search_bar_map">Cauta sau apasa pe harta</string>
 
 </resources>

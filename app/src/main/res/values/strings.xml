@@ -22,6 +22,11 @@
     <string name="engLang" translatable="false">English</string>
     <string name="search">Search Here</string>
     <string name="settings">Settings</string>
-    <string name="search_bar_map" >Cauta sau apasa pe harta</string>
+    <string name="search_bar_map">Cauta sau apasa pe harta</string>
     <string name="light_blue_background" translatable="false">light blue background</string>
+    <string name="statistica">Statistica</string>
+    <string name="defectiuni">Defectiuni</string>
+    <string name="acasa">Acasa</string>
+    <string name="favorite">Favorite</string>
+    <string name="setari">Setari</string>
 </resources>

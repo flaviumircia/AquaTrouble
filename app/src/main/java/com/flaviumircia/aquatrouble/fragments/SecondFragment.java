@@ -1,6 +1,7 @@
 package com.flaviumircia.aquatrouble.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.flaviumircia.aquatrouble.Eula;
+import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.MainMap;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.database.Database;
@@ -27,7 +29,10 @@ public class SecondFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_two, container, false);
         TextView eula = v.findViewById(R.id.tosHyperlink);
-
+        SharedPreferences sharedPreferences=getActivity().getSharedPreferences("pref",0);
+        String language=sharedPreferences.getString("lang",null);
+        LanguageSetter languageSetter=new LanguageSetter();
+        languageSetter.setLocale(language,getContext());
         Button continueButton = v.findViewById(R.id.continueButton);
         CheckBox checkBox = v.findViewById(R.id.tosCheckBox);
         checkIfAccepted(checkBox, continueButton);

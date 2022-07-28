@@ -23,5 +23,10 @@
     <string name="search">Cauta aici!</string>
     <string name="settings">Setari</string>
     <string name="search_bar_map">Cauta sau apasa pe harta</string>
+    <string name="statistica">Statistica</string>
+    <string name="defectiuni">Defectiuni</string>
+    <string name="acasa">Acasa</string>
+    <string name="favorite">Favorite</string>
+    <string name="setari">Setari</string>
 
 </resources>

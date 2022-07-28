@@ -2,14 +2,21 @@ package com.flaviumircia.aquatrouble;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.room.MapInfo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -18,7 +25,14 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
+
+import com.flaviumircia.aquatrouble.databinding.ActivityMapBinding;
+import com.flaviumircia.aquatrouble.menufragments.Home;
+import com.flaviumircia.aquatrouble.menufragments.Settings;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.kml.KmlDocument;
@@ -33,124 +47,58 @@ import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.CustomZoomButtonsDisplay;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.FolderOverlay;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Overlay;
+import org.osmdroid.views.overlay.Polygon;
+import org.osmdroid.views.overlay.infowindow.MarkerInfoWindow;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
 public class MainMap extends AppCompatActivity {
-    private MapView map;
-    private FolderOverlay kmlOverlay;
-    private ActivityResultContracts.RequestMultiplePermissions multiplePermissions;
-    private ActivityResultLauncher<String[]> multiplePermissionLauncher;
-    private final String [] PERMISSIONS={
-            Manifest.permission.INTERNET,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_NETWORK_STATE };
+    private BottomNavigationView bottomNavigationView;
 
+    private ActivityMapBinding binding;
+    //TODO: SharedPreferences for language and theme saving !!!
+    //TODO: Pass data from this activity to the zoomed one with bundle (search on stackoverflow)
+    //TODO: Search for a way to put Markers in the center of the polygon with null icon and title= name of the neighborhood. HINT: add empty icon in the center of the polygons with the name of them on it
+    //TODO: Create the other fragments to choose between in the navigation menu bar (see if you can recreate one empty)
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //permissions for using the osmdroid map
-        checkThePermissions();
 
-        //context for osmdroid
-        Context ctx = getApplicationContext();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
+        //set the language
+        SharedPreferences sharedPreferences=this.getSharedPreferences("pref",0);
+        String language=sharedPreferences.getString("lang",null);
+        LanguageSetter languageSetter=new LanguageSetter();
+        languageSetter.setLocale(language,this);
 
-        //get the kml document from the assets folder
-        KmlDocument kmlDocument=new KmlDocument();
-        String pathToFile=returnPath("codebeautify.kml");
-        kmlDocument.parseKMLFile(new File(pathToFile));
+        binding=ActivityMapBinding.inflate(getLayoutInflater());
 
-        //set the content view of the activity
-        setContentView(R.layout.activity_map);
+        setContentView(binding.getRoot());
+        replaceFragment(new Home());
+        binding.bottomNavigationView.setSelectedItemId(R.id.home_icon);
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
-        //instantiate the mapView
-        map = (MapView) findViewById(R.id.osmdroidMap);
-
-        //map settings
-        setTheMap(kmlDocument);
-    }
-
-    private void setTheMap(KmlDocument kmlDocument) {
-        // map tile provider
-        map.setTileSource(TileSourceFactory.MAPNIK);
-
-        //map controller for setting the zoom on the map
-        IMapController mapController = map.getController();
-        mapController.setZoom(13.00);
-
-        //starting point (default) of the map
-        GeoPoint startPoint = new GeoPoint(44.426164962,26.102332924);
-
-        //set the center of the map
-        mapController.setCenter(startPoint);
-
-        //hide the zoom in/out buttons of the map
-        map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
-
-        //set the pinch zoom
-        map.setMultiTouchControls(true);
-
-        //upload the overlay on the osmdroid map
-        kmlOverlay=(FolderOverlay) kmlDocument.mKmlRoot.buildOverlay(map,null,null,kmlDocument);
-        map.getOverlays().add(kmlOverlay);
-
-        //reload the map with the overlay
-        map.invalidate();
-    }
-
-    public void onResume(){
-        super.onResume();
-        //this will refresh the osmdroid configuration on resuming.
-        //if you make changes to the configuration, use
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
-        map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
-    }
-
-    public void onPause(){
-        super.onPause();
-        //this will refresh the osmdroid configuration on resuming.
-        //if you make changes to the configuration, use
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Configuration.getInstance().save(this, prefs);
-        map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
-    }
-
-    //return the path of the file from assets
-    //neccessary for the overlay of the shapes on the osmdroid
-    private String returnPath(String name){
-        File f = new File(getCacheDir()+"/"+name);
-        if (!f.exists()) try {
-            InputStream is = getAssets().open(name);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            FileOutputStream fos = new FileOutputStream(f);
-            fos.write(buffer);
-            fos.close();
-        } catch (Exception e) { throw new RuntimeException(e); }
-        return f.getPath();
-    }
-
-    //check the permissions method
-    private void checkThePermissions(){
-        multiplePermissions= new ActivityResultContracts.RequestMultiplePermissions();
-        multiplePermissionLauncher= registerForActivityResult(multiplePermissions, isGranted->{
-            Log.d("PERMISSIONS", "LAUNCHER RESULT: "+isGranted.toString());
-            if(isGranted.containsValue(false))
-            {
-                Log.d("PERMISSIONS", "At least one permission was not granted, launching again... ");
-                multiplePermissionLauncher.launch(PERMISSIONS);
+            switch (item.getItemId()){
+                case R.id.home_icon:
+                    replaceFragment(new Home());
+                    break;
+                case R.id.settings_icon:
+                    replaceFragment(new Settings());
+                    break;
             }
-        });
-        PermissionCheck permissionCheck=new PermissionCheck();
-        permissionCheck.askPermissions(multiplePermissionLauncher,PERMISSIONS,getApplicationContext());
-    }
 
+            return true;
+        });
+    }
+    private void replaceFragment(Fragment fragment)
+    {
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.commit();
+    }
 }

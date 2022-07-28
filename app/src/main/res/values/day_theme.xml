@@ -47,4 +47,10 @@
         <item name="colorOnSecondary">@color/background_white</item>
         <item name="tint">@color/background_white</item>
     </style>
+    <style name="custom_menu_nav_bar" parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/comfortaa</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
 </resources>

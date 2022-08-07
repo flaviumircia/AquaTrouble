@@ -8,6 +8,9 @@
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/background_round_shape.xml" value="0.2265" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/dmn_mergi.xml" value="0.124" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/ic_aqua_trouble.xml" value="0.2265" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/ic_arc_triumf.xml" value="0.2265" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/ic_icon_home.xml" value="0.2265" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/ic_icon_map.xml" value="0.2265" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.123" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/ic_launcher_logo_foreground.xml" value="0.2265" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/ic_logo.xml" value="0.2265" />
@@ -21,28 +24,49 @@
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/ic_svgviewer_output__10_.xml" value="0.2265" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/ic_uk_round.xml" value="0.2265" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/logo_app.xml" value="0.124" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/not_so_round.xml" value="0.2265" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/outline_rectangle.xml" value="0.2265" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/rectangle.xml" value="0.2265" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/rounded_flag_shape.xml" value="0.2265" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/rounded_top_shape.xml" value="0.2265" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/s1_gradient.xml" value="0.2265" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/s2_gradient.xml" value="0.2265" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/s3_gradient.xml" value="0.2265" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/s4_gradient.xml" value="0.2265" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/s5_gradient.xml" value="0.2265" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/s6_gradient.xml" value="0.2265" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/splash_background.xml" value="0.2265" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/splash_background_night.xml" value="0.123" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/drawable/splash_screen.xml" value="0.123" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/activity_eula.xml" value="0.176" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/activity_map.xml" value="0.176" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/activity_map.xml" value="0.264" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/activity_map_details.xml" value="0.2" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/activity_settings.xml" value="0.176" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/activity_splash.xml" value="0.2" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/activity_wizard.xml" value="0.2" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/fragment_ad_mob.xml" value="0.2" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/fragment_current_damage.xml" value="0.25416666666666665" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/fragment_favorites.xml" value="0.176" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/fragment_heatmap.xml" value="0.264" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/fragment_home.xml" value="0.3547589616810878" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/fragment_map_view.xml" value="0.65625" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/fragment_one.xml" value="0.264" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/fragment_osmdroid_map.xml" value="0.3876092136616362" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/fragment_settings.xml" value="0.2" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/fragment_two.xml" value="0.264" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/fragment_webpage_map.xml" value="0.2" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/my_custom_layout.xml" value="0.6027777777777777" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/layout/viewpager_item.xml" value="0.264" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/menu/bottom_nav_menu.xml" value="0.264" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/menu/nav_menu.xml" value="0.4" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/menu/search_menu.xml" value="0.152" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/menu/settings_menu.xml" value="0.264" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.123" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/mipmap-anydpi-v26/ic_launcher_logo.xml" value="0.123" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/mipmap-anydpi-v26/ic_launcher_logo_round.xml" value="0.123" />
         <entry key="..\:/exA/AquaTrouble/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.123" />
+        <entry key="..\:/exA/AquaTrouble/app/src/main/res/xml/searchable.xml" value="0.65625" />
       </map>
     </option>
   </component>

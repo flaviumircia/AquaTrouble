@@ -12,6 +12,17 @@
     <string name="defectiuni">Damage</string>
     <string name="acasa">Home</string>
     <string name="favorite">Favorites</string>
-    <string name="setari">Settings</string>
+    <string name="donation">Support the app</string>
+    <string name="alege_tema">Theme</string>
+    <string name="about">About</string>
+    <string name="defectiuni_curente">Current damage</string>
+    <string name="harta_termografica">Heatmap</string>
+    <string name="motivational_text">Customize the way you like it</string>
+    <string name="alege_sectorul">Choose the sector</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="cele_mai_afectate_cartiere">Most frequently damaged</string>
+    <string name="harta">map</string>
+    <string name="pornit">On</string>
+    <string name="oprit">Off</string>
 
 </resources>

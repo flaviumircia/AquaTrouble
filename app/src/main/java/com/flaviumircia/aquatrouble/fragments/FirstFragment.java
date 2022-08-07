@@ -1,19 +1,10 @@
 package com.flaviumircia.aquatrouble.fragments;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -23,8 +14,6 @@ import androidx.fragment.app.Fragment;
 
 import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
-
-import java.util.Locale;
 
 public class FirstFragment extends Fragment {
 
@@ -44,7 +33,6 @@ public class FirstFragment extends Fragment {
                 {
                     String language = "en";
                     languageSetter.setLocale(language,getContext());
-//                    setLocale(language);
                     SharedPreferences sharedPreferences=getActivity().getSharedPreferences("pref",0);
                     SharedPreferences.Editor editor=sharedPreferences.edit();
                     editor.putString("lang",language);
@@ -54,7 +42,6 @@ public class FirstFragment extends Fragment {
                 else
                 {
                     String language="ro-Ro";
-//                    setLocale(language);
                     languageSetter.setLocale(language,getContext());
                     SharedPreferences sharedPreferences=getActivity().getSharedPreferences("pref",0);
                     SharedPreferences.Editor editor=sharedPreferences.edit();

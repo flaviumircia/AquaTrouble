@@ -1,7 +1,6 @@
 package com.flaviumircia.aquatrouble;
 
 import android.graphics.Color;
-import android.util.Log;
 
 import com.flaviumircia.aquatrouble.area.CalculateAreaOfPoly;
 import com.flaviumircia.aquatrouble.area.PolygonCustomTitle;
@@ -21,7 +20,19 @@ import org.osmdroid.views.overlay.Polyline;
 public class ZoomKmlStyler implements KmlFeature.Styler {
     private PolygonCustomTitle polygonMiscInfo;
 
+    private String alphaValue;
+    public ZoomKmlStyler()
+    {
+        alphaValue="#6B";
+    }
 
+    public String getAlphaValue() {
+        return alphaValue;
+    }
+
+    public void setAlphaValue(String alphaValue) {
+        this.alphaValue = alphaValue;
+    }
     /**
      * Adding title to the polygon
      * @param polygonMiscInfo
@@ -50,8 +61,10 @@ public class ZoomKmlStyler implements KmlFeature.Styler {
     public void onPolygon(Polygon polygon, KmlPlacemark kmlPlacemark, KmlPolygon kmlPolygon) {
 
         //getting individual color for each polygon
-        String polyColor=colorFormatter(kmlPlacemark.getExtendedData("fill"));
+        String polyColor=colorFormatter(kmlPlacemark.getExtendedData("fill"),this.alphaValue);
+
         polygon.setFillColor(Color.parseColor(polyColor));
+
         //polygon stroke width
         polygon.setStrokeWidth(5.0f);
 
@@ -67,17 +80,20 @@ public class ZoomKmlStyler implements KmlFeature.Styler {
     public void onTrack(Polyline polyline, KmlPlacemark kmlPlacemark, KmlTrack kmlTrack) {
 
     }
-    private String colorFormatter(String extendedData){
+    /**
+     * Method for extracting the color from the kml file
+     * @return a string containing the color with the alpha=6B
+     */
+    private String colorFormatter(String extendedData,String alphaValue){
 
-        if(extendedData==null) return "#6B0ffAff";
+        if(extendedData==null)
+        {
+            return alphaValue+"0ffAff";}
 
         //setting the stroke and colour of the poly
         String[] formattedColor=extendedData.split("#",2);
-        String finalColor="#6B"+formattedColor[1];
-
-        return finalColor;
+        return alphaValue+formattedColor[1];
     }
-
     private void miscSettingsForPolygon(String title, GeoPoint center, double area)
     {
         //getting the title and center coordinates of each poly

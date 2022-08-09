@@ -23,10 +23,19 @@ import org.osmdroid.views.overlay.Polyline;
 public class MyKmlStyler implements KmlFeature.Styler {
     private Context theContext;
     private PolygonCustomTitle polygonMiscInfo;
-
+    private String alphaValue;
     public MyKmlStyler(Context context)
     {
         this.theContext=context;
+        alphaValue="#6B";
+    }
+
+    public String getAlphaValue() {
+        return alphaValue;
+    }
+
+    public void setAlphaValue(String alphaValue) {
+        this.alphaValue = alphaValue;
     }
 
     /**
@@ -68,7 +77,7 @@ public class MyKmlStyler implements KmlFeature.Styler {
     public void onPolygon(Polygon polygon, KmlPlacemark kmlPlacemark, KmlPolygon kmlPolygon) {
 
         //getting individual color for each polygon
-        String polyColor=colorFormatter(kmlPlacemark.getExtendedData("fill"));
+        String polyColor=colorFormatter(kmlPlacemark.getExtendedData("fill"),this.alphaValue);
 
         polygon.setFillColor(Color.parseColor(polyColor));
 
@@ -118,15 +127,15 @@ public class MyKmlStyler implements KmlFeature.Styler {
      * Method for extracting the color from the kml file
      * @return a string containing the color with the alpha=6B
      */
-    private String colorFormatter(String extendedData){
+    private String colorFormatter(String extendedData,String alphaValue){
 
-        if(extendedData==null) return "#6B0ffAff";
+        if(extendedData==null)
+        {
+            return alphaValue+"0ffAff";}
 
         //setting the stroke and colour of the poly
         String[] formattedColor=extendedData.split("#",2);
-        String finalColor="#6B"+formattedColor[1];
-
-        return finalColor;
+        return alphaValue+formattedColor[1];
     }
 
     private void miscSettingsForPolygon(String title,GeoPoint center,double area)

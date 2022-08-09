@@ -2,8 +2,11 @@ package com.flaviumircia.aquatrouble;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +41,9 @@ public class MapDetails extends AppCompatActivity {
         setContentView(R.layout.activity_map_details);
         title=findViewById(R.id.neighborhoodText);
         title.setText(neighborhood);
-
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.parseColor("#FF7A9AA3"));
         //get the kml document from the assets folder
         KmlDocument kmlDocument=new KmlDocument();
         String pathToFile=returnPath("codebeautify.kml");
@@ -112,6 +117,7 @@ public class MapDetails extends AppCompatActivity {
 
         //custom styler
         ZoomKmlStyler styler = new ZoomKmlStyler();
+        check_theme(styler);
         PolygonCustomTitle polygonCustomTitle=new PolygonCustomTitle();
         styler.setPolygonMiscInfo(polygonCustomTitle);
 
@@ -167,7 +173,9 @@ public class MapDetails extends AppCompatActivity {
     }
 
     private void neighborhood_marker_title(PolygonCustomTitle polygonCustomTitle) {
-
+        int nightModeFlags =
+                getApplicationContext().getResources().getConfiguration().uiMode &
+                        android.content.res.Configuration.UI_MODE_NIGHT_MASK;
         for (int i=0;i<polygonCustomTitle.getTitle().size();i++)
         {
             Marker marker=new Marker(map);
@@ -180,7 +188,13 @@ public class MapDetails extends AppCompatActivity {
             int sizeInt=sizeOfText.intValue();
             //marker customizaiton
             marker.setTextLabelFontSize(sizeInt);
-            marker.setTextLabelForegroundColor(Color.BLACK);
+            if(nightModeFlags==android.content.res.Configuration.UI_MODE_NIGHT_YES)
+            {
+                marker.setTextLabelForegroundColor(Color.WHITE);
+
+            } else {
+                marker.setTextLabelForegroundColor(Color.BLACK);
+            }
             marker.setTextLabelBackgroundColor(Color.TRANSPARENT);
             marker.setTextIcon(polygonCustomTitle.getTitle().get(i));
 
@@ -215,5 +229,24 @@ public class MapDetails extends AppCompatActivity {
             default: return defaultCase;
         }
 
+    }
+    private void check_theme(ZoomKmlStyler styler) {
+        int nightModeFlags =
+                getApplicationContext().getResources().getConfiguration().uiMode &
+                        android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+        switch (nightModeFlags) {
+            case android.content.res.Configuration.UI_MODE_NIGHT_YES:
+                styler.setAlphaValue("#1B");
+                NightModeTiles nightModeTiles=new NightModeTiles("#414141");
+                ColorMatrixColorFilter filter = nightModeTiles.getFilter();
+                map.getOverlayManager().getTilesOverlay().setColorFilter(filter);
+                break;
+            case android.content.res.Configuration.UI_MODE_NIGHT_NO:
+                styler.setAlphaValue("#6B");
+                break;
+            case android.content.res.Configuration.UI_MODE_NIGHT_UNDEFINED:
+                styler.setAlphaValue("#1B");
+                break;
+        }
     }
 }

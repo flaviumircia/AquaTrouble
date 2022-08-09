@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -17,9 +18,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import com.flaviumircia.aquatrouble.MyKmlStyler;
+import com.flaviumircia.aquatrouble.NightModeTiles;
 import com.flaviumircia.aquatrouble.PermissionCheck;
-import com.flaviumircia.aquatrouble.area.PolygonCustomTitle;
 import com.flaviumircia.aquatrouble.R;
+import com.flaviumircia.aquatrouble.area.PolygonCustomTitle;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.kml.KmlDocument;
@@ -123,17 +125,15 @@ public class OsmdroidMap extends Fragment {
         //map controller for setting the zoom on the map
         IMapController mapController = map.getController();
         mapController.setZoom(14.00);
-
         //starting point (default) of the map
         GeoPoint startPoint = new GeoPoint(44.426164962,26.102332924);
-
         //set the center of the map
         mapController.setCenter(startPoint);
 
         //hide the zoom in/out buttons of the map
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         map.setMinZoomLevel(14.00);
-
+        map.setMaxZoomLevel(21.00);
         //set the pinch zoom
         map.setMultiTouchControls(true);
 
@@ -146,6 +146,7 @@ public class OsmdroidMap extends Fragment {
 
         //Styler of the map
         MyKmlStyler styler=new MyKmlStyler(getContext());
+        check_theme(styler);
         styler.setPolygonMiscInfo(polygonCustomTitle);
 
         //get the kml overlay
@@ -157,13 +158,14 @@ public class OsmdroidMap extends Fragment {
         neighborhood_marker_title(polygonCustomTitle);
 
         map.getOverlays().add(kmlOverlay);
-
         //reload the map with the overlay
         map.invalidate();
     }
 
     private void neighborhood_marker_title(PolygonCustomTitle polygonCustomTitle) {
-
+        int nightModeFlags =
+                getContext().getResources().getConfiguration().uiMode &
+                        android.content.res.Configuration.UI_MODE_NIGHT_MASK;
         for (int i=0;i<polygonCustomTitle.getTitle().size();i++)
         {
             Marker marker=new Marker(map);
@@ -174,9 +176,17 @@ public class OsmdroidMap extends Fragment {
             //converting area to only integers
             Double sizeOfText=new Double(polygonCustomTitle.getArea().get(i));
             int sizeInt=sizeOfText.intValue();
-            //marker customizaiton
+
+            //marker customization
             marker.setTextLabelFontSize(sizeInt);
-            marker.setTextLabelForegroundColor(Color.BLACK);
+
+            if(nightModeFlags==android.content.res.Configuration.UI_MODE_NIGHT_YES)
+            {
+                marker.setTextLabelForegroundColor(Color.WHITE);
+
+            } else {
+                marker.setTextLabelForegroundColor(Color.BLACK);
+            }
             marker.setTextLabelBackgroundColor(Color.TRANSPARENT);
             marker.setTextIcon(polygonCustomTitle.getTitle().get(i));
 
@@ -261,5 +271,25 @@ public class OsmdroidMap extends Fragment {
         });
         PermissionCheck permissionCheck=new PermissionCheck();
         permissionCheck.askPermissions(multiplePermissionLauncher,PERMISSIONS,getActivity());
+    }
+    private void check_theme(MyKmlStyler styler) {
+
+        int nightModeFlags =
+                getContext().getResources().getConfiguration().uiMode &
+                        android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+        switch (nightModeFlags) {
+            case android.content.res.Configuration.UI_MODE_NIGHT_YES:
+                styler.setAlphaValue("#1B");
+                NightModeTiles nightModeTiles=new NightModeTiles("#414141");
+                ColorMatrixColorFilter filter = nightModeTiles.getFilter();
+                map.getOverlayManager().getTilesOverlay().setColorFilter(filter);
+                break;
+            case android.content.res.Configuration.UI_MODE_NIGHT_NO:
+                styler.setAlphaValue("#6B");
+                break;
+            case android.content.res.Configuration.UI_MODE_NIGHT_UNDEFINED:
+                styler.setAlphaValue("#1B");
+                break;
+        }
     }
 }

@@ -1,9 +1,6 @@
 package com.flaviumircia.aquatrouble.area;
 
-import android.content.Context;
-
 import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,25 +8,53 @@ import java.util.Collections;
 public class PolygonCustomTitle {
 
     ArrayList<GeoPoint> geoPoints;
-    MapView mapView;
-    Context context;
     ArrayList<String> title;
     ArrayList<Double> area;
     ArrayList<Double> normalized_area;
+    double north,east,south,west;
 
     /**
      * Constructor getting the context and map from the parent activity
      * because I couldn't find a way to retrieve the polygon coordinates from activity (You need the override the KmlFeature class)
-     * @param context
-     * @param mapView
      */
-    public PolygonCustomTitle(Context context, MapView mapView)
+    public PolygonCustomTitle()
     {   this.geoPoints=new ArrayList<>();
         this.title=new ArrayList<>();
         this.area=new ArrayList<>();
         this.normalized_area=new ArrayList<>();
-        this.context=context;
-        this.mapView=mapView;
+
+    }
+
+    public double getNorth() {
+        return north;
+    }
+
+    public void setNorth(double north) {
+        this.north = north;
+    }
+
+    public double getEast() {
+        return east;
+    }
+
+    public void setEast(double east) {
+        this.east = east;
+    }
+
+    public double getSouth() {
+        return south;
+    }
+
+    public void setSouth(double south) {
+        this.south = south;
+    }
+
+    public double getWest() {
+        return west;
+    }
+
+    public void setWest(double west) {
+        this.west = west;
     }
 
     /**

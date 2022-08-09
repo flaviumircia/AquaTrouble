@@ -1,21 +1,24 @@
 package com.flaviumircia.aquatrouble;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.flaviumircia.aquatrouble.area.PolygonCustomTitle;
+
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.kml.KmlDocument;
-import org.osmdroid.bonuspack.kml.KmlFeature;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.FolderOverlay;
+import org.osmdroid.views.overlay.Marker;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -60,6 +63,7 @@ public class MapDetails extends AppCompatActivity {
         }
         return "Neighborhood not found";
     }
+
     private GeoPoint centerOf()
     {   GeoPoint geoPoint;
         Bundle extras=getIntent().getExtras();
@@ -72,17 +76,30 @@ public class MapDetails extends AppCompatActivity {
         }
         return new GeoPoint(0,0);
     }
+    private double [] getBounds(double offset)
+    {   double []bounds =new double[4];
+        Bundle savedBounds=getIntent().getExtras();
+        if(savedBounds!=null)
+        {
+                bounds[0]=savedBounds.getDouble("north")+offset;
+                bounds[1]= savedBounds.getDouble("south")+offset;
+                bounds[2]=savedBounds.getDouble("west")+offset;
+                bounds[3]=savedBounds.getDouble("east")+offset;
+        }
+        return bounds;
+    }
     private void setTheMap(KmlDocument kmlDocument) {
+
         // map tile provider
         map.setTileSource(TileSourceFactory.MAPNIK);
+
         //map controller for setting the zoom on the map
         IMapController mapController = map.getController();
         mapController.setZoom(16.00);
 
         //starting point (default) of the map
+        GeoPoint startPoint =centerOf();
 
-        GeoPoint startPoint =new GeoPoint(0,0);
-        startPoint=centerOf();
         //set the center of the map
         mapController.setCenter(startPoint);
 
@@ -93,21 +110,26 @@ public class MapDetails extends AppCompatActivity {
         //set the pinch zoom
         map.setMultiTouchControls(true);
 
+        //custom styler
+        ZoomKmlStyler styler = new ZoomKmlStyler();
+        PolygonCustomTitle polygonCustomTitle=new PolygonCustomTitle();
+        styler.setPolygonMiscInfo(polygonCustomTitle);
+
         //set scrollable limits
-        map.setScrollableAreaLimitLatitude(44.539523,44.335193,1);
-        map.setScrollableAreaLimitLongitude(25.928859,26.242889,1);
+        double [] bounds=getBounds(0);
+        map.setScrollableAreaLimitLatitude(bounds[0],bounds[1],1);
+        map.setScrollableAreaLimitLongitude(bounds[2],bounds[3],1);
 
         //upload the overlay on the osmdroid map
-        //TODO: Check Styler overriding custom
-        KmlFeature.Styler styler = new ZoomKmlStyler();
-//        Marker m=new Marker(map);
-//        m.setTextLabelBackgroundColor(Color.TRANSPARENT);
-//        m.setTextLabelForegroundColor(Color.BLACK);
-        //get the kml overlay
         kmlOverlay=(FolderOverlay) kmlDocument.mKmlRoot.buildOverlay(map,null,styler,kmlDocument);
 
+        //getting the data from the object inside the kmlStyler class
+        polygonCustomTitle=styler.getPolygonMiscInfo();
+
+        //title for each polygon
+        neighborhood_marker_title(polygonCustomTitle);
+
         map.getOverlays().add(kmlOverlay);
-//        map.getOverlays().add(m);
 
         //reload the map with the overlay
         map.invalidate();
@@ -144,5 +166,54 @@ public class MapDetails extends AppCompatActivity {
         map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
     }
 
+    private void neighborhood_marker_title(PolygonCustomTitle polygonCustomTitle) {
 
+        for (int i=0;i<polygonCustomTitle.getTitle().size();i++)
+        {
+            Marker marker=new Marker(map);
+
+            //calling the method for normalizing the area between given integers
+            polygonCustomTitle.normalizeTheData(22,50);
+
+            //converting area to only integers
+            Double sizeOfText=new Double(polygonCustomTitle.getArea().get(i));
+            int sizeInt=sizeOfText.intValue();
+            //marker customizaiton
+            marker.setTextLabelFontSize(sizeInt);
+            marker.setTextLabelForegroundColor(Color.BLACK);
+            marker.setTextLabelBackgroundColor(Color.TRANSPARENT);
+            marker.setTextIcon(polygonCustomTitle.getTitle().get(i));
+
+            marker.setPosition(correctCenter(polygonCustomTitle.getTitle().get(i),polygonCustomTitle.getThePoints().get(i)));
+
+            //adding the overlay to the map
+            map.getOverlays().add(marker);
+        }
+    }
+
+    private GeoPoint correctCenter(String title,GeoPoint defaultCase) {
+        switch (title)
+        {
+            case "Aviatorilor":
+                return new GeoPoint(44.463076, 26.080204);
+            case "Chitila":
+                return new GeoPoint(44.478563, 26.031868);
+            case "Andronache":
+                return new GeoPoint(44.476978, 26.146700);
+            case "Pantelimon":
+                return new GeoPoint(44.442995, 26.168011);
+            case "Ghencea":
+                return new GeoPoint(44.407679, 26.036413);
+            case "Grozavesti":
+                return new GeoPoint(44.442657, 26.066072);
+            case "Stefan Cel Mare":
+                return new GeoPoint(44.450020, 26.110795);
+            case "Mosilor":
+                return new GeoPoint(44.442245, 26.122989);
+            case "Dorobanti":
+                return new GeoPoint(44.456187, 26.090401);
+            default: return defaultCase;
+        }
+
+    }
 }

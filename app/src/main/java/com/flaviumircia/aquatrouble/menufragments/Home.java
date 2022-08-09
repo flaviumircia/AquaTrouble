@@ -92,11 +92,11 @@ public class Home extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 RadioButton checkedRadioButton= (RadioButton) radioGroup.findViewById(i);
                 boolean isChecked=checkedRadioButton.isChecked();
-                if(isChecked && (checkedRadioButton.getText().equals("Pornit") || checkedRadioButton.getText().equals("On")))
+                if(isChecked && (checkedRadioButton.getText().equals("Pornită") || checkedRadioButton.getText().equals("On")))
                 {
                     replaceFragment(new WebPageMap());
                 }
-                else if(isChecked && (checkedRadioButton.getText().equals("Oprit") || checkedRadioButton.getText().equals("Off")))
+                else if(isChecked && (checkedRadioButton.getText().equals("Oprită") || checkedRadioButton.getText().equals("Off")))
                 {
                     replaceFragment(new OsmdroidMap());
                 }

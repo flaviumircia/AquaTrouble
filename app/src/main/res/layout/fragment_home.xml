@@ -42,6 +42,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="83dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -69,20 +70,24 @@
         app:layout_constraintStart_toStartOf="@+id/homeText"
         app:layout_constraintTop_toBottomOf="@+id/homeText"
         app:sc_border_width="2dp"
-        app:sc_checked_text_color="@color/teal_custom"
+        app:sc_checked_text_color="@color/black"
         app:sc_corner_radius="10dp"
         app:sc_tint_color="@color/white">
 
         <RadioButton
             android:id="@+id/on_heat"
             style="@style/RadioButton"
+            android:fontFamily="@font/comfortaa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
+            android:textSize="12sp"
             android:text="@string/oprit" />
 
         <RadioButton
             android:id="@+id/off_heat"
+            android:fontFamily="@font/comfortaa"
+            android:textSize="12sp"
             style="@style/RadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

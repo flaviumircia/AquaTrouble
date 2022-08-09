@@ -1,12 +1,12 @@
 package com.flaviumircia.aquatrouble;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 
 public class Eula extends AppCompatActivity {
@@ -19,7 +19,7 @@ public class Eula extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eula);
-        backArrow=findViewById(R.id.backArrow);
+//        backArrow=findViewById(R.id.backArrow);
         eulaTextView=findViewById(R.id.eulaText);
         eulaTextView.setMovementMethod(new ScrollingMovementMethod());
         EulaFile eulaFile= new EulaFile(getApplicationContext());
@@ -30,11 +30,11 @@ public class Eula extends AppCompatActivity {
             finalString=finalString + x + "\n";
         }
         eulaTextView.setText(finalString);
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+//        backArrow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
     }
 }

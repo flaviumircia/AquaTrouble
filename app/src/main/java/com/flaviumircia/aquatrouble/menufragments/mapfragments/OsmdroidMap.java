@@ -46,6 +46,7 @@ public class OsmdroidMap extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "HomeMap";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -107,7 +108,6 @@ public class OsmdroidMap extends Fragment {
         KmlDocument kmlDocument=new KmlDocument();
         String pathToFile=returnPath("codebeautify.kml");
         kmlDocument.parseKMLFile(new File(pathToFile));
-
         //getting the R.id for the MapView
         map = v.findViewById(R.id.osmdroidMap);
 
@@ -142,17 +142,16 @@ public class OsmdroidMap extends Fragment {
         map.setScrollableAreaLimitLongitude(25.928859,26.242889,1);
 
         //Class for adding the markers in the center of the polygons
-        PolygonCustomTitle polygonCustomTitle=new PolygonCustomTitle(getContext(),map);
+        PolygonCustomTitle polygonCustomTitle=new PolygonCustomTitle();
 
         //Styler of the map
         MyKmlStyler styler=new MyKmlStyler(getContext());
-        styler.setPolygonCustomTitle(polygonCustomTitle);
+        styler.setPolygonMiscInfo(polygonCustomTitle);
 
         //get the kml overlay
         kmlOverlay=(FolderOverlay) kmlDocument.mKmlRoot.buildOverlay(map,null,styler,kmlDocument);
-
         //getting the data from the object inside the kmlStyler class
-        polygonCustomTitle=styler.getPolygonCustomTitle();
+        polygonCustomTitle=styler.getPolygonMiscInfo();
 
         //title for each polygon
         neighborhood_marker_title(polygonCustomTitle);
@@ -170,31 +169,48 @@ public class OsmdroidMap extends Fragment {
             Marker marker=new Marker(map);
 
             //calling the method for normalizing the area between given integers
-            polygonCustomTitle.normalizeTheData(20,50);
+            polygonCustomTitle.normalizeTheData(22,50);
 
             //converting area to only integers
             Double sizeOfText=new Double(polygonCustomTitle.getArea().get(i));
             int sizeInt=sizeOfText.intValue();
-
             //marker customizaiton
             marker.setTextLabelFontSize(sizeInt);
             marker.setTextLabelForegroundColor(Color.BLACK);
             marker.setTextLabelBackgroundColor(Color.TRANSPARENT);
-            marker.setAnchor(Marker.ANCHOR_CENTER,Marker.ANCHOR_CENTER);
             marker.setTextIcon(polygonCustomTitle.getTitle().get(i));
 
-            //recentering GeoPoint in Chitila
-            GeoPoint chitilaPoint=new GeoPoint(44.477783, 26.032653);
-
-            //exception for chitila
-            if(!polygonCustomTitle.getTitle().get(i).equals("Chitila"))
-                marker.setPosition(polygonCustomTitle.getThePoints().get(i));
-            else
-                marker.setPosition(chitilaPoint);
+            marker.setPosition(correctCenter(polygonCustomTitle.getTitle().get(i),polygonCustomTitle.getThePoints().get(i)));
 
             //adding the overlay to the map
             map.getOverlays().add(marker);
         }
+    }
+
+    private GeoPoint correctCenter(String title,GeoPoint defaultCase) {
+        switch (title)
+        {
+            case "Aviatorilor":
+                return new GeoPoint(44.463076, 26.080204);
+            case "Chitila":
+                return new GeoPoint(44.478563, 26.031868);
+            case "Andronache":
+                return new GeoPoint(44.476978, 26.146700);
+            case "Pantelimon":
+                return new GeoPoint(44.442995, 26.168011);
+            case "Ghencea":
+                return new GeoPoint(44.407679, 26.036413);
+            case "Grozavesti":
+                return new GeoPoint(44.442657, 26.066072);
+            case "Stefan Cel Mare":
+                return new GeoPoint(44.450020, 26.110795);
+            case "Mosilor":
+                return new GeoPoint(44.442245, 26.122989);
+            case "Dorobanti":
+                return new GeoPoint(44.456187, 26.090401);
+            default: return defaultCase;
+        }
+
     }
 
     public void onResume(){

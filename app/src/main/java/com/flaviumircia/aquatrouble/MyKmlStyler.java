@@ -22,7 +22,7 @@ import org.osmdroid.views.overlay.Polyline;
 
 public class MyKmlStyler implements KmlFeature.Styler {
     private Context theContext;
-    private PolygonCustomTitle polygonCustomTitle;
+    private PolygonCustomTitle polygonMiscInfo;
 
     public MyKmlStyler(Context context)
     {
@@ -31,18 +31,18 @@ public class MyKmlStyler implements KmlFeature.Styler {
 
     /**
      * Adding title to the polygon
-     * @param polygonCustomTitle
+     * @param polygonMiscInfo
      */
-    public void setPolygonCustomTitle(PolygonCustomTitle polygonCustomTitle) {
-        this.polygonCustomTitle = polygonCustomTitle;
+    public void setPolygonMiscInfo(PolygonCustomTitle polygonMiscInfo) {
+        this.polygonMiscInfo = polygonMiscInfo;
     }
 
     /**
      * Getting the title from the polygon
      * @return title of the polygon
      */
-    public PolygonCustomTitle getPolygonCustomTitle() {
-        return polygonCustomTitle;
+    public PolygonCustomTitle getPolygonMiscInfo() {
+        return polygonMiscInfo;
     }
 
     @Override
@@ -67,19 +67,19 @@ public class MyKmlStyler implements KmlFeature.Styler {
     @Override
     public void onPolygon(Polygon polygon, KmlPlacemark kmlPlacemark, KmlPolygon kmlPolygon) {
 
-        //setting the stroke and colour of the poly
-        polygon.setStrokeWidth(5f);
-        polygon.setFillColor(Color.parseColor("#6B0ffAff"));
+        //getting individual color for each polygon
+        String polyColor=colorFormatter(kmlPlacemark.getExtendedData("fill"));
+
+        polygon.setFillColor(Color.parseColor(polyColor));
+
+        //polygon stroke width
+        polygon.setStrokeWidth(5.0f);
 
         //Class for calculating the area of the polygon
         CalculateAreaOfPoly calculateAreaOfPoly=new CalculateAreaOfPoly(polygon.getActualPoints());
 
-        //getting the title and center coordinates of each poly
-        this.polygonCustomTitle.setTitle(polygon.getTitle());
-        //calculates the center of the polygon and add it
-        this.polygonCustomTitle.setThePoints(polygon.getBounds().getCenterWithDateLine());
-        //add area of each polygon
-        this.polygonCustomTitle.setArea(calculateAreaOfPoly.polyArea());
+        //some settings for the PolygonCustomTitle class
+        miscSettingsForPolygon(polygon.getTitle(),polygon.getBounds().getCenterWithDateLine(),calculateAreaOfPoly.polyArea());
 
         //polygon on click listener
         polygon.setOnClickListener(new Polygon.OnClickListener() {
@@ -93,6 +93,10 @@ public class MyKmlStyler implements KmlFeature.Styler {
                 myIntent.putExtra("neighborhood",polygon.getTitle());
                 myIntent.putExtra("lat",polygon.getBounds().getCenterWithDateLine().getLatitude());
                 myIntent.putExtra("lng",polygon.getBounds().getCenterWithDateLine().getLongitude());
+                myIntent.putExtra("north",polygon.getBounds().getLatNorth());
+                myIntent.putExtra("south",polygon.getBounds().getLatSouth());
+                myIntent.putExtra("east",polygon.getBounds().getLonEast());
+                myIntent.putExtra("west",polygon.getBounds().getLonWest());
                 //flagging the new activity
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -110,4 +114,29 @@ public class MyKmlStyler implements KmlFeature.Styler {
 
     }
 
+    /**
+     * Method for extracting the color from the kml file
+     * @return a string containing the color with the alpha=6B
+     */
+    private String colorFormatter(String extendedData){
+
+        if(extendedData==null) return "#6B0ffAff";
+
+        //setting the stroke and colour of the poly
+        String[] formattedColor=extendedData.split("#",2);
+        String finalColor="#6B"+formattedColor[1];
+
+        return finalColor;
+    }
+
+    private void miscSettingsForPolygon(String title,GeoPoint center,double area)
+    {
+        //getting the title and center coordinates of each poly
+        this.polygonMiscInfo.setTitle(title);
+        //calculates the center of the polygon and add it
+        this.polygonMiscInfo.setThePoints(center);
+        //add area of each polygon
+        this.polygonMiscInfo.setArea(area);
+
+    }
 }

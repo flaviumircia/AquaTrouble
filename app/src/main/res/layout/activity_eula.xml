@@ -5,63 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Eula">
-
-    <ImageView
+    <TextView
         android:id="@+id/topShape"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/rounded_top_shape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/comfortaa"
+        android:text="@string/tosText"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/tosTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/comfortaa"
-        android:gravity="center_vertical"
-        android:text="@string/tosText"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/topShape"
-        app:layout_constraintEnd_toEndOf="@+id/topShape"
-        app:layout_constraintHorizontal_bias="0.243"
-        app:layout_constraintStart_toEndOf="@+id/backArrow"
-        app:layout_constraintTop_toTopOf="@+id/topShape"
-        app:layout_constraintVertical_bias="0.4" />
-
-    <ImageView
-        android:id="@+id/backArrow"
-        android:layout_width="46dp"
-        android:layout_height="34dp"
-        android:src="@drawable/arrow_back"
-        app:layout_constraintBottom_toBottomOf="@+id/topShape"
-        app:layout_constraintEnd_toEndOf="@+id/topShape"
-        app:layout_constraintHorizontal_bias="0.026"
-        app:layout_constraintStart_toStartOf="@+id/topShape"
-        app:layout_constraintTop_toTopOf="@+id/topShape"
-        app:layout_constraintVertical_bias="0.4"
-        app:tint="@color/white" />
-
-    <TextView
-        android:id="@+id/eulaText"
+    <ScrollView
+        android:id="@+id/scrollViewTos"
         android:layout_width="match_parent"
-        android:layout_height="603dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
-        android:scrollbars="vertical"
-        android:text=""
-        android:textAlignment="center"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/topShape"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/topShape"
-        app:layout_constraintTop_toBottomOf="@+id/topShape"
-        app:layout_constraintVertical_bias="0.291" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topShape">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/eulaText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=""
+                android:textAlignment="inherit" />
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

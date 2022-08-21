@@ -22,6 +22,7 @@ import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.map.math.PolygonCustomTitle;
 import com.flaviumircia.aquatrouble.map.settings.MapPointCorrecter;
 import com.flaviumircia.aquatrouble.map.settings.PolygonMarkerTitle;
+import com.flaviumircia.aquatrouble.misc.PathReturner;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
 
 import org.osmdroid.api.IMapController;
@@ -43,7 +44,7 @@ import java.io.InputStream;
  * Use the {@link OsmdroidMap#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeModeChecker, PolygonMarkerTitle {
+public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeModeChecker, PolygonMarkerTitle, PathReturner {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -108,7 +109,7 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
 
         //get the kml document from the assets folder
         KmlDocument kmlDocument=new KmlDocument();
-        String pathToFile=returnPath("codebeautify.kml");
+        String pathToFile=return_the_path("codebeautify.kml");
         kmlDocument.parseKMLFile(new File(pathToFile));
         //getting the R.id for the MapView
         map = v.findViewById(R.id.osmdroidMap);
@@ -184,22 +185,8 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
             map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
     }
 
-    //return the path of the file from assets
-    //neccessary for the overlay of the shapes on the osmdroid
-    private String returnPath(String name){
-        File f = new File(getActivity().getCacheDir()+"/"+name);
-        if (!f.exists()) try {
-            InputStream is = getActivity().getAssets().open(name);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            FileOutputStream fos = new FileOutputStream(f);
-            fos.write(buffer);
-            fos.close();
-        } catch (Exception e) { throw new RuntimeException(e); }
-        return f.getPath();
-    }
+
+
 
     @Override
     public GeoPoint correctPolygonCenter(String polygon_title, GeoPoint default_geoPoint) {
@@ -274,5 +261,22 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
             //adding the overlay to the map
             map.getOverlays().add(marker);
         }
+    }
+    //return the path of the file from assets
+    //neccessary for the overlay of the shapes on the osmdroid
+    @Override
+    public String return_the_path(String file_name) {
+        File f = new File(getActivity().getCacheDir()+"/"+file_name);
+        if (!f.exists()) try {
+            InputStream is = getActivity().getAssets().open(file_name);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(buffer);
+            fos.close();
+        } catch (Exception e) { throw new RuntimeException(e); }
+        return f.getPath();
     }
 }

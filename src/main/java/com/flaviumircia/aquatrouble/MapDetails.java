@@ -21,6 +21,7 @@ import com.flaviumircia.aquatrouble.adapter.PostAdapter;
 import com.flaviumircia.aquatrouble.map.math.PolygonCustomTitle;
 import com.flaviumircia.aquatrouble.map.settings.MapPointCorrecter;
 import com.flaviumircia.aquatrouble.map.settings.PolygonMarkerTitle;
+import com.flaviumircia.aquatrouble.misc.PathReturner;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.retrofit.MyApi;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
@@ -46,7 +47,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
-public class MapDetails extends AppCompatActivity implements ThemeModeChecker, MapPointCorrecter, PolygonMarkerTitle {
+public class MapDetails extends AppCompatActivity implements ThemeModeChecker, MapPointCorrecter, PolygonMarkerTitle, PathReturner {
     private String neighborhood;
     private TextView title;
     private TextView total_text;
@@ -79,18 +80,20 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         myApi=retrofit.create(MyApi.class);
         recyclerView=findViewById(R.id.street_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        fetchData(neighborhood);
 
         title=findViewById(R.id.neighborhoodText);
         title.setText(neighborhood);
         total_text=findViewById(R.id.total_text);
         back_arrow=findViewById(R.id.backArrowMap);
+        map = findViewById(R.id.zoomedMap);
+
+        KmlDocument kmlDocument=new KmlDocument();
+        String pathToFile=return_the_path("codebeautify.kml");
+        kmlDocument.parseKMLFile(new File(pathToFile));
+
+        fetchData(neighborhood);
         onClick(back_arrow);
         //get the kml document from the assets folder
-        KmlDocument kmlDocument=new KmlDocument();
-        String pathToFile=returnPath("codebeautify.kml");
-        kmlDocument.parseKMLFile(new File(pathToFile));
-        map = findViewById(R.id.zoomedMap);
 
         //map settings
         setTheMap(kmlDocument);
@@ -223,20 +226,6 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         //reload the map with the overlay
         map.invalidate();
     }
-    private String returnPath(String name){
-        File f = new File(getApplicationContext().getCacheDir()+"/"+name);
-        if (!f.exists()) try {
-            InputStream is = getApplicationContext().getAssets().open(name);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            FileOutputStream fos = new FileOutputStream(f);
-            fos.write(buffer);
-            fos.close();
-        } catch (Exception e) { throw new RuntimeException(e); }
-        return f.getPath();
-    }
     public void onResume(){
         super.onResume();
         //this will refresh the osmdroid configuration on resuming.
@@ -329,5 +318,21 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
             //adding the overlay to the map
             map.getOverlays().add(marker);
         }
+    }
+
+    @Override
+    public String return_the_path(String file_name) {
+        File f = new File(this.getCacheDir()+"/"+file_name);
+        if (!f.exists()) try {
+            InputStream is = this.getAssets().open(file_name);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(buffer);
+            fos.close();
+        } catch (Exception e) { throw new RuntimeException(e); }
+        return f.getPath();
     }
 }

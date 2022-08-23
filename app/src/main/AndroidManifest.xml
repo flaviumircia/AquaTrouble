@@ -25,10 +25,12 @@
         <activity
             android:name=".settings_pref_activities.FeedbackProvider"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/map_theme" />
         <activity
             android:name=".settings_pref_activities.BugSpotting"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/map_theme" />
         <activity
             android:name=".Sector"

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 
-import com.flaviumircia.aquatrouble.area.CalculateAreaOfPoly;
-import com.flaviumircia.aquatrouble.area.PolygonCustomTitle;
+import com.flaviumircia.aquatrouble.map.math.CalculateAreaOfPoly;
+import com.flaviumircia.aquatrouble.map.math.PolygonCustomTitle;
 
 import org.osmdroid.bonuspack.kml.KmlFeature;
 import org.osmdroid.bonuspack.kml.KmlLineString;
@@ -89,7 +89,6 @@ public class MyKmlStyler implements KmlFeature.Styler {
 
         //some settings for the PolygonCustomTitle class
         miscSettingsForPolygon(polygon.getTitle(),polygon.getBounds().getCenterWithDateLine(),calculateAreaOfPoly.polyArea());
-
         //polygon on click listener
         polygon.setOnClickListener(new Polygon.OnClickListener() {
             @Override

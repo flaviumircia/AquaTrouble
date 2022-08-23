@@ -2,13 +2,21 @@ package com.flaviumircia.aquatrouble.fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
-import android.widget.TextView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,23 +36,57 @@ public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_two, container, false);
-        TextView eula = v.findViewById(R.id.tosHyperlink);
+
         SharedPreferences sharedPreferences=getActivity().getSharedPreferences("pref",0);
         String language=sharedPreferences.getString("lang",null);
+
         LanguageSetter languageSetter=new LanguageSetter();
         languageSetter.setLocale(language,getContext());
-        Button continueButton = v.findViewById(R.id.continueButton);
+
+        ImageButton continueButton = v.findViewById(R.id.continueButton);
+        Animation ranim = (Animation) AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
+
+        continueButton.setAnimation(ranim);
+
         CheckBox checkBox = v.findViewById(R.id.tosCheckBox);
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View view) {
+                view.cancelPendingInputEvents();
+                startActivity(new Intent(getActivity(),Eula.class));
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.parseColor("#0BC1E1"));
+            }
+        };
+        SpannableString linkText;
+        linkText=new SpannableString(getActivity().getString(R.string.tosText));
+        linkText.setSpan(clickableSpan, 0, linkText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        CharSequence cs = TextUtils.expandTemplate(
+                "Accept ^1 ", linkText);
+
+        checkBox.setText(cs);
+        checkBox.setMovementMethod(LinkMovementMethod.getInstance());
+
         checkIfAccepted(checkBox, continueButton);
         //TODO: make eula legal
-        eula.setOnClickListener(view -> startActivity(new Intent(getActivity(), Eula.class)));
+
         return v;
     }
 
-    private void checkIfAccepted(CheckBox checkBox, Button continueButton) {
+    private void checkIfAccepted(CheckBox checkBox, ImageButton continueButton) {
+        Animation scaleUp= AnimationUtils.loadAnimation(getActivity(),R.anim.scale_up);
+
         checkBox.setOnCheckedChangeListener((compoundButton, b) -> {
             if (compoundButton.isChecked()) {
-                continueButton.setOnClickListener(view -> { // if the checkbox is checked and the continue button is pushed
+                continueButton.setOnClickListener(view -> {
+                    // if the checkbox is checked and the continue button is pushed
+
                     startActivity(new Intent(getActivity(), MainMap.class)); // start new activity
                     saveStatus(); // save the check button status
                     getActivity().finish();
@@ -52,11 +94,14 @@ public class SecondFragment extends Fragment {
             }
         });
 
-        if (!checkBox.isChecked()) { // if the checkbox wasn't checked
-            continueButton.setOnClickListener(view -> // click on the button and show toast message
-                    Toast.makeText(getActivity(),
+        if (!checkBox.isChecked()) {
+            // if the checkbox wasn't checked
+            continueButton.setOnClickListener(view ->{ // click on the button and show toast message
+                continueButton.startAnimation(scaleUp);
+
+                Toast.makeText(getActivity(),
                             "Pentru a putea continua trebuie sa acceptati termenii si conditiile",
-                            Toast.LENGTH_SHORT).show());
+                            Toast.LENGTH_SHORT).show();});
         }
     }
 

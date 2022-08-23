@@ -1,14 +1,14 @@
 package com.flaviumircia.aquatrouble;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
-import android.content.Intent;
-import android.os.Bundle;
 
 import com.flaviumircia.aquatrouble.database.ActivityChecker;
 import com.flaviumircia.aquatrouble.database.DbExists;
@@ -18,7 +18,7 @@ import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 public class MainActivity extends AppCompatActivity {
     @Override
-    //TODO: SAVE LANGUAGE PREFERENCES IN ROOM THEN LOAD IT IN EVERY ACTIVity
+
     //on create method
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

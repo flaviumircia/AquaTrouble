@@ -33,7 +33,7 @@ public class FirstFragment extends Fragment {
                 {
                     String language = "en";
                     languageSetter.setLocale(language,getContext());
-                    SharedPreferences sharedPreferences=getActivity().getSharedPreferences("pref",0);
+                    SharedPreferences sharedPreferences=getActivity().getSharedPreferences("data_mode",0);
                     SharedPreferences.Editor editor=sharedPreferences.edit();
                     editor.putString("lang",language);
                     editor.apply();

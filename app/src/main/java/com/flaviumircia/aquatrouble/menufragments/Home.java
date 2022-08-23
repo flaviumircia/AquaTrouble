@@ -1,16 +1,14 @@
 package com.flaviumircia.aquatrouble.menufragments;
 
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -41,6 +39,7 @@ public class Home extends Fragment {
 
     //from activity
     private SegmentedGroup aSwitch;
+    private int map_status;
     private androidx.appcompat.widget.SearchView searchView;
 
     public Home() {
@@ -77,7 +76,6 @@ public class Home extends Fragment {
         String language=sharedPreferences.getString("lang",null);
         LanguageSetter languageSetter=new LanguageSetter();
         languageSetter.setLocale(language,getActivity());
-
     }
 
     @Override
@@ -92,21 +90,34 @@ public class Home extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 RadioButton checkedRadioButton= (RadioButton) radioGroup.findViewById(i);
                 boolean isChecked=checkedRadioButton.isChecked();
-                if(isChecked && (checkedRadioButton.getText().equals("Pornită") || checkedRadioButton.getText().equals("On")))
-                {
+
+                if(isChecked && (checkedRadioButton.getText().equals(getActivity().getString(R.string.pornit))))
+                {   map_status=R.id.on_heat;
                     replaceFragment(new WebPageMap());
                 }
-                else if(isChecked && (checkedRadioButton.getText().equals("Oprită") || checkedRadioButton.getText().equals("Off")))
-                {
+                else if(isChecked && (checkedRadioButton.getText().equals(getActivity().getString(R.string.oprit))))
+                {   map_status=R.id.off_heat;
                     replaceFragment(new OsmdroidMap());
                 }
             }
         });
-        Window window = getActivity().getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(Color.parseColor("#7A9AA3"));
+        if(savedInstanceState!=null)
+        {
+            map_status=savedInstanceState.getInt("map_status");
 
-        replaceFragment(new OsmdroidMap());
+            if(map_status==R.id.on_heat)
+            {
+                replaceFragment(new WebPageMap());
+            }
+            else if(map_status==R.id.off_heat)
+            {
+                replaceFragment(new OsmdroidMap());
+            }
+        }
+        else
+        {
+            map_status=R.id.off_heat;
+            replaceFragment(new OsmdroidMap());}
         return v;
     }
 
@@ -118,5 +129,11 @@ public class Home extends Fragment {
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayoutInHome,fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("map_status",map_status);
     }
 }

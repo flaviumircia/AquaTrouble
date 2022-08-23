@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -15,22 +16,32 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AquaTrouble">
+        android:theme="@style/Theme.AquaTrouble"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".settings_pref_activities.About"
+            android:theme="@style/map_theme"
+            android:exported="false" />
+        <activity
+            android:name=".settings_pref_activities.FeedbackProvider"
+            android:exported="false"
+            android:theme="@style/map_theme" />
+        <activity
+            android:name=".settings_pref_activities.BugSpotting"
+            android:exported="false"
+            android:theme="@style/map_theme" />
+        <activity
+            android:name=".Sector"
+            android:exported="false"
+            android:theme="@style/map_theme" />
         <activity
             android:name=".MapDetails"
             android:exported="false"
-            android:theme="@style/map_theme"/>
-        <!--
-            Adding this meta data is required as of Google Mobile Ads SDK version 17.0.0 as explained in
-            https://developers.google.com/ad-manager/mobile-ads-sdk/android/quick-start#update_your_androidmanifestxml
-        -->
+            android:theme="@style/map_theme" />
+
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true" />
-        <!--
-        This is the sample AdMob App ID. Insert your own AdMob App ID in quotes
-        https://googlemobileadssdk.page.link/admob-android-update-manifest
-        -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />

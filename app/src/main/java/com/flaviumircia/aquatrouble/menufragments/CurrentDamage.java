@@ -1,5 +1,6 @@
 package com.flaviumircia.aquatrouble.menufragments;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,18 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
+import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.flaviumircia.aquatrouble.R;
+import com.flaviumircia.aquatrouble.Sector;
+import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CurrentDamage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CurrentDamage extends Fragment {
+public class CurrentDamage extends Fragment implements ThemeModeChecker {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,23 +66,81 @@ public class CurrentDamage extends Fragment {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Button s1=view.findViewById(R.id.sector1);
+        Button s2=view.findViewById(R.id.sector2);
+        Button s3=view.findViewById(R.id.sector3);
+        Button s4=view.findViewById(R.id.sector4);
+        Button s5=view.findViewById(R.id.sector5);
+        Button s6=view.findViewById(R.id.sector6);
+
+        buttonsListeners(s1,s2,s3,s4,s5,s6);
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        check_theme();
+        Window window=getActivity().getWindow();
+        int nightModeFlags=getActivity().getResources().getConfiguration().uiMode &
+                android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+        setCustomTheme(window,nightModeFlags);
         return inflater.inflate(R.layout.fragment_current_damage, container, false);
     }
-    private void check_theme() {
-        Window window = getActivity().getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        int nightModeFlags =
-                getContext().getResources().getConfiguration().uiMode &
-                        Configuration.UI_MODE_NIGHT_MASK;
-        switch (nightModeFlags) {
+    private void buttonsListeners(Button s1, Button s2, Button s3, Button s4, Button s5, Button s6) {
+        s1.setOnClickListener(view -> {
+            Intent myIntent=new Intent(getActivity(), Sector.class);
+            myIntent.putExtra("sector","Sector 1");
+            myIntent.putExtra("icon",R.drawable.ic_arc_triumf);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getContext().startActivity(myIntent);
+        });
+        s2.setOnClickListener(view -> {
+            Intent myIntent=new Intent(getActivity(), Sector.class);
+            myIntent.putExtra("sector","Sector 2");
+            myIntent.putExtra("icon",R.drawable.ic_roata_mare);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getContext().startActivity(myIntent);
+        });
+        s3.setOnClickListener(view -> {
+            Intent myIntent=new Intent(getActivity(), Sector.class);
+            myIntent.putExtra("sector","Sector 3");
+            myIntent.putExtra("icon",R.drawable.ic_parc_ior);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getContext().startActivity(myIntent);
+        });
+        s4.setOnClickListener(view -> {
+            Intent myIntent=new Intent(getActivity(), Sector.class);
+            myIntent.putExtra("sector","Sector 4");
+            myIntent.putExtra("icon",R.drawable.ic_mausoleu);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getContext().startActivity(myIntent);
+        });
+        s5.setOnClickListener(view -> {
+            Intent myIntent=new Intent(getActivity(), Sector.class);
+            myIntent.putExtra("sector","Sector 5");
+            myIntent.putExtra("icon",R.drawable.ic_palat_parlament);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getContext().startActivity(myIntent);
+        });
+        s6.setOnClickListener(view -> {
+            Intent myIntent=new Intent(getActivity(), Sector.class);
+            myIntent.putExtra("sector","Sector 6");
+            myIntent.putExtra("icon",R.drawable.ic_lacul_morii);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getContext().startActivity(myIntent);
+        });
+    }
+
+    @Override
+    public void setCustomTheme(Window window, int system_mode) {
+        switch (system_mode) {
             case Configuration.UI_MODE_NIGHT_YES:
                 window.setStatusBarColor(Color.parseColor("#2B2B2B"));
-
                 break;
 
             case Configuration.UI_MODE_NIGHT_NO:

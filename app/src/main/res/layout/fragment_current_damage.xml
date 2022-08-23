@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/current_damage_container"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
+
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/comfortaa"
         android:text="@string/defectiuni_curente"
@@ -27,14 +29,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseSector"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginBottom="66dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -46,7 +48,7 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/s3_gradient"
+                android:background="@drawable/s2_gradient"
                 android:contentDescription="Sector 3"
                 android:drawableBottom="@drawable/ic_parc_ior"
 
@@ -68,7 +70,7 @@
                 android:id="@+id/sector6"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:background="@drawable/s6_gradient"
+                android:background="@drawable/s5_gradient"
                 android:contentDescription="Sector 6"
                 android:drawableBottom="@drawable/ic_lacul_morii"
                 android:fontFamily="@font/comfortaa"
@@ -109,16 +111,17 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/s5_gradient"
+                android:background="@drawable/s6_gradient"
                 android:contentDescription="Sector 5"
-                android:drawableBottom="@drawable/ic_arc_triumf"
+                android:drawableBottom="@drawable/ic_palat_parlament"
                 android:fontFamily="@font/comfortaa"
 
-                android:paddingBottom="10dp"
+                android:paddingBottom="15dp"
                 android:text="Sector 5"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="17sp"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/sector3"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -151,7 +154,7 @@
                 android:id="@+id/sector2"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:background="@drawable/s2_gradient"
+                android:background="@drawable/s3_gradient"
                 android:contentDescription="Sector 2"
                 android:drawableBottom="@drawable/ic_roata_mare"
                 android:fontFamily="@font/comfortaa"

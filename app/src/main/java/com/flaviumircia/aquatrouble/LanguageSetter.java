@@ -17,10 +17,11 @@ public class LanguageSetter {
         DisplayMetrics metrics=resource.getDisplayMetrics();
 
         //Initialize config
-
         Configuration configuration= resource.getConfiguration();
 
         //Initialize locale
+        if(language==null)
+            language="en";
         configuration.locale=new Locale(language);
         resource.updateConfiguration(configuration,metrics);
 

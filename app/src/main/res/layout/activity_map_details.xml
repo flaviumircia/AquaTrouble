@@ -4,36 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapDetails">
-
-    <ImageView
-        android:id="@+id/light_blue_background"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:contentDescription="@string/light_blue_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/background_round_shape" />
+    tools:context=".MapDetails"
+>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="210dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="83dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/secondCarview"
+        app:layout_constraintBottom_toTopOf="@+id/street_recyclerview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/light_blue_background">
+        app:layout_constraintTop_toBottomOf="@+id/neighborhoodText"
+        app:layout_constraintVertical_bias="0.16000003">
 
         <org.osmdroid.views.MapView
             android:id="@+id/zoomedMap"
@@ -41,31 +30,30 @@
             android:layout_height="match_parent" />
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/secondCarview"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/street_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="0dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="10dp"
-        android:background="@drawable/rectangle"
-        android:backgroundTint="@color/light_blue"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total_text"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+
         android:id="@+id/neighborhoodText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/comfortaa"
         android:text="TextView"
+        android:layout_marginTop="20dp"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,16 +61,34 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.041" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/backArrowMap"
+        style="@style/custom_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/white"
+        android:background="@color/transparent"
+        android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/neighborhoodText"
         app:layout_constraintEnd_toStartOf="@+id/neighborhoodText"
-        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/neighborhoodText"
-        app:layout_constraintVertical_bias="0.457"
+        app:layout_constraintVertical_bias="0.5"
         app:srcCompat="@drawable/arrow_back" />
+
+    <TextView
+        android:id="@+id/total_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/comfortaa"
+        android:text="Total"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

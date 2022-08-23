@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
-
 public class Eula extends AppCompatActivity {
     private static final String path= "eula.txt";
     private ImageView backArrow;
@@ -19,7 +18,6 @@ public class Eula extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eula);
-//        backArrow=findViewById(R.id.backArrow);
         eulaTextView=findViewById(R.id.eulaText);
         eulaTextView.setMovementMethod(new ScrollingMovementMethod());
         EulaFile eulaFile= new EulaFile(getApplicationContext());

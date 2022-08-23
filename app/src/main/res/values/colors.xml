@@ -10,9 +10,9 @@
     <color name="orange">#FFBE5814</color>
     <color name="background_white">#FFEFE9E3</color>
     <color name="dark_background">#FF2B2B2B</color>
-    <color name="not_so_dark_background">#FF3C3F41</color>
+    <color name="not_so_dark_background">#FFC4C4C4</color>
     <color name="teal_custom">#FF3B8CA3</color>
     <color name="transparent">#003B8CA3</color>
-    <color name="light_blue">#FF7A9AA3</color>
+    <color name="light_blue">#FF30A3BE</color>
     <color name="dark_foreground">#FF3B3B3B</color>
 </resources>

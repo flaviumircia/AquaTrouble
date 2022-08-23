@@ -6,12 +6,23 @@ import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Window;
-import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.flaviumircia.aquatrouble.area.PolygonCustomTitle;
+import com.flaviumircia.aquatrouble.adapter.damage_data.ExtendedData;
+import com.flaviumircia.aquatrouble.adapter.damage_data.PostAdapter;
+import com.flaviumircia.aquatrouble.map.math.PolygonCustomTitle;
+import com.flaviumircia.aquatrouble.map.settings.MapPointCorrecter;
+import com.flaviumircia.aquatrouble.map.settings.PolygonMarkerTitle;
+import com.flaviumircia.aquatrouble.misc.PathReturner;
+import com.flaviumircia.aquatrouble.restdata.model.Data;
+import com.flaviumircia.aquatrouble.restdata.retrofit.DamageDataApi;
+import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
+import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.kml.KmlDocument;
@@ -26,32 +37,82 @@ import org.osmdroid.views.overlay.Marker;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.List;
 
-public class MapDetails extends AppCompatActivity {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+
+public class MapDetails extends AppCompatActivity implements ThemeModeChecker, MapPointCorrecter, PolygonMarkerTitle, PathReturner {
     private String neighborhood;
     private TextView title;
+    private TextView total_text;
+    private ImageButton back_arrow;
     private MapView map;
     private FolderOverlay kmlOverlay;
+    private DamageDataApi myApi;
+    private ZoomKmlStyler styler;
+    private RecyclerView recyclerView;
+    private CompositeDisposable compositeDisposable=new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         neighborhood=selectedNeighborhood();
 
         setContentView(R.layout.activity_map_details);
+
+        Retrofit retrofit= RetrofitClient.getInstance();
+        myApi=retrofit.create(DamageDataApi.class);
+        recyclerView=findViewById(R.id.street_recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         title=findViewById(R.id.neighborhoodText);
         title.setText(neighborhood);
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(Color.parseColor("#FF7A9AA3"));
-        //get the kml document from the assets folder
-        KmlDocument kmlDocument=new KmlDocument();
-        String pathToFile=returnPath("codebeautify.kml");
-        kmlDocument.parseKMLFile(new File(pathToFile));
+        total_text=findViewById(R.id.total_text);
+        back_arrow=findViewById(R.id.backArrowMap);
         map = findViewById(R.id.zoomedMap);
+
+        KmlDocument kmlDocument=new KmlDocument();
+        String pathToFile=return_the_path("codebeautify.kml");
+        kmlDocument.parseKMLFile(new File(pathToFile));
+
+        fetchData(neighborhood);
+        onClick(back_arrow);
+        //get the kml document from the assets folder
 
         //map settings
         setTheMap(kmlDocument);
+
+    }
+
+    private void onClick(ImageButton back_arrow) {
+        back_arrow.setOnClickListener(view -> MapDetails.super.finish());
+    }
+
+    private void fetchData(String neighborhood) {
+        compositeDisposable.add(myApi.getData(neighborhood)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(data -> displayData(data))
+        );
+    }
+
+    private void displayData(List<Data> data) {
+        PostAdapter adapter=new PostAdapter(this,data);
+        recyclerView.setAdapter(adapter);
+        ExtendedData extendedPostAdapter=new ExtendedData(data);
+        total_text.setText("Total: "+extendedPostAdapter.getTheTotalDamage() +" "+this.getString(R.string.damage));
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        compositeDisposable.clear();
+        super.onStop();
     }
 
     /**
@@ -94,32 +155,45 @@ public class MapDetails extends AppCompatActivity {
         return bounds;
     }
     private void setTheMap(KmlDocument kmlDocument) {
+        //window and system_mode initialize
+        Window window=getWindow();
+        int nightModeFlags=getResources().getConfiguration().uiMode &
+                android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+
+        //map contoller
+        IMapController mapController = map.getController();
+
+        //the startPoint of the map
+        GeoPoint startPoint =centerOf();
+
+        //custom styler
+        styler = new ZoomKmlStyler();
+
+        //custom Polygon info class
+        PolygonCustomTitle polygonCustomTitle=new PolygonCustomTitle();
 
         // map tile provider
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         //map controller for setting the zoom on the map
-        IMapController mapController = map.getController();
         mapController.setZoom(16.00);
-
-        //starting point (default) of the map
-        GeoPoint startPoint =centerOf();
 
         //set the center of the map
         mapController.setCenter(startPoint);
 
         //hide the zoom in/out buttons of the map
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
+        map.setMaxZoomLevel(22.00);
         map.setMinZoomLevel(16.00);
 
         //set the pinch zoom
         map.setMultiTouchControls(true);
 
         //custom styler
-        ZoomKmlStyler styler = new ZoomKmlStyler();
-        check_theme(styler);
-        PolygonCustomTitle polygonCustomTitle=new PolygonCustomTitle();
         styler.setPolygonMiscInfo(polygonCustomTitle);
+
+        //setting the custom map theme
+        setCustomTheme(window,nightModeFlags);
 
         //set scrollable limits
         double [] bounds=getBounds(0);
@@ -133,26 +207,12 @@ public class MapDetails extends AppCompatActivity {
         polygonCustomTitle=styler.getPolygonMiscInfo();
 
         //title for each polygon
-        neighborhood_marker_title(polygonCustomTitle);
+        setPolygonMarkerTitle(polygonCustomTitle,nightModeFlags);
 
         map.getOverlays().add(kmlOverlay);
 
         //reload the map with the overlay
         map.invalidate();
-    }
-    private String returnPath(String name){
-        File f = new File(getApplicationContext().getCacheDir()+"/"+name);
-        if (!f.exists()) try {
-            InputStream is = getApplicationContext().getAssets().open(name);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            FileOutputStream fos = new FileOutputStream(f);
-            fos.write(buffer);
-            fos.close();
-        } catch (Exception e) { throw new RuntimeException(e); }
-        return f.getPath();
     }
     public void onResume(){
         super.onResume();
@@ -172,41 +232,28 @@ public class MapDetails extends AppCompatActivity {
         map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
     }
 
-    private void neighborhood_marker_title(PolygonCustomTitle polygonCustomTitle) {
-        int nightModeFlags =
-                getApplicationContext().getResources().getConfiguration().uiMode &
-                        android.content.res.Configuration.UI_MODE_NIGHT_MASK;
-        for (int i=0;i<polygonCustomTitle.getTitle().size();i++)
-        {
-            Marker marker=new Marker(map);
 
-            //calling the method for normalizing the area between given integers
-            polygonCustomTitle.normalizeTheData(22,50);
-
-            //converting area to only integers
-            Double sizeOfText=new Double(polygonCustomTitle.getArea().get(i));
-            int sizeInt=sizeOfText.intValue();
-            //marker customizaiton
-            marker.setTextLabelFontSize(sizeInt);
-            if(nightModeFlags==android.content.res.Configuration.UI_MODE_NIGHT_YES)
-            {
-                marker.setTextLabelForegroundColor(Color.WHITE);
-
-            } else {
-                marker.setTextLabelForegroundColor(Color.BLACK);
-            }
-            marker.setTextLabelBackgroundColor(Color.TRANSPARENT);
-            marker.setTextIcon(polygonCustomTitle.getTitle().get(i));
-
-            marker.setPosition(correctCenter(polygonCustomTitle.getTitle().get(i),polygonCustomTitle.getThePoints().get(i)));
-
-            //adding the overlay to the map
-            map.getOverlays().add(marker);
+    @Override
+    public void setCustomTheme(Window window, int system_mode) {
+        switch (system_mode) {
+            case android.content.res.Configuration.UI_MODE_NIGHT_YES:
+                styler.setAlphaValue("#1B");
+                NightModeTiles nightModeTiles=new NightModeTiles("#414141");
+                ColorMatrixColorFilter filter = nightModeTiles.getFilter();
+                map.getOverlayManager().getTilesOverlay().setColorFilter(filter);
+                break;
+            case android.content.res.Configuration.UI_MODE_NIGHT_NO:
+                styler.setAlphaValue("#6B");
+                break;
+            case android.content.res.Configuration.UI_MODE_NIGHT_UNDEFINED:
+                styler.setAlphaValue("#1B");
+                break;
         }
     }
 
-    private GeoPoint correctCenter(String title,GeoPoint defaultCase) {
-        switch (title)
+    @Override
+    public GeoPoint correctPolygonCenter(String polygon_title, GeoPoint default_geoPoint) {
+        switch (polygon_title)
         {
             case "Aviatorilor":
                 return new GeoPoint(44.463076, 26.080204);
@@ -226,27 +273,54 @@ public class MapDetails extends AppCompatActivity {
                 return new GeoPoint(44.442245, 26.122989);
             case "Dorobanti":
                 return new GeoPoint(44.456187, 26.090401);
-            default: return defaultCase;
+            default: return default_geoPoint;
         }
-
     }
-    private void check_theme(ZoomKmlStyler styler) {
-        int nightModeFlags =
-                getApplicationContext().getResources().getConfiguration().uiMode &
-                        android.content.res.Configuration.UI_MODE_NIGHT_MASK;
-        switch (nightModeFlags) {
-            case android.content.res.Configuration.UI_MODE_NIGHT_YES:
-                styler.setAlphaValue("#1B");
-                NightModeTiles nightModeTiles=new NightModeTiles("#414141");
-                ColorMatrixColorFilter filter = nightModeTiles.getFilter();
-                map.getOverlayManager().getTilesOverlay().setColorFilter(filter);
-                break;
-            case android.content.res.Configuration.UI_MODE_NIGHT_NO:
-                styler.setAlphaValue("#6B");
-                break;
-            case android.content.res.Configuration.UI_MODE_NIGHT_UNDEFINED:
-                styler.setAlphaValue("#1B");
-                break;
+
+    @Override
+    public void setPolygonMarkerTitle(PolygonCustomTitle customPolygonInfo, int system_mode) {
+        for (int i=0;i<customPolygonInfo.getTitle().size();i++)
+        {
+            Marker marker=new Marker(map);
+
+            //calling the method for normalizing the area between given integers
+            customPolygonInfo.normalizeTheData(22,50);
+
+            //converting area to only integers
+            Double sizeOfText=new Double(customPolygonInfo.getArea().get(i));
+            int sizeInt=sizeOfText.intValue();
+
+            //marker customization
+            marker.setTextLabelFontSize(sizeInt);
+
+            if(system_mode==android.content.res.Configuration.UI_MODE_NIGHT_YES)
+                marker.setTextLabelForegroundColor(Color.WHITE);
+            else
+                marker.setTextLabelForegroundColor(Color.BLACK);
+
+            marker.setTextLabelBackgroundColor(Color.TRANSPARENT);
+            marker.setTextIcon(customPolygonInfo.getTitle().get(i));
+
+            marker.setPosition(correctPolygonCenter(customPolygonInfo.getTitle().get(i),customPolygonInfo.getThePoints().get(i)));
+
+            //adding the overlay to the map
+            map.getOverlays().add(marker);
         }
+    }
+
+    @Override
+    public String return_the_path(String file_name) {
+        File f = new File(this.getCacheDir()+"/"+file_name);
+        if (!f.exists()) try {
+            InputStream is = this.getAssets().open(file_name);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(buffer);
+            fos.close();
+        } catch (Exception e) { throw new RuntimeException(e); }
+        return f.getPath();
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="welcomeText">Welcome!</string>
-    <string name="appDescr">AquaTrouble app shows the daily damage on the heat network in Bucharest. It also provides a heatmap of the affected neighborhoods.</string>
-    <string name="acceptCheckBox">Accept</string>
+    <string name="welcomeText">"Welcome to, "</string>
+    <string name="appDescr">the app that makes your life easier.</string>
+    <string name="acceptCheckBox">Accept terms and conditions</string>
     <string name="tosText">Terms and conditions</string>
     <string name="continueButton">Continue</string>
     <string name="search">Search Here</string>
@@ -21,8 +21,37 @@
     <string name="alege_sectorul">Choose the sector</string>
     <string name="watchlist">Watchlist</string>
     <string name="cele_mai_afectate_cartiere">Most frequently damaged</string>
-    <string name="harta">map</string>
-    <string name="pornit">On</string>
-    <string name="oprit">Off</string>
+    <string name="harta">Map</string>
+    <string name="pornit">Heat</string>
+    <string name="oprit">Standard</string>
+    <string name="messages_header">Settings</string>
+    <string name="sync_header">Help</string>
+    <string name="signature_title">Support the app</string>
+    <string name="notif_status_on">On</string>
+    <string name="notif_status_off">Off</string>
+    <string name="notif">Notifications</string>
+    <string name="theme_status">Use system theme</string>
+    <string name="theme_status_dark">Dark Mode</string>
+    <string name="theme_status_light">Light mode</string>
+    <string name="change_theme">Change theme</string>
+    <string name="suggestions">I have a suggestion</string>
+    <string name="bug_spotting">I have found a bug</string>
+    <string name="more_info">More informations</string>
+    <string name="damage">damages</string>
+    <string name="your_email">Your email</string>
+    <string name="you_have_found_a_bug">You have found a bug?</string>
+    <string name="let_us_know_about_it">Let us know about it!</string>
+    <string name="phone_model">Phone model</string>
+    <string name="your_phone_model">Your phone model</string>
+    <string name="subject">Subject</string>
+    <string name="subject_hint_desc">Short description of the bug*</string>
+    <string name="something_like_heatmap_doesn_t_load_n_or_app_crashes_when_i_set_notifications_on">Something like: Heatmap doesn\'t load \\n or App crashes when I set notifications on</string>
+    <string name="content">Content</string>
+    <string name="describe_the_bug_as_good_as_you_can">Describe the bug as good as you can</string>
+    <string name="ai_o_sugestie">Have a suggestion?</string>
+    <string name="scurta_descriere_despre_imbunatatire">Short description of the improvement</string>
+    <string name="descriere_precum_vreau_ca_aplicatia_sa_faca_asta">Description like: I want the app to do \"this\"</string>
+    <string name="descrie_ce_imbunatatire_vrei_sa_vezi_in_urmatoarele_versiune_ale_aquatrouble">Describe what feature you want to see in the future versions of AquaTrouble</string>
+    <string name="experienta_utilizatorului_este_importanta_pentru_noi_n_te_rog_spune_ne_cum_putem_imbunatatii_aplicatia">User experience is important to us.  Please let us know how we can  improve the app!</string>
 
 </resources>

@@ -2,6 +2,7 @@ package com.flaviumircia.aquatrouble.menufragments.mapfragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import com.flaviumircia.aquatrouble.R;
 
@@ -60,6 +62,7 @@ public class WebPageMap extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
 //    @Override
@@ -81,7 +84,7 @@ public class WebPageMap extends Fragment {
         myWebView.setPadding(0, 0, 0, 0);
         myWebView.setInitialScale(getScale());
         webSettings.setJavaScriptEnabled(true);
-        myWebView.loadUrl("https://flaviumircia.github.io/WebSiteHost/output.html");
+        check_theme(myWebView);
         return v;
     }
     private int getScale(){
@@ -90,5 +93,35 @@ public class WebPageMap extends Fragment {
         Double val = new Double(width)/new Double(650);
         val = val * 100d;
         return val.intValue();
+    }
+    private void check_theme(WebView myWebView) {
+        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String lang="";
+        lang = sharedPreferences.getString("lang",null);
+        int nightModeFlags =
+                getActivity().getResources().getConfiguration().uiMode &
+                        android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+        switch (nightModeFlags) {
+            case android.content.res.Configuration.UI_MODE_NIGHT_YES:
+                if(lang!=null && lang.equals("ro-Ro"))
+                    myWebView.loadUrl("http://18.159.213.37/output_dark_ro.html");
+                else
+                    myWebView.loadUrl("http://18.159.213.37/output_dark_eng.html");
+                break;
+            case android.content.res.Configuration.UI_MODE_NIGHT_NO:
+                if(lang!=null && lang.equals("ro-Ro"))
+                    myWebView.loadUrl("http://18.159.213.37/output_ro.html");
+                else
+                    myWebView.loadUrl("http://18.159.213.37/output_eng.html");
+
+                break;
+            case android.content.res.Configuration.UI_MODE_NIGHT_UNDEFINED:
+                if(lang!=null && lang.equals("en"))
+                    myWebView.loadUrl("http://18.159.213.37/output_eng.html");
+                else
+                    myWebView.loadUrl("http://18.159.213.37/output_ro.html");
+
+                break;
+        }
     }
 }

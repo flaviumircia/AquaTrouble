@@ -1,27 +1,26 @@
 package com.flaviumircia.aquatrouble.menufragments.mapfragments;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
+import android.view.Window;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import com.flaviumircia.aquatrouble.MyKmlStyler;
 import com.flaviumircia.aquatrouble.NightModeTiles;
-import com.flaviumircia.aquatrouble.PermissionCheck;
 import com.flaviumircia.aquatrouble.R;
-import com.flaviumircia.aquatrouble.area.PolygonCustomTitle;
+import com.flaviumircia.aquatrouble.map.math.PolygonCustomTitle;
+import com.flaviumircia.aquatrouble.map.settings.MapPointCorrecter;
+import com.flaviumircia.aquatrouble.map.settings.PolygonMarkerTitle;
+import com.flaviumircia.aquatrouble.misc.PathReturner;
+import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.kml.KmlDocument;
@@ -42,7 +41,7 @@ import java.io.InputStream;
  * Use the {@link OsmdroidMap#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OsmdroidMap extends Fragment {
+public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeModeChecker, PolygonMarkerTitle, PathReturner {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,16 +53,8 @@ public class OsmdroidMap extends Fragment {
     private String mParam1;
     private String mParam2;
     private MapView map;
-    private SearchView searchView;
+    private MyKmlStyler styler;
     private FolderOverlay kmlOverlay;
-    private ActivityResultContracts.RequestMultiplePermissions multiplePermissions;
-    private ActivityResultLauncher<String[]> multiplePermissionLauncher;
-    private final String [] PERMISSIONS={
-            Manifest.permission.INTERNET,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_NETWORK_STATE };
 
     public OsmdroidMap() {
         // Required empty public constructor
@@ -100,7 +91,6 @@ public class OsmdroidMap extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v=inflater.inflate(R.layout.fragment_osmdroid_map,container,false);
-        checkThePermissions();
 
         //context for osmdroid
         Context ctx = getActivity();
@@ -108,7 +98,7 @@ public class OsmdroidMap extends Fragment {
 
         //get the kml document from the assets folder
         KmlDocument kmlDocument=new KmlDocument();
-        String pathToFile=returnPath("codebeautify.kml");
+        String pathToFile=return_the_path("codebeautify.kml");
         kmlDocument.parseKMLFile(new File(pathToFile));
         //getting the R.id for the MapView
         map = v.findViewById(R.id.osmdroidMap);
@@ -120,6 +110,9 @@ public class OsmdroidMap extends Fragment {
         return v;
     }
     private void setTheMap(KmlDocument kmlDocument) {
+        Window window=getActivity().getWindow();
+        int nightModeFlags=getContext().getResources().getConfiguration().uiMode &
+                android.content.res.Configuration.UI_MODE_NIGHT_MASK;
         // map tile provider
         map.setTileSource(TileSourceFactory.MAPNIK);
         //map controller for setting the zoom on the map
@@ -138,15 +131,16 @@ public class OsmdroidMap extends Fragment {
         map.setMultiTouchControls(true);
 
         //set scrollable limits
-        map.setScrollableAreaLimitLatitude(44.539523,44.335193,1);
+        map.setScrollableAreaLimitLatitude(44.549523,44.335193,1);
         map.setScrollableAreaLimitLongitude(25.928859,26.242889,1);
 
         //Class for adding the markers in the center of the polygons
         PolygonCustomTitle polygonCustomTitle=new PolygonCustomTitle();
 
         //Styler of the map
-        MyKmlStyler styler=new MyKmlStyler(getContext());
-        check_theme(styler);
+        styler=new MyKmlStyler(getContext());
+
+        setCustomTheme(window,nightModeFlags);
         styler.setPolygonMiscInfo(polygonCustomTitle);
 
         //get the kml overlay
@@ -155,72 +149,11 @@ public class OsmdroidMap extends Fragment {
         polygonCustomTitle=styler.getPolygonMiscInfo();
 
         //title for each polygon
-        neighborhood_marker_title(polygonCustomTitle);
+        setPolygonMarkerTitle(polygonCustomTitle,nightModeFlags);
 
         map.getOverlays().add(kmlOverlay);
         //reload the map with the overlay
         map.invalidate();
-    }
-
-    private void neighborhood_marker_title(PolygonCustomTitle polygonCustomTitle) {
-        int nightModeFlags =
-                getContext().getResources().getConfiguration().uiMode &
-                        android.content.res.Configuration.UI_MODE_NIGHT_MASK;
-        for (int i=0;i<polygonCustomTitle.getTitle().size();i++)
-        {
-            Marker marker=new Marker(map);
-
-            //calling the method for normalizing the area between given integers
-            polygonCustomTitle.normalizeTheData(22,50);
-
-            //converting area to only integers
-            Double sizeOfText=new Double(polygonCustomTitle.getArea().get(i));
-            int sizeInt=sizeOfText.intValue();
-
-            //marker customization
-            marker.setTextLabelFontSize(sizeInt);
-
-            if(nightModeFlags==android.content.res.Configuration.UI_MODE_NIGHT_YES)
-            {
-                marker.setTextLabelForegroundColor(Color.WHITE);
-
-            } else {
-                marker.setTextLabelForegroundColor(Color.BLACK);
-            }
-            marker.setTextLabelBackgroundColor(Color.TRANSPARENT);
-            marker.setTextIcon(polygonCustomTitle.getTitle().get(i));
-
-            marker.setPosition(correctCenter(polygonCustomTitle.getTitle().get(i),polygonCustomTitle.getThePoints().get(i)));
-
-            //adding the overlay to the map
-            map.getOverlays().add(marker);
-        }
-    }
-
-    private GeoPoint correctCenter(String title,GeoPoint defaultCase) {
-        switch (title)
-        {
-            case "Aviatorilor":
-                return new GeoPoint(44.463076, 26.080204);
-            case "Chitila":
-                return new GeoPoint(44.478563, 26.031868);
-            case "Andronache":
-                return new GeoPoint(44.476978, 26.146700);
-            case "Pantelimon":
-                return new GeoPoint(44.442995, 26.168011);
-            case "Ghencea":
-                return new GeoPoint(44.407679, 26.036413);
-            case "Grozavesti":
-                return new GeoPoint(44.442657, 26.066072);
-            case "Stefan Cel Mare":
-                return new GeoPoint(44.450020, 26.110795);
-            case "Mosilor":
-                return new GeoPoint(44.442245, 26.122989);
-            case "Dorobanti":
-                return new GeoPoint(44.456187, 26.090401);
-            default: return defaultCase;
-        }
-
     }
 
     public void onResume(){
@@ -241,43 +174,38 @@ public class OsmdroidMap extends Fragment {
             map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
     }
 
-    //return the path of the file from assets
-    //neccessary for the overlay of the shapes on the osmdroid
-    private String returnPath(String name){
-        File f = new File(getActivity().getCacheDir()+"/"+name);
-        if (!f.exists()) try {
-            InputStream is = getActivity().getAssets().open(name);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            FileOutputStream fos = new FileOutputStream(f);
-            fos.write(buffer);
-            fos.close();
-        } catch (Exception e) { throw new RuntimeException(e); }
-        return f.getPath();
+
+
+
+    @Override
+    public GeoPoint correctPolygonCenter(String polygon_title, GeoPoint default_geoPoint) {
+        switch (polygon_title)
+        {
+            case "Aviatorilor":
+                return new GeoPoint(44.463076, 26.080204);
+            case "Chitila":
+                return new GeoPoint(44.478563, 26.031868);
+            case "Andronache":
+                return new GeoPoint(44.476978, 26.146700);
+            case "Pantelimon":
+                return new GeoPoint(44.442995, 26.168011);
+            case "Ghencea":
+                return new GeoPoint(44.407679, 26.036413);
+            case "Grozavesti":
+                return new GeoPoint(44.442657, 26.066072);
+            case "Stefan Cel Mare":
+                return new GeoPoint(44.450020, 26.110795);
+            case "Mosilor":
+                return new GeoPoint(44.442245, 26.122989);
+            case "Dorobanti":
+                return new GeoPoint(44.456187, 26.090401);
+            default: return default_geoPoint;
+        }
     }
 
-    //check the permissions method
-    private void checkThePermissions(){
-        multiplePermissions= new ActivityResultContracts.RequestMultiplePermissions();
-        multiplePermissionLauncher= registerForActivityResult(multiplePermissions, isGranted->{
-            Log.d("PERMISSIONS", "LAUNCHER RESULT: "+isGranted.toString());
-            if(isGranted.containsValue(false))
-            {
-                Log.d("PERMISSIONS", "At least one permission was not granted, launching again... ");
-                multiplePermissionLauncher.launch(PERMISSIONS);
-            }
-        });
-        PermissionCheck permissionCheck=new PermissionCheck();
-        permissionCheck.askPermissions(multiplePermissionLauncher,PERMISSIONS,getActivity());
-    }
-    private void check_theme(MyKmlStyler styler) {
-
-        int nightModeFlags =
-                getContext().getResources().getConfiguration().uiMode &
-                        android.content.res.Configuration.UI_MODE_NIGHT_MASK;
-        switch (nightModeFlags) {
+    @Override
+    public void setCustomTheme(Window window, int system_mode) {
+        switch (system_mode) {
             case android.content.res.Configuration.UI_MODE_NIGHT_YES:
                 styler.setAlphaValue("#1B");
                 NightModeTiles nightModeTiles=new NightModeTiles("#414141");
@@ -291,5 +219,53 @@ public class OsmdroidMap extends Fragment {
                 styler.setAlphaValue("#1B");
                 break;
         }
+    }
+
+    @Override
+    public void setPolygonMarkerTitle(PolygonCustomTitle customPolygonInfo,int system_mode) {
+        for (int i=0;i<customPolygonInfo.getTitle().size();i++)
+        {
+            Marker marker=new Marker(map);
+
+            //calling the method for normalizing the area between given integers
+            customPolygonInfo.normalizeTheData(22,50);
+
+            //converting area to only integers
+            Double sizeOfText=new Double(customPolygonInfo.getArea().get(i));
+            int sizeInt=sizeOfText.intValue();
+
+            //marker customization
+            marker.setTextLabelFontSize(sizeInt);
+
+            if(system_mode==android.content.res.Configuration.UI_MODE_NIGHT_YES)
+                marker.setTextLabelForegroundColor(Color.WHITE);
+             else
+                marker.setTextLabelForegroundColor(Color.BLACK);
+
+            marker.setTextLabelBackgroundColor(Color.TRANSPARENT);
+            marker.setTextIcon(customPolygonInfo.getTitle().get(i));
+
+            marker.setPosition(correctPolygonCenter(customPolygonInfo.getTitle().get(i),customPolygonInfo.getThePoints().get(i)));
+
+            //adding the overlay to the map
+            map.getOverlays().add(marker);
+        }
+    }
+    //return the path of the file from assets
+    //neccessary for the overlay of the shapes on the osmdroid
+    @Override
+    public String return_the_path(String file_name) {
+        File f = new File(getActivity().getCacheDir()+"/"+file_name);
+        if (!f.exists()) try {
+            InputStream is = getActivity().getAssets().open(file_name);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(buffer);
+            fos.close();
+        } catch (Exception e) { throw new RuntimeException(e); }
+        return f.getPath();
     }
 }

@@ -7,18 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 
 import com.flaviumircia.aquatrouble.R;
+import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Favorites#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Favorites extends Fragment {
+public class Favorites extends Fragment implements ThemeModeChecker {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,21 +63,21 @@ public class Favorites extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        check_theme();
+
+        Window window=getActivity().getWindow();
+        int nightModeFlags = getActivity().getResources().getConfiguration().uiMode &
+                        android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+
+        setCustomTheme(window,nightModeFlags);
+
         return inflater.inflate(R.layout.fragment_favorites, container, false);
     }
-    private void check_theme() {
-        Window window = getActivity().getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        int nightModeFlags =
-                getContext().getResources().getConfiguration().uiMode &
-                        Configuration.UI_MODE_NIGHT_MASK;
-        switch (nightModeFlags) {
+    @Override
+    public void setCustomTheme(Window window, int system_mode) {
+        switch (system_mode) {
             case Configuration.UI_MODE_NIGHT_YES:
                 window.setStatusBarColor(Color.parseColor("#2B2B2B"));
-
                 break;
 
             case Configuration.UI_MODE_NIGHT_NO:

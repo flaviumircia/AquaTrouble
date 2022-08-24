@@ -18,3 +18,5 @@ Available in English and Romanian.
 Running on Android 5.0 minimum.
 
 The raw data is provided publicly by cmteb.
+
+(C) Flaviu Mircia

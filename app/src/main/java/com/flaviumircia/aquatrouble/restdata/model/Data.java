@@ -4,27 +4,23 @@ public class Data {
     private int id;
     private String sector,address,neighborhood, numar;
     private String expected_date,today_date;
-    private double lat,lng;
-
-    public int getFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(int frequency) {
-        this.frequency = frequency;
-    }
-
+    private String affected_agent;
     private int frequency;
+    private double lat,lng;
 
     public Data(){
 
     }
 
-    public String getNumar() {
-        return numar;
+    public String getAffected_agent() {
+        return affected_agent;
     }
 
-    public Data(int id, String sector, String address, String neighborhood, String numar, String expected_date, String today_date, double lat, double lng, int frequency) {
+    public void setAffected_agent(String affected_agent) {
+        this.affected_agent = affected_agent;
+    }
+
+    public Data(int id, String sector, String address, String neighborhood, String numar, String affected_agent, String expected_date, String today_date, double lat, double lng, int frequency) {
         this.id = id;
         this.sector = sector;
         this.address = address;
@@ -35,6 +31,20 @@ public class Data {
         this.lat = lat;
         this.lng = lng;
         this.frequency = frequency;
+        this.affected_agent=affected_agent;
+    }
+
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
+    }
+
+
+    public String getNumar() {
+        return numar;
     }
 
     public void setNumar(String numar) {
@@ -88,7 +98,6 @@ public class Data {
     public void setNeighborhood(String neighborhood) {
         this.neighborhood = neighborhood;
     }
-
 
     public double getLat() {
         return lat;

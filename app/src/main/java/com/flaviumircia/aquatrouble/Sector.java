@@ -70,9 +70,8 @@ public class Sector extends AppCompatActivity implements ThemeModeChecker {
     }
 
     private void displayData(List<Data> data) {
-        SectorDataAdapter sectorDataAdapter=new SectorDataAdapter(this,data);
+        SectorDataAdapter sectorDataAdapter=new SectorDataAdapter(this,data,sectorIcon());
         recyclerView.setAdapter(sectorDataAdapter);
-
 
     }
     @Override

@@ -91,7 +91,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="D:\AquaTrouble_resources\logo_final_final.svg" />
+                                                <entry key="imagePath" value="D:\AquaTrouble_resources\custom_icon\logo_fish_stopped.svg" />
                                                 <entry key="scalingPercent" value="95" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
@@ -326,8 +326,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_lacul_morii" />
-                            <entry key="sourceFile" value="D:\AquaTrouble_resources\custom_icon\lacul_morii.svg" />
+                            <entry key="outputName" value="arrow_back" />
+                            <entry key="sourceFile" value="C:\Users\Flaviu\Downloads\arrow_back_ios_new_FILL0_wght400_GRAD0_opsz48.svg" />
                           </map>
                         </option>
                       </PersistentState>

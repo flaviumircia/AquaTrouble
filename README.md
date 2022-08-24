@@ -1,5 +1,9 @@
 # AquaTrouble
-Mobile application that shows the damage of the heating network in Bucharest. 
+Mobile application that comes in handy for people that want to move to Bucharest (or to another neighborhood) and make the best choice with the house they trying to move in.
+
+AquaTrouble builds heatmap with the frequency of the water/heating damage in Bucharest.
+
+It also shows the damage at the current time. 
 
 ## About the application
 
@@ -15,7 +19,7 @@ High accuracy geocoding and search suggestion optimization.
 
 Available in English and Romanian.
 
-Running on Android 5.0 minimum.
+Running on Android 5.0+
 
 The raw data is provided publicly by cmteb.
 

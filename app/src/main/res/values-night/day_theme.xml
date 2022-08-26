@@ -64,4 +64,7 @@
     <style name="custom_image_view">
         <item name="android:tint">@color/background_white</item>
     </style>
+    <style name="custom_bottom_sheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="background">@drawable/filter_background</item>
+    </style>
 </resources>

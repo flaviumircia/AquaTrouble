@@ -5,8 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-
     tools:context=".menufragments.CurrentDamage"
     >
 
@@ -31,14 +29,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="88dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseSector"
-        app:layout_constraintVertical_bias="1.0"
-        android:layout_marginBottom="66dp">
+        app:layout_constraintTop_toBottomOf="@+id/chooseSector">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -49,7 +47,7 @@
                 android:id="@+id/sector3"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/s2_gradient"
                 android:contentDescription="Sector 3"
                 android:drawableBottom="@drawable/ic_parc_ior"
@@ -112,18 +110,18 @@
                 android:id="@+id/sector5"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/s6_gradient"
                 android:contentDescription="Sector 5"
                 android:drawableBottom="@drawable/ic_palat_parlament"
-                android:fontFamily="@font/comfortaa"
 
+                android:fontFamily="@font/comfortaa"
                 android:paddingBottom="15dp"
                 android:text="Sector 5"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="17sp"
-                android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/sector3"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -178,11 +176,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="@string/alege_sectorul"
         android:fontFamily="@font/comfortaa_light"
+        android:text="@string/alege_sectorul"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/current_damage_top_bar"
         app:layout_constraintTop_toBottomOf="@+id/current_damage_top_bar" />
+
+    <ImageButton
+        android:id="@+id/search_button"
+        style="@style/custom_image_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_group_17"
+        app:layout_constraintBottom_toBottomOf="@+id/chooseSector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintStart_toEndOf="@+id/chooseSector"
+        app:layout_constraintTop_toTopOf="@+id/chooseSector"
+        app:layout_constraintVertical_bias="1.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

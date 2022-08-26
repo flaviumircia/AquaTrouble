@@ -18,7 +18,7 @@
     <string name="defectiuni_curente">Current damage</string>
     <string name="harta_termografica">Heatmap</string>
     <string name="motivational_text">Customize the way you like it</string>
-    <string name="alege_sectorul">Choose the sector</string>
+    <string name="alege_sectorul">Choose the sector or \n tap the search bar</string>
     <string name="watchlist">Watchlist</string>
     <string name="cele_mai_afectate_cartiere">Most frequently damaged</string>
     <string name="harta">Map</string>
@@ -45,7 +45,7 @@
     <string name="your_phone_model">Your phone model</string>
     <string name="subject">Subject</string>
     <string name="subject_hint_desc">Short description of the bug*</string>
-    <string name="something_like_heatmap_doesn_t_load_n_or_app_crashes_when_i_set_notifications_on">Something like: Heatmap doesn\'t load \\n or App crashes when I set notifications on</string>
+    <string name="something_like_heatmap_doesn_t_load_n_or_app_crashes_when_i_set_notifications_on">Something like: Heatmap doesn\'t load \n or App crashes when I set notifications on</string>
     <string name="content">Content</string>
     <string name="describe_the_bug_as_good_as_you_can">Describe the bug as good as you can</string>
     <string name="ai_o_sugestie">Have a suggestion?</string>
@@ -53,5 +53,13 @@
     <string name="descriere_precum_vreau_ca_aplicatia_sa_faca_asta">Description like: I want the app to do \"this\"</string>
     <string name="descrie_ce_imbunatatire_vrei_sa_vezi_in_urmatoarele_versiune_ale_aquatrouble">Describe what feature you want to see in the future versions of AquaTrouble</string>
     <string name="experienta_utilizatorului_este_importanta_pentru_noi_n_te_rog_spune_ne_cum_putem_imbunatatii_aplicatia">User experience is important to us.  Please let us know how we can  improve the app!</string>
+    <string name="search_act">Search</string>
+    <string name="search_street_address_n_or_neighborhood">Search street address \n or neighborhood</string>
+    <string name="filter">Filter</string>
+    <string name="search_filter">Search Filter</string>
+    <string name="showing_damages_from">Showing damages from:</string>
+    <string name="today">Today</string>
+    <string name="all_time">All time</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

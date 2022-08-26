@@ -1,6 +1,6 @@
 package com.flaviumircia.aquatrouble.restdata.model;
 
-public class Data {
+public class Data{
     private int id;
     private String sector,address,neighborhood, numar;
     private String expected_date,today_date;
@@ -18,6 +18,10 @@ public class Data {
 
     public void setAffected_agent(String affected_agent) {
         this.affected_agent = affected_agent;
+    }
+
+    public Data(String address) {
+        this.address = address;
     }
 
     public Data(int id, String sector, String address, String neighborhood, String numar, String affected_agent, String expected_date, String today_date, double lat, double lng, int frequency) {

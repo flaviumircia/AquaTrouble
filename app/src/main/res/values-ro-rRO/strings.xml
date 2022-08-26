@@ -33,7 +33,7 @@
     <string name="defectiuni_curente">Defecțiuni curente</string>
     <string name="harta_termografica">Hartă termică</string>
     <string name="motivational_text">Modifică aplicația cum îți place</string>
-    <string name="alege_sectorul">Alege sectorul</string>
+    <string name="alege_sectorul">Alege sectorul sau \n apasă pe căutare</string>
     <string name="cele_mai_afectate_cartiere">Cele mai afectate cartiere</string>
     <string name="watchlist">Cartierele urmărite</string>
     <string name="harta">Hartă</string>
@@ -68,5 +68,13 @@
     <string name="descriere_precum_vreau_ca_aplicatia_sa_faca_asta">Descriere precum: Vreau ca aplicatia sa faca \"asta\"</string>
     <string name="descrie_ce_imbunatatire_vrei_sa_vezi_in_urmatoarele_versiune_ale_aquatrouble">Descrie ce imbunatatire vrei sa vezi in urmatoarele versiune ale AquaTrouble</string>
     <string name="experienta_utilizatorului_este_importanta_pentru_noi_n_te_rog_spune_ne_cum_putem_imbunatatii_aplicatia">"Experienta utilizatorului este importanta pentru noi! "</string>
+    <string name="search_act">Căutare</string>
+    <string name="search_street_address_n_or_neighborhood">Caută numele străzii \n sau al unui cartier</string>
+    <string name="filter">Filtru</string>
+    <string name="search_filter">Filtrul căutării</string>
+    <string name="showing_damages_from">Arată avarii din:</string>
+    <string name="today">Astăzi</string>
+    <string name="all_time">Toate</string>
+    <string name="cancel">Anulează</string>
 
 </resources>

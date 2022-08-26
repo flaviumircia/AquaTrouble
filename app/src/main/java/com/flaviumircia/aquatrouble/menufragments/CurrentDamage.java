@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.flaviumircia.aquatrouble.R;
+import com.flaviumircia.aquatrouble.Search;
 import com.flaviumircia.aquatrouble.Sector;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
 
@@ -75,9 +77,16 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
         Button s4=view.findViewById(R.id.sector4);
         Button s5=view.findViewById(R.id.sector5);
         Button s6=view.findViewById(R.id.sector6);
-
+        ImageButton search_button=view.findViewById(R.id.search_button);
+        searchOnClick(search_button);
         buttonsListeners(s1,s2,s3,s4,s5,s6);
 
+    }
+
+    private void searchOnClick(ImageButton search_button) {
+        search_button.setOnClickListener(view -> {
+            startActivity(new Intent(getContext(), Search.class));
+        });
     }
 
     @Override

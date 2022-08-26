@@ -33,7 +33,7 @@
     <string name="about">Despre</string>
     <string name="defectiuni_curente">Defecțiuni curente</string>
     <string name="harta_termografica">Hartă termică</string>
-    <string name="alege_sectorul">Alege sectorul</string>
+    <string name="alege_sectorul">Alege sectorul sau \n apasă pe căutare</string>
     <string name="motivational_text">Modifică aplicația cum îți place</string>
     <string name="watchlist">Cartierele urmărite</string>
     <string name="cele_mai_afectate_cartiere">Cele mai afectate cartiere</string>
@@ -48,11 +48,11 @@
     <string name="signature_title">Susține aplicația</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    <string name="sync_title" translatable="false">Sync email periodically</string>
+    <string name="attachment_title" translatable="false">Download incoming attachments</string>
+    <string name="attachment_summary_on" translatable="false">Automatically download attachments for incoming emails
     </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="attachment_summary_off" translatable="false">Only download attachments when manually requested</string>
     <string name="notif_status_on">Pornite</string>
     <string name="notif_status_off">Oprite</string>
     <string name="notif">Notificări</string>
@@ -72,7 +72,7 @@
     <string name="your_phone_model">Modelul de telefon</string>
     <string name="subject">Subiectul</string>
     <string name="subject_hint_desc">Scurta descriere a bug-ului*</string>
-    <string name="something_like_heatmap_doesn_t_load_n_or_app_crashes_when_i_set_notifications_on">Descriere precum: Harta termica nu se incarca \\n sau Aplicatia se inchide cand pornesc notificarile</string>
+    <string name="something_like_heatmap_doesn_t_load_n_or_app_crashes_when_i_set_notifications_on">Descriere precum: Harta termica nu se incarca \n sau Aplicatia se inchide cand pornesc notificarile</string>
     <string name="content">Continut</string>
     <string name="describe_the_bug_as_good_as_you_can">Descrie bug-ul cat de bine poti</string>
     <string name="ai_o_sugestie">Ai o sugestie?</string>
@@ -80,4 +80,12 @@
     <string name="descriere_precum_vreau_ca_aplicatia_sa_faca_asta">Descriere precum: Vreau ca aplicatia sa faca \"asta\"</string>
     <string name="descrie_ce_imbunatatire_vrei_sa_vezi_in_urmatoarele_versiune_ale_aquatrouble">Descrie ce imbunatatire vrei sa vezi in urmatoarele versiune ale AquaTrouble</string>
     <string name="experienta_utilizatorului_este_importanta_pentru_noi_n_te_rog_spune_ne_cum_putem_imbunatatii_aplicatia">Experienta utilizatorului este importanta pentru noi! \n Te rog spune-ne cum putem imbunatatii aplicatia!</string>
+    <string name="search_act">Căutare</string>
+    <string name="search_street_address_n_or_neighborhood">Caută numele străzii \n sau al unui cartier</string>
+    <string name="filter">Filtru</string>
+    <string name="search_filter">Filtrul căutării</string>
+    <string name="showing_damages_from">Arată avarii din:</string>
+    <string name="today">Astăzi</string>
+    <string name="all_time">Toate</string>
+    <string name="cancel">Anulează</string>
 </resources>

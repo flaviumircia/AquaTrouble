@@ -19,9 +19,28 @@
         android:theme="@style/Theme.AquaTrouble"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Empty"
+            android:exported="false" >
+            <meta-data android:name="android.app.default_searchable"
+                android:value=".Search"/>
+        </activity>
+        <activity
+            android:name=".Search"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/map_theme">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
             android:name=".StreetDetails"
-            android:theme="@style/map_theme"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/map_theme" />
         <activity
             android:name=".settings_pref_activities.About"
             android:exported="false"

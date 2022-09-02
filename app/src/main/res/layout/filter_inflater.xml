@@ -120,10 +120,10 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
-        android:layout_height="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_height="6dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/cancel_button"
         app:layout_constraintEnd_toEndOf="@+id/filter_title"
         app:layout_constraintStart_toStartOf="@+id/filter_title"

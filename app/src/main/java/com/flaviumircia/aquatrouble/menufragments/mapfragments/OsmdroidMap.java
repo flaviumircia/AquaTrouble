@@ -122,7 +122,6 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
         GeoPoint startPoint = new GeoPoint(44.426164962,26.102332924);
         //set the center of the map
         mapController.setCenter(startPoint);
-
         //hide the zoom in/out buttons of the map
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         map.setMinZoomLevel(14.00);
@@ -162,7 +161,8 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
         //if you make changes to the configuration, use
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Configuration.getInstance().load(getActivity(), PreferenceManager.getDefaultSharedPreferences(getActivity()));
-            map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
+        map.setTilesScaledToDpi(false);
+        map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
     }
 
     public void onPause(){
@@ -171,6 +171,7 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
         //if you make changes to the configuration, use
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Configuration.getInstance().save(getActivity(), prefs);
+        map.setTilesScaledToDpi(false);
             map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
     }
 

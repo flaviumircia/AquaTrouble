@@ -15,7 +15,7 @@ public class ExtendedData {
 
     public int getTheTotalDamage(){
         for(int i=0;i<data.size();i++){
-                this.sum+=this.data.get(i).getFrequency();
+                this.sum+=this.data.get(i).getCount();
         }
         return this.sum;
     }

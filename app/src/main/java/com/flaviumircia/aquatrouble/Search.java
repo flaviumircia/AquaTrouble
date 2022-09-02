@@ -1,8 +1,6 @@
 package com.flaviumircia.aquatrouble;
 
-import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -11,23 +9,38 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import androidx.appcompat.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.flaviumircia.aquatrouble.adapter.search_data.SearchDataAdapter;
+import com.flaviumircia.aquatrouble.restdata.model.Data;
+import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
+import com.flaviumircia.aquatrouble.restdata.retrofit.SectorDataSearchApi;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
 
 public class Search extends AppCompatActivity {
     private ImageButton filter_button,arrow_back;
     private CoordinatorLayout coordinatorLayout;
-    private BottomSheetDialogFragment bottomSheetDialogFragment;
     private Button accept_button;
     private SearchView searchView;
     private RecyclerView recyclerView;
+    private BottomSheetBehavior<View> behavior;
+    private View bottomSheet;
+    private CompositeDisposable compositeDisposable;
+    private SectorDataSearchApi sectorDataApi;
+    private Retrofit retrofit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,42 +50,60 @@ public class Search extends AppCompatActivity {
         accept_button=findViewById(R.id.accept_button);
         arrow_back=findViewById(R.id.back_button_search);
         searchView=findViewById(R.id.searchView);
+        bottomSheet=coordinatorLayout.findViewById(R.id.bottomSheet);
+        compositeDisposable=new CompositeDisposable();
+
         recyclerView=findViewById(R.id.recyclerView_search);
-        View bottomSheet=coordinatorLayout.findViewById(R.id.bottomSheet);
-        BottomSheetBehavior<View> behavior=BottomSheetBehavior.from(bottomSheet);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        retrofit= RetrofitClient.getInstance();
+        sectorDataApi=retrofit.create(SectorDataSearchApi.class);
+
+
+        behavior=BottomSheetBehavior.from(bottomSheet);
         behavior.setHideable(true);
         behavior.setPeekHeight(0);
         behavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        searchView.requestFocus();
 
         onClickFilter(filter_button,behavior);
+
         arrow_back.setOnClickListener(view-> finish());
-        Intent intent=getIntent();
+
+        fetchData();
+
+
+    }
+
+    private void fetchData() {
+        compositeDisposable.add(sectorDataApi.getData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(data->displayData(data)));
+    }
+
+    private void displayData(List<Data> data) {
+        SearchDataAdapter sectorDataAdapter=new SearchDataAdapter(this,data);
+        recyclerView.setAdapter(sectorDataAdapter);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                sectorDataAdapter.filter(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText);
+                sectorDataAdapter.filter(newText);
                 return true;
             }
-
-            private void filterList(String newText) {
-            }
         });
-        if(Intent.ACTION_SEARCH.equals(intent.getAction()))
-        {
-            String query=intent.getStringExtra(SearchManager.QUERY);
-            doTheSearch(query);
-        }
     }
 
-    private void doTheSearch(String query) {
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        searchView.clearFocus();
     }
-
-
 
     private void onClickFilter(ImageButton filter_button, BottomSheetBehavior<View> behavior) {
         filter_button.setOnClickListener(view ->{

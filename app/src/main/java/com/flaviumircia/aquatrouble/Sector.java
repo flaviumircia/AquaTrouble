@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ import retrofit2.Retrofit;
 
 public class Sector extends AppCompatActivity implements ThemeModeChecker {
     private ImageView icon;
+    private ImageButton back_arrow;
     private CompositeDisposable compositeDisposable;
     private SectorDataApi sectorDataApi;
     private RecyclerView recyclerView;
@@ -43,7 +45,9 @@ public class Sector extends AppCompatActivity implements ThemeModeChecker {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         retrofit=RetrofitClient.getInstance();
         sectorDataApi=retrofit.create(SectorDataApi.class);
+        back_arrow=findViewById(R.id.backButtonSector);
 
+        back_arrow.setOnClickListener(view -> finish());
         //get the parameters passed
         String sector=sectorTitle();
         int icon_id=sectorIcon();
@@ -52,14 +56,10 @@ public class Sector extends AppCompatActivity implements ThemeModeChecker {
         icon.setImageResource(icon_id);
         textView.setText(sector);
 
-        //theme
-        Window window=getWindow();
-        int nightModeFlags=getResources().getConfiguration().uiMode &
-                android.content.res.Configuration.UI_MODE_NIGHT_MASK;
-
         //getting the data from the api
         int sector_number=getTheSectorNumber(sector);
         fetchData(sector_number);
+
     }
 
     private void fetchData(int sector_number) {

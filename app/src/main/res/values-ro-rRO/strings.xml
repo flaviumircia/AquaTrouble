@@ -69,12 +69,19 @@
     <string name="descrie_ce_imbunatatire_vrei_sa_vezi_in_urmatoarele_versiune_ale_aquatrouble">Descrie ce imbunatatire vrei sa vezi in urmatoarele versiune ale AquaTrouble</string>
     <string name="experienta_utilizatorului_este_importanta_pentru_noi_n_te_rog_spune_ne_cum_putem_imbunatatii_aplicatia">"Experienta utilizatorului este importanta pentru noi! "</string>
     <string name="search_act">Căutare</string>
-    <string name="search_street_address_n_or_neighborhood">Caută numele străzii \n sau al unui cartier</string>
+    <string name="search_street_address_n_or_neighborhood">Numele străzii sau al unui cartier</string>
     <string name="filter">Filtru</string>
     <string name="search_filter">Filtrul căutării</string>
     <string name="showing_damages_from">Arată avarii din:</string>
     <string name="today">Astăzi</string>
     <string name="all_time">Toate</string>
     <string name="cancel">Anulează</string>
+    <string name="results">Rezultate</string>
+    <string name="affected_agent">Agentul afectat</string>
+    <string name="street_numbers">Numărul străzii</string>
+    <string name="frequency">Afectată de</string>
+    <string name="times">de ori</string>
+    <string name="expected_fixing_date">Data preconizata de reparare</string>
+    <string name="remaining_days_until_fix">Zile rămase până la reparare</string>
 
 </resources>

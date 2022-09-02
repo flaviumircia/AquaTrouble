@@ -99,7 +99,6 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
         setCustomTheme(window,nightModeFlags);
         return inflater.inflate(R.layout.fragment_current_damage, container, false);
     }
-
     private void buttonsListeners(Button s1, Button s2, Button s3, Button s4, Button s5, Button s6) {
         s1.setOnClickListener(view -> {
             Intent myIntent=new Intent(getActivity(), Sector.class);
@@ -107,6 +106,8 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
             myIntent.putExtra("icon",R.drawable.ic_arc_triumf);
             myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             getContext().startActivity(myIntent);
+
+
         });
         s2.setOnClickListener(view -> {
             Intent myIntent=new Intent(getActivity(), Sector.class);

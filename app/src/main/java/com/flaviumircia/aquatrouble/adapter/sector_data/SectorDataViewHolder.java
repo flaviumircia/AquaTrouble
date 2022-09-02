@@ -2,7 +2,6 @@ package com.flaviumircia.aquatrouble.adapter.sector_data;
 
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,7 +28,6 @@ public class SectorDataViewHolder extends RecyclerView.ViewHolder {
     public void setImageButton(ImageButton imageButton) {
         this.imageButton = imageButton;
     }
-
 
     public ExtendedData getExtendedData() {
         return extendedData;

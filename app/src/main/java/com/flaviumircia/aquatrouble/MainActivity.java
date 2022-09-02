@@ -1,6 +1,9 @@
 package com.flaviumircia.aquatrouble;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     //on create method
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createNotificationChannel();
         DbExists dbExists=new DbExists();
         ActivityChecker activityChecker=new ActivityChecker();
         if(dbExists.doesDatabaseExists(getApplicationContext(),"DATABASE") && activityChecker.checkDatabase(getApplicationContext()))
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this,MainMap.class));
             finish();
         }
+
         setContentView(R.layout.activity_main);
         ViewPager2 pager2 = findViewById(R.id.viewpager);
         FragmentStateAdapter pagerAdapter = new MyPageAdapter(this);
@@ -38,7 +43,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "CHANNEL_ID";
+            String description = "CHANNEL_DESC";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("CHANNEL_ID", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
     private class MyPageAdapter extends FragmentStateAdapter {
         public MyPageAdapter(FragmentActivity fm){
             super(fm);

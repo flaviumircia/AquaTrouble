@@ -54,10 +54,12 @@ public class SectorDataAdapter extends RecyclerView.Adapter<SectorDataViewHolder
         myIntent.putExtra("expected_date",sectorData.get(position).getExpected_date());
         myIntent.putExtra("affected_agent",sectorData.get(position).getAffected_agent());
         myIntent.putExtra("remaining_days",days_until_finished);
+        myIntent.putExtra("lat",sectorData.get(position).getLat());
+        myIntent.putExtra("lng",sectorData.get(position).getLng());
+
         myIntent.putExtra("icon_id",this.resource_id);
         holder.getImageButton().setOnClickListener(view -> {
                         context.startActivity(myIntent);
-
         });
 
     }

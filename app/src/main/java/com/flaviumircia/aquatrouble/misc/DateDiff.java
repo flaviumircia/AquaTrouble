@@ -16,7 +16,7 @@ public class DateDiff {
     }
 
     public long makeDifference(){
-        @SuppressLint("SimpleDateFormat") DateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") DateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date first_date= null;
         try {
             first_date = df.parse(this.date1);

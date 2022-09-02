@@ -1,5 +1,6 @@
 package com.flaviumircia.aquatrouble;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -14,6 +15,7 @@ import com.flaviumircia.aquatrouble.menufragments.CurrentDamage;
 import com.flaviumircia.aquatrouble.menufragments.Favorites;
 import com.flaviumircia.aquatrouble.menufragments.Home;
 import com.flaviumircia.aquatrouble.menufragments.Settings;
+import com.flaviumircia.aquatrouble.misc.NotificationService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainMap extends AppCompatActivity {
@@ -79,5 +81,9 @@ public class MainMap extends AppCompatActivity {
         outState.putInt("position",position_index);
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        startService(new Intent(this, NotificationService.class));
+    }
 }

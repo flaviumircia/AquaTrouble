@@ -78,13 +78,15 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         KmlDocument kmlDocument=new KmlDocument();
         String pathToFile=return_the_path("codebeautify.kml");
         kmlDocument.parseKMLFile(new File(pathToFile));
+        //map settings
 
-        fetchData(neighborhood);
+        fetchData(neighborhood,map);
         onClick(back_arrow);
+        setTheMap(kmlDocument);
+
         //get the kml document from the assets folder
 
-        //map settings
-        setTheMap(kmlDocument);
+
 
     }
 
@@ -92,16 +94,16 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         back_arrow.setOnClickListener(view -> MapDetails.super.finish());
     }
 
-    private void fetchData(String neighborhood) {
+    private void fetchData(String neighborhood, MapView map) {
         compositeDisposable.add(myApi.getData(neighborhood)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data -> displayData(data))
+                .subscribe(data -> displayData(data,map))
         );
     }
 
-    private void displayData(List<Data> data) {
-        PostAdapter adapter=new PostAdapter(this,data);
+    private void displayData(List<Data> data, MapView map) {
+        PostAdapter adapter=new PostAdapter(this,data,map);
         recyclerView.setAdapter(adapter);
         ExtendedData extendedPostAdapter=new ExtendedData(data);
         total_text.setText("Total: "+extendedPostAdapter.getTheTotalDamage() +" "+this.getString(R.string.damage));
@@ -164,9 +166,10 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         IMapController mapController = map.getController();
 
         //the startPoint of the map
-        GeoPoint startPoint =centerOf();
-
+        GeoPoint startPoint=centerOf();
+        map.setTilesScaledToDpi(true);
         //custom styler
+
         styler = new ZoomKmlStyler();
 
         //custom Polygon info class

@@ -44,9 +44,8 @@
 
     </style>
     <style name="search_view_query" parent="Widget.AppCompat.SearchView">
-        <item name="fontFamily">@font/comfortaa</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/comfortaa_light</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColorHint">@color/background_white</item>
         <item name="android:textColorPrimary">@color/background_white</item>
         <item name="colorOnSecondary">@color/background_white</item>
@@ -66,5 +65,14 @@
     </style>
     <style name="custom_bottom_sheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="background">@drawable/filter_background</item>
+    </style>
+    <style name="custom_layout" >
+        <item name="android:background">@color/not_so_dark_background</item>
+    </style>
+    <style name="custom_bar" parent="Widget.AppCompat.Button">
+        <item name="android:background">@color/background_white</item>
+    </style>
+    <style name="custom_color_imageview">
+        <item name="tint">@color/black</item>
     </style>
 </resources>

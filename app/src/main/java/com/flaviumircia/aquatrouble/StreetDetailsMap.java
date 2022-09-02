@@ -1,5 +1,6 @@
 package com.flaviumircia.aquatrouble;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.Button;
@@ -9,32 +10,29 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.flaviumircia.aquatrouble.database.Database;
-import com.flaviumircia.aquatrouble.database.NotificationsModel;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.model.ExtendedData;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
 
-public class StreetDetails extends AppCompatActivity implements ThemeModeChecker {
-    private TextView street_title,street_number,sector,expected_date,remaining_days,affected_agent;
+public class StreetDetailsMap extends AppCompatActivity implements ThemeModeChecker {
+    private TextView street_title,street_number,sector, frequency,remaining_days,affected_agent;
     private ImageButton back_arrow;
-    private Button add_to_fav;
     private ImageView icon;
+    private Button show_map;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_street_details);
+        setContentView(R.layout.activity_street_details_map);
         street_title=findViewById(R.id.streetTitleDetails);
         street_number=findViewById(R.id.numbersStreetDetails);
         sector=findViewById(R.id.sectorTitle);
-        expected_date=findViewById(R.id.frequencyText);
+        frequency =findViewById(R.id.frequencyText);
         remaining_days=findViewById(R.id.daysCounter);
         back_arrow=findViewById(R.id.arrow_back_button);
         affected_agent=findViewById(R.id.affectedAgentDetails);
         icon=findViewById(R.id.sectorIconDetails);
-        add_to_fav=findViewById(R.id.addToFavButton);
-
         int icon_res=getResourceIcon();
         icon.setImageResource(icon_res);
 
@@ -44,28 +42,19 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         setCustomTheme(window,nightModeFlags);
         ExtendedData model=getFields();
 
-        onClick(back_arrow,add_to_fav,model);
+        onClick(back_arrow,model);
 
         sector.setText("Sector " + model.getData().getSector());
         street_title.setText(model.getData().getAddress());
-        affected_agent.setText(getString(R.string.affected_agent)+": "+model.getData().getAffected_agent());
-        street_number.setText(getString(R.string.street_numbers)+": "+model.getData().getNumar());
-        expected_date.setText(getString(R.string.expected_fixing_date)+": " + model.getData().getExpected_date());
-        remaining_days.setText(getString(R.string.remaining_days_until_fix)+": " + model.getRemaining_days());
-
+        street_number.setText(getString(R.string.street_numbers)+": "+model.getData().getConcatanated_numbers());
+        frequency.setText(getString(R.string.frequency)+": " + model.getData().getCount() +" " +getString(R.string.times));
     }
 
-    private void onClick(ImageButton back_arrow, Button add_to_fav,ExtendedData data_model) {
+    private void onClick(ImageButton back_arrow,ExtendedData model) {
         back_arrow.setOnClickListener(view->{
             finish();
         });
-        add_to_fav.setOnClickListener(view ->{
-            NotificationsModel model=new NotificationsModel();
-            model.setAddress(data_model.getData().getAddress());
-            model.setStreet_no(data_model.getData().getNumar());
-            model.setDate_time(data_model.getData().getExpected_date());
-            Database.getDatabase(getApplicationContext()).getDao().insertNotifData(model);
-        });
+
     }
     private int getResourceIcon(){
         Bundle extras=getIntent().getExtras();
@@ -75,19 +64,20 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         }
         return -100;
     }
-    private ExtendedData getFields()
-    {   ExtendedData data_model=new ExtendedData();
+    private com.flaviumircia.aquatrouble.restdata.model.ExtendedData getFields()
+    {   com.flaviumircia.aquatrouble.restdata.model.ExtendedData data_model=new com.flaviumircia.aquatrouble.restdata.model.ExtendedData();
         Data temp_model=new Data();
         Bundle extras=getIntent().getExtras();
         if(extras!=null)
         {
             temp_model.setAddress(extras.getString("street_title"));
-            temp_model.setExpected_date(extras.getString("expected_date"));
-            temp_model.setNumar(extras.getString("street_number"));
+            temp_model.setCount(extras.getInt("frequency"));
+            temp_model.setConcatanated_numbers(extras.getString("street_number"));
             temp_model.setSector(extras.getString("sector"));
             temp_model.setAffected_agent(extras.getString("affected_agent"));
+            temp_model.setLat(extras.getDouble("lat"));
+            temp_model.setLng(extras.getDouble("lng"));
             data_model.setData(temp_model);
-            data_model.setRemaining_days(extras.getString("remaining_days"));
         }
         return data_model;
     }

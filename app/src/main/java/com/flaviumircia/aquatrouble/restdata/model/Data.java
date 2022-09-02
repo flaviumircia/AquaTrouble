@@ -3,9 +3,10 @@ package com.flaviumircia.aquatrouble.restdata.model;
 public class Data{
     private int id;
     private String sector,address,neighborhood, numar;
+    private String concatanated_numbers;
     private String expected_date,today_date;
     private String affected_agent;
-    private int frequency;
+    private int count;
     private double lat,lng;
 
     public Data(){
@@ -24,7 +25,7 @@ public class Data{
         this.address = address;
     }
 
-    public Data(int id, String sector, String address, String neighborhood, String numar, String affected_agent, String expected_date, String today_date, double lat, double lng, int frequency) {
+    public Data(int id, String sector, String address, String neighborhood, String numar,String concatanated_numbers, String affected_agent, String expected_date, String today_date, double lat, double lng, int frequency) {
         this.id = id;
         this.sector = sector;
         this.address = address;
@@ -34,16 +35,17 @@ public class Data{
         this.today_date = today_date;
         this.lat = lat;
         this.lng = lng;
-        this.frequency = frequency;
+        this.count = frequency;
         this.affected_agent=affected_agent;
+        this.concatanated_numbers=concatanated_numbers;
     }
 
-    public int getFrequency() {
-        return frequency;
+    public int getCount() {
+        return count;
     }
 
-    public void setFrequency(int frequency) {
-        this.frequency = frequency;
+    public void setCount(int count) {
+        this.count = count;
     }
 
 
@@ -117,5 +119,13 @@ public class Data{
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public String getConcatanated_numbers() {
+        return concatanated_numbers;
+    }
+
+    public void setConcatanated_numbers(String concatanated_numbers) {
+        this.concatanated_numbers = concatanated_numbers;
     }
 }

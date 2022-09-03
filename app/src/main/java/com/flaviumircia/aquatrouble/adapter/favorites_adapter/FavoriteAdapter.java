@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -44,6 +45,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoritesViewHolder> {
             if(holder.isState()){
                 holder.getBell().setBackground(context.getDrawable(R.drawable.ic_notifications_off));
                 holder.setState(false);
+                Toast.makeText(context, R.string.delete_this_address, Toast.LENGTH_SHORT).show();
                 setTint(nightModeFlags,holder);
             }
             else {

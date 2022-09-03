@@ -65,11 +65,6 @@ public class WebPageMap extends Fragment {
 
     }
 
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-//    }
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -104,7 +99,7 @@ public class WebPageMap extends Fragment {
         switch (nightModeFlags) {
             case android.content.res.Configuration.UI_MODE_NIGHT_YES:
                 if(lang!=null && lang.equals("ro-Ro"))
-                    myWebView.loadUrl("http://18.159.213.37/output_dark_ro.html");
+                    myWebView.loadUrl("http://18.159.213.37/output_ro_dark.html");
                 else
                     myWebView.loadUrl("http://18.159.213.37/output_dark_eng.html");
                 break;

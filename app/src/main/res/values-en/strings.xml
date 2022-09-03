@@ -68,5 +68,7 @@
     <string name="times">times</string>
     <string name="expected_fixing_date">Expected fixing date</string>
     <string name="remaining_days_until_fix">Days until fix</string>
+    <string name="address_was_added">Address has been added to Favorites!</string>
+    <string name="delete_this_address">You have deleted this address from favorites!</string>
 
 </resources>

@@ -1,11 +1,17 @@
 package com.flaviumircia.aquatrouble;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -55,9 +61,26 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
 
     }
 
-    private void onClick(ImageButton back_arrow, Button add_to_fav,ExtendedData data_model) {
+    @SuppressLint("ClickableViewAccessibility")
+    private void onClick(ImageButton back_arrow, Button add_to_fav, ExtendedData data_model) {
         back_arrow.setOnClickListener(view->{
             finish();
+        });
+        add_to_fav.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    view.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.teal_custom));
+                }
+                else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    view.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.light_blue));
+
+                    view.performClick();
+                }else if(motionEvent.getAction()==MotionEvent.ACTION_CANCEL) {
+                    view.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.light_blue));
+                }
+                return true;
+            }
         });
         add_to_fav.setOnClickListener(view ->{
             NotificationsModel model=new NotificationsModel();
@@ -65,6 +88,8 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
             model.setStreet_no(data_model.getData().getNumar());
             model.setDate_time(data_model.getData().getExpected_date());
             Database.getDatabase(getApplicationContext()).getDao().insertNotifData(model);
+            Toast.makeText(this, R.string.address_was_added, Toast.LENGTH_SHORT).show();
+            finish();
         });
     }
     private int getResourceIcon(){

@@ -3,7 +3,6 @@ package com.flaviumircia.aquatrouble.adapter.search_data;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -55,7 +54,7 @@ public class SearchDataAdapter extends RecyclerView.Adapter<SearchDataViewHolder
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    view.setBackgroundColor(Color.parseColor("#555f22"));
+                    view.setBackgroundColor(context.getResources().getColor(R.color.light_blue));
                 }
                 else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     view.setBackgroundColor(holder.getColor());

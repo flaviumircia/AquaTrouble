@@ -46,7 +46,6 @@ public class Sector extends AppCompatActivity implements ThemeModeChecker {
         retrofit=RetrofitClient.getInstance();
         sectorDataApi=retrofit.create(SectorDataApi.class);
         back_arrow=findViewById(R.id.backButtonSector);
-
         back_arrow.setOnClickListener(view -> finish());
         //get the parameters passed
         String sector=sectorTitle();

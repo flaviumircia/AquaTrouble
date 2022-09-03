@@ -95,4 +95,6 @@
     <string name="times">de ori</string>
     <string name="expected_fixing_date">Data preconizata de reparare</string>
     <string name="remaining_days_until_fix">Zile rămase până la reparare</string>
+    <string name="address_was_added">Adresa a fost adaugata in sectiunea de favorite!</string>
+    <string name="delete_this_address">Ai șters această adresă de la favorite!</string>
 </resources>

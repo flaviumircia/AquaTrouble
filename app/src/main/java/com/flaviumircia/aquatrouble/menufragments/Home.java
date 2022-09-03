@@ -1,19 +1,19 @@
 package com.flaviumircia.aquatrouble.menufragments;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.menufragments.mapfragments.OsmdroidMap;
 import com.flaviumircia.aquatrouble.menufragments.mapfragments.WebPageMap;
@@ -40,7 +40,7 @@ public class Home extends Fragment {
     //from activity
     private SegmentedGroup aSwitch;
     private int map_status;
-    private androidx.appcompat.widget.SearchView searchView;
+    private ImageButton search;
 
     public Home() {
         // Required empty public constructor
@@ -72,10 +72,12 @@ public class Home extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         //set the language
-        SharedPreferences sharedPreferences=getActivity().getSharedPreferences("pref",0);
-        String language=sharedPreferences.getString("lang",null);
-        LanguageSetter languageSetter=new LanguageSetter();
-        languageSetter.setLocale(language,getActivity());
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     @Override

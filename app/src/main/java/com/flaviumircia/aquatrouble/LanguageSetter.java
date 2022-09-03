@@ -8,9 +8,9 @@ import android.util.DisplayMetrics;
 import java.util.Locale;
 
 public class LanguageSetter {
+    private String language;
     public void setLocale(String language, Context context) {
-
-
+        this.language=language;
         //Initialize resources
         Resources resource= context.getResources();
         //Display metrics
@@ -19,11 +19,12 @@ public class LanguageSetter {
         //Initialize config
         Configuration configuration= resource.getConfiguration();
 
-        //Initialize locale
-        if(language==null)
-            language="en";
+
         configuration.locale=new Locale(language);
         resource.updateConfiguration(configuration,metrics);
+    }
 
+    public String getLanguage() {
+        return language;
     }
 }

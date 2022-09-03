@@ -1,5 +1,6 @@
 package com.flaviumircia.aquatrouble;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.ColorMatrixColorFilter;
@@ -48,7 +49,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
     private String neighborhood;
     private TextView title;
     private TextView total_text;
-    private ImageButton back_arrow;
+    private ImageButton back_arrow,search_button;
     private MapView map;
     private FolderOverlay kmlOverlay;
     private DamageDataApi myApi;
@@ -74,14 +75,14 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         total_text=findViewById(R.id.total_text);
         back_arrow=findViewById(R.id.backArrowMap);
         map = findViewById(R.id.zoomedMap);
-
+        search_button=findViewById(R.id.search_button_map);
         KmlDocument kmlDocument=new KmlDocument();
         String pathToFile=return_the_path("codebeautify.kml");
         kmlDocument.parseKMLFile(new File(pathToFile));
         //map settings
 
         fetchData(neighborhood,map);
-        onClick(back_arrow);
+        onClick(back_arrow,search_button);
         setTheMap(kmlDocument);
 
         //get the kml document from the assets folder
@@ -90,8 +91,14 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
 
     }
 
-    private void onClick(ImageButton back_arrow) {
-        back_arrow.setOnClickListener(view -> MapDetails.super.finish());
+    private void onClick(ImageButton back_arrow, ImageButton search_button) {
+        this.back_arrow.setOnClickListener(view -> MapDetails.super.finish());
+        search_button.setOnClickListener(view_search->{
+            Intent myIntent=new Intent(this, Search.class);
+            myIntent.putExtra("sector",false);
+            myIntent.putExtra("neighborhood",neighborhood);
+            startActivity(myIntent);
+        });
     }
 
     private void fetchData(String neighborhood, MapView map) {

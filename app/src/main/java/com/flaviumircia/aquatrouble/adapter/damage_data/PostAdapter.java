@@ -1,5 +1,6 @@
 package com.flaviumircia.aquatrouble.adapter.damage_data;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -15,14 +16,26 @@ import com.flaviumircia.aquatrouble.restdata.model.Data;
 
 import org.osmdroid.views.MapView;
 
+import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
     private Context context;
     private List<Data> postData;
+    private List<Data> postDataCopy;
     private MapView mapview;
 
-    public PostAdapter(Context context, List<Data> postData,MapView mapview) {
+    public PostAdapter(Context context, List<Data> postData) {
+        this.context = context;
+        this.postData = postData;
+        this.postDataCopy=new ArrayList<>();
+        this.postDataCopy.addAll(postData);
+    }
+
+    public PostAdapter(Context context, List<Data> postData, MapView mapview) {
         this.context = context;
         this.postData = postData;
         this.mapview=mapview;
@@ -79,7 +92,27 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
         }
         return R.drawable.ic_arc_triumf;
     }
-
+    @SuppressLint("NotifyDataSetChanged")
+    public void filter(String text) {
+        postData.clear();
+        if(text.isEmpty()){
+            postData.addAll(postDataCopy);
+        }else{
+            text = text.toLowerCase();
+            for(Data item:postDataCopy){
+                String deaccent_address=deAccent(item.getAddress().toLowerCase(Locale.ROOT));
+                if(deaccent_address.contains(text) || item.getAddress().toLowerCase().contains(text)){
+                    postData.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+    private String deAccent(String str) {
+        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(nfdNormalizedString).replaceAll("");
+    }
     public List<Data> getPostData() {
         return postData;
     }

@@ -85,7 +85,8 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
 
     private void searchOnClick(ImageButton search_button) {
         search_button.setOnClickListener(view -> {
-            startActivity(new Intent(getContext(), Search.class));
+            Intent myIntent=new Intent(getContext(),Search.class);
+            startActivity(myIntent);
         });
     }
 

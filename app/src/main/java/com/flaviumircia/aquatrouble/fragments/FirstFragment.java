@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
@@ -33,7 +34,8 @@ public class FirstFragment extends Fragment {
                 {
                     String language = "en";
                     languageSetter.setLocale(language,getContext());
-                    SharedPreferences sharedPreferences=getActivity().getSharedPreferences("data_mode",0);
+                    SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getContext());
+
                     SharedPreferences.Editor editor=sharedPreferences.edit();
                     editor.putString("lang",language);
                     editor.apply();
@@ -43,7 +45,8 @@ public class FirstFragment extends Fragment {
                 {
                     String language="ro-Ro";
                     languageSetter.setLocale(language,getContext());
-                    SharedPreferences sharedPreferences=getActivity().getSharedPreferences("pref",0);
+//                    SharedPreferences sharedPreferences=getActivity().getSharedPreferences("pref",0);
+                    SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getContext());
                     SharedPreferences.Editor editor=sharedPreferences.edit();
                     editor.putString("lang",language);
                     editor.apply();

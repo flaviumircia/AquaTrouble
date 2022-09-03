@@ -22,15 +22,15 @@ public class MainMap extends AppCompatActivity {
 
     private int position_index;
     private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        LanguageSetter languageSetter=new LanguageSetter();
         //set the language
-        SharedPreferences sharedPreferences=this.getSharedPreferences("pref",0);
-        SharedPreferences sharedPreferences1= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences sharedPreferences=PreferenceManager.getDefaultSharedPreferences(this);
         String language=sharedPreferences.getString("lang",null);
-
+        languageSetter.setLocale(language,this);
         setContentView(R.layout.activity_map);
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
         if(savedInstanceState!=null)

@@ -194,9 +194,9 @@
         android:src="@drawable/ic_group_17"
         app:layout_constraintBottom_toBottomOf="@+id/chooseSector"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintHorizontal_bias="0.764"
         app:layout_constraintStart_toEndOf="@+id/chooseSector"
         app:layout_constraintTop_toTopOf="@+id/current_damage_top_bar"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.548" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

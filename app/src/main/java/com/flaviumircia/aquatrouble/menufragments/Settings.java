@@ -16,6 +16,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.flaviumircia.aquatrouble.Eula;
+import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.settings_pref_activities.About;
 import com.flaviumircia.aquatrouble.settings_pref_activities.BugSpotting;
@@ -30,7 +31,10 @@ public class Settings extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
-
+        LanguageSetter languageSetter=new LanguageSetter();
+        SharedPreferences sharedPreferences=PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String language=sharedPreferences.getString("lang",null);
+        languageSetter.setLocale(language,getActivity());
     }
 
     @Override

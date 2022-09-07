@@ -3,22 +3,25 @@ package com.flaviumircia.aquatrouble.misc;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.flaviumircia.aquatrouble.R;
+import com.flaviumircia.aquatrouble.StreetDetails;
 import com.flaviumircia.aquatrouble.database.ActivityChecker;
 import com.flaviumircia.aquatrouble.database.DaoClass;
 import com.flaviumircia.aquatrouble.database.Database;
 import com.flaviumircia.aquatrouble.database.DbExists;
 import com.flaviumircia.aquatrouble.database.NotificationsModel;
-import com.flaviumircia.aquatrouble.menufragments.CurrentDamage;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
+import com.flaviumircia.aquatrouble.restdata.model.ExtendedData;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
 import com.flaviumircia.aquatrouble.restdata.retrofit.SectorDataSearchApi;
 
@@ -34,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 public class NotificationService extends Service {
-
+    private final String notif_pref="NOTIFICATION_PREF";
     Timer timer;
     TimerTask timerTask;
     String TAG = "Timers";
@@ -108,11 +111,13 @@ public class NotificationService extends Service {
                 handler.post(new Runnable() {
                     public void run() {
                         CurrentTime currentTime=new CurrentTime();
-                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(10):(17):[0-9]{2}$";
+                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(16):(39):[0-9]{2}$";
                         Pattern pattern=Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
                         Matcher matcher=pattern.matcher(currentTime.getCurrent_time());
+                        SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(notif_pref,MODE_PRIVATE);
+                        String notif_status=sharedPreferences.getString("notif_status","notif_on");
                         Log.d(TAG, "run: "+currentTime.getCurrent_time());
-                        if(matcher.find())
+                        if(matcher.find() && notif_status.equals("notif_on"))
                         {
                             if(isDatabase())
                             {
@@ -146,8 +151,14 @@ public class NotificationService extends Service {
                 if(x.getAddress().equals(y.getAddress())){
                     if(!x.getDate_time().equals(y.getExpected_date()))
                     {   String title="The expected date has changed";
-                        String content="The date changed from: "+x.getDate_time()+", to: "+y.getExpected_date();
-                        pushNotif(title,content);
+                        String content=x.getAddress()+" changed from: "+x.getDate_time()+", to: "+y.getExpected_date();
+                        ExtendedData extendedData=new ExtendedData();
+                        extendedData.setData(y);
+                        CurrentDate currentDate=new CurrentDate();
+                        DateDiff dateDiff=new DateDiff(extendedData.getData().getExpected_date(), currentDate.getCurrent_date());
+                        long diff=dateDiff.makeDifference();
+                        String days_until_finished=String.valueOf(diff/1000/60/60/24);
+                        pushNotif(title,content,y.getAddress(),y.getAffected_agent(),y.getExpected_date(),days_until_finished,y.getNumar(),y.getSector());
                         database.getDao().updateDateTime(y.getExpected_date(),x.getAddress());
                     }
                 }
@@ -170,22 +181,56 @@ public class NotificationService extends Service {
         return false;
     }
 
-    private void pushNotif(String title,String content) {
-        Intent intent = new Intent(getApplicationContext(), CurrentDamage.class);
+    private void pushNotif(String title,String content,String address,String affected_agent,String expected_date,String days_counter,String numbers,String sector) {
+        Intent intent = new Intent(getApplicationContext(), StreetDetails.class);
+        int resource_id=0;
+        intent.putExtra("sector",sector);
+        intent.putExtra("street_title",address);
+        intent.putExtra("street_number",numbers);
+        intent.putExtra("expected_date",expected_date);
+        intent.putExtra("affected_agent",affected_agent);
+        intent.putExtra("remaining_days",days_counter);
+        intent.putExtra("lat","0");
+        intent.putExtra("lng","0");
+
+        resource_id=getResourceId(sector);
+        intent.putExtra("icon_id",resource_id);
+
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent;
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.S)
-            pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
-        else
-            pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
+        final int flag =  Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
+        PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(),0,intent,flag);
+
         NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),"CHANNEL_ID")
-                .setSmallIcon(R.drawable.ic_piggy_bank)
+                .setSmallIcon(R.drawable.ic_logo)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent).setAutoCancel(true);
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .setVibrate(new long[]{100,60,200})
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
+
         NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.notify(1,builder.build());
     }
+    private int getResourceId(String sector) {
+        switch (sector)
+        {
+            case "1":
+                return R.drawable.ic_arc_triumf;
+            case "2":
+                return R.drawable.ic_roata_mare;
+            case "3":
+                return R.drawable.ic_parc_ior;
+            case "4":
+                return R.drawable.ic_mausoleu;
+            case "5":
+                return R.drawable.ic_palat_parlament;
+            case "6":
+                return R.drawable.ic_lacul_morii;
+        }
+        return R.drawable.ic_arc_triumf;
+    }
+
 }

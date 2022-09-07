@@ -74,5 +74,13 @@
     <string name="show_on_map">Show on map</string>
     <string name="days_left">Days left</string>
     <string name="details">Details</string>
+    <string name="send_the_report">Send the report</string>
+    <string name="send_the_feedback">Send the feedback</string>
+    <string name="email_address_error">Email address can NOT be empty!</string>
+    <string name="email_address_bad_format">Email format is not allowed!</string>
+    <string name="phone_model_error">Phone model field can NOT be empty</string>
+    <string name="subject_error">Subject field can NOT be empty!</string>
+    <string name="content_field_error">Content field can NOT be empty!</string>
+    <string name="language">Language</string>
 
 </resources>

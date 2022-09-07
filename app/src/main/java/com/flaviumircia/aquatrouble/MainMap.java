@@ -26,6 +26,7 @@ public class MainMap extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startService(new Intent(this, NotificationService.class));
         LanguageSetter languageSetter=new LanguageSetter();
         //set the language
         //set the language
@@ -85,6 +86,5 @@ public class MainMap extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        startService(new Intent(this, NotificationService.class));
     }
 }

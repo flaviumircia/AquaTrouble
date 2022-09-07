@@ -101,4 +101,12 @@
     <string name="show_on_map">Arată pe hartă</string>
     <string name="days_left">Zile rămase</string>
     <string name="details">Detalii</string>
+    <string name="send_the_report">Trimite raportul</string>
+    <string name="send_the_feedback">Trimite feedback-ul</string>
+    <string name="email_address_error">Adresa de e-mail nu este corectă!</string>
+    <string name="email_address_bad_format">Adresa de e-mail nu este corectă!</string>
+    <string name="phone_model_error">Modelul de telefon nu poate fi lăsat liber!</string>
+    <string name="subject_error">Subiectul nu poate fi lăsat gol!</string>
+    <string name="content_field_error">Conținutul nu poate fi lăsat gol!</string>
+    <string name="language">Limbă</string>
 </resources>

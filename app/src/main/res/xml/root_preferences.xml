@@ -18,7 +18,13 @@
             app:key="notifications"
             app:title="@string/notif"
             app:useSimpleSummaryProvider="true" />
-
+        <ListPreference
+            app:defaultValue="ro-Ro"
+            app:entries="@array/language"
+            app:entryValues="@array/language_values"
+            app:key="language"
+            app:title="@string/language"
+            app:useSimpleSummaryProvider="true"/>
         <ListPreference
             app:defaultValue="default"
             app:entries="@array/theme_status"

@@ -146,18 +146,12 @@ public class Favorites extends Fragment implements ThemeModeChecker {
             }
         }
     }
-    //TODO: If user taps on street address from map details set map positionn on that
-    //TODO: Add change language to settings pref
-    //TODO: Make Notifications on/off from settings work
-    //TODO: Make Notifications vibrate
-    //TODO: Change notifications icon
-    //TODO: Add notifications startActivity()
-    //TODO: Add notifications (add change to streeet number -> push notif)
+    //TODO: Change map marker icon and window
     //TODO: Make EULA legal
     //TODO: Add Google admob
     //TODO: Donation link
     //TODO: Add faq and about
-    //TODO: Customize button and layouts in feedback(Both)
+    //TODO: Add recaptcha to feedback and bug spotting
     @Override
     public void setCustomTheme(Window window, int system_mode) {
         switch (system_mode) {

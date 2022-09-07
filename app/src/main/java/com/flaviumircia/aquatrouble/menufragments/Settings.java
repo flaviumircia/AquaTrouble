@@ -18,6 +18,7 @@ import androidx.preference.PreferenceManager;
 
 import com.flaviumircia.aquatrouble.Eula;
 import com.flaviumircia.aquatrouble.LanguageSetter;
+import com.flaviumircia.aquatrouble.MainMap;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.settings_pref_activities.About;
 import com.flaviumircia.aquatrouble.settings_pref_activities.BugSpotting;
@@ -25,7 +26,10 @@ import com.flaviumircia.aquatrouble.settings_pref_activities.FeedbackProvider;
 
 public class Settings extends PreferenceFragmentCompat {
     private final String file="LANGUAGE_PREF";
+    private final String notif_pref="NOTIFICATION_PREF";
     private ListPreference theme_switching;
+    private ListPreference notification_status;
+    private ListPreference language;
     private Preference bug_spotting;
     private Preference feedback;
     private Preference tos;
@@ -48,11 +52,37 @@ public class Settings extends PreferenceFragmentCompat {
         feedback=getPreferenceScreen().findPreference("suggestion");
         tos=getPreferenceScreen().findPreference("tos");
         about=getPreferenceScreen().findPreference("about");
+        notification_status=getPreferenceScreen().findPreference("notifications");
+        language=getPreferenceScreen().findPreference("language");
+        setTheLanguage(language);
+        areNotifsOn(notification_status);
         theme_switch(theme_switching);
         onClickMethods(bug_spotting,feedback,tos,about);
 
         return super.onCreateView(inflater, container, savedInstanceState);
 
+    }
+    private void setTheLanguage(ListPreference language) {
+        SharedPreferences sharedPreferences=getActivity().getSharedPreferences(file,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        language.setOnPreferenceChangeListener((preference, newValue) -> {
+            editor.putString("lang",newValue.toString());
+            editor.apply();
+            startActivity(new Intent(getActivity(), MainMap.class));
+            getActivity().finish();
+            return true;
+        });
+
+    }
+
+    private void areNotifsOn(ListPreference notification_status) {
+        SharedPreferences sharedPreferences=getActivity().getSharedPreferences(notif_pref,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        notification_status.setOnPreferenceChangeListener((preference, newValue) -> {
+                editor.putString("notif_status",newValue.toString());
+                editor.apply();
+                return true;
+        });
     }
 
     private void onClickMethods(Preference bug_spotting, Preference feedback,Preference tos,Preference about) {
@@ -78,11 +108,8 @@ public class Settings extends PreferenceFragmentCompat {
 
     private void theme_switch(ListPreference theme_switching) {
         theme_switching.setOnPreferenceChangeListener((preference, newValue) -> {
-            if(newValue.toString().equals("dark")){
+            if(newValue.toString().equals("dark"))
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-            }
-
             else if(newValue.toString().equals("light"))
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             else

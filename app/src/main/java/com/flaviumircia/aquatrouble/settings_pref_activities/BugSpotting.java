@@ -3,6 +3,7 @@ package com.flaviumircia.aquatrouble.settings_pref_activities;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class BugSpotting extends AppCompatActivity {
     private Button sendTheReport;
     private Retrofit retrofitClient;
     private SpotABug spotABugApi;
+    private ImageButton back_arrow;
     private String email,phone,subject_string,content_string;
     private CompositeDisposable compositeDisposable;
     @Override
@@ -40,7 +42,8 @@ public class BugSpotting extends AppCompatActivity {
         subject=findViewById(R.id.subject_edittext);
         content=findViewById(R.id.content_edittext);
         sendTheReport=findViewById(R.id.sendTheRepButton);
-
+        back_arrow=findViewById(R.id.back_button_fbug);
+        back_arrow.setOnClickListener(view->finish());
         //api instantiation
         retrofitClient= RetrofitClient.getInstance();
         spotABugApi=retrofitClient.create(SpotABug.class);
@@ -49,12 +52,12 @@ public class BugSpotting extends AppCompatActivity {
         sendTheReport.setOnClickListener(view->{
             if(email_address.getText().toString().trim().equalsIgnoreCase(""))
             {
-                email_address.setError("Email address can NOT be empty!");
+                email_address.setError(getString(R.string.email_address_error));
                 return;
             }else if(!checkForRegex(email_address.getText().toString().trim()))
             {
 
-                email_address.setError("Email format is not allowed!");
+                email_address.setError(getString(R.string.email_address_bad_format));
                 return;
 
             }else
@@ -63,21 +66,21 @@ public class BugSpotting extends AppCompatActivity {
             }
             if(phone_model.getText().toString().trim().equalsIgnoreCase(""))
             {
-                phone_model.setError("Phone model field can NOT be empty");
+                phone_model.setError(getString(R.string.phone_model_error));
                 return;
 
             }else
                 phone=phone_model.getText().toString();
             if(subject.getText().toString().trim().equalsIgnoreCase(""))
             {
-                subject.setError("Subject field can NOT be empty!");
+                subject.setError(getString(R.string.subject_error));
                 return;
 
             }else
                 subject_string=subject.getText().toString();
             if(content.getText().toString().trim().equalsIgnoreCase(""))
             {
-                content.setError("Content field can NOT be empty!");
+                content.setError(getString(R.string.content_field_error));
                 return;
             }else
                 content_string=content.getText().toString();

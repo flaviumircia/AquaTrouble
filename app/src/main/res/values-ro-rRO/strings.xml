@@ -97,5 +97,7 @@
     <string name="subject_error">Subiectul nu poate fi lăsat gol!</string>
     <string name="content_field_error">Conținutul nu poate fi lăsat gol!</string>
     <string name="language">Limbă</string>
+    <string name="Version">Versiunea</string>
+    <string name="copyright_2022_flaviu_mircia_n_all_rights_reserved">© Copyright 2022, Flaviu Mircia.</string>
 
 </resources>

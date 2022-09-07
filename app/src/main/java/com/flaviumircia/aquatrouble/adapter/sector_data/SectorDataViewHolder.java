@@ -1,10 +1,10 @@
 package com.flaviumircia.aquatrouble.adapter.sector_data;
 
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.flaviumircia.aquatrouble.R;
@@ -12,7 +12,7 @@ import com.flaviumircia.aquatrouble.R;
 public class SectorDataViewHolder extends RecyclerView.ViewHolder {
     private TextView street_title,street_number;
     protected TextView days_until;
-    private ImageButton see_details;
+    private AppCompatButton see_details;
     public SectorDataViewHolder(@NonNull View itemView) {
         super(itemView);
         street_title=itemView.findViewById(R.id.street_title_current_damage);
@@ -29,11 +29,11 @@ public class SectorDataViewHolder extends RecyclerView.ViewHolder {
         this.days_until = days_until;
     }
 
-    public ImageButton getSee_details() {
+    public AppCompatButton getSee_details() {
         return see_details;
     }
 
-    public void setSee_details(ImageButton see_details) {
+    public void setSee_details(AppCompatButton see_details) {
         this.see_details = see_details;
     }
 

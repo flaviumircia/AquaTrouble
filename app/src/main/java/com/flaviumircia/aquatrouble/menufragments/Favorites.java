@@ -150,7 +150,7 @@ public class Favorites extends Fragment implements ThemeModeChecker {
     //TODO: Make EULA legal
     //TODO: Add Google admob
     //TODO: Donation link
-    //TODO: Add faq and about
+    //TODO: Add faq
     //TODO: Add recaptcha to feedback and bug spotting
     @Override
     public void setCustomTheme(Window window, int system_mode) {

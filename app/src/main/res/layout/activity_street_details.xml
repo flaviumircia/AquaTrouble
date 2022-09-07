@@ -36,15 +36,15 @@
 
     <ImageButton
         android:id="@+id/arrow_back_button"
+        style="@style/custom_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginEnd="5dp"
-        style="@style/custom_image_button"
         android:background="@color/transparent"
         android:src="@drawable/arrow_back"
         app:layout_constraintBottom_toBottomOf="@+id/sectorTitle"
         app:layout_constraintEnd_toStartOf="@+id/sectorTitle"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sectorTitle" />
 

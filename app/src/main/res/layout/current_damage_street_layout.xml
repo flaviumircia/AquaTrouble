@@ -72,21 +72,22 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.285" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/see_more_details"
-                style="@style/custom_image_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/not_so_round"
+                style="@style/custom_button_details"
                 android:backgroundTint="@color/light_blue"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                android:paddingTop="13dp"
+                android:background="@drawable/not_so_round"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_see_details" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <EditText
                 android:id="@+id/street_no_current_damage"
@@ -126,13 +127,15 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/comfortaa"
                 android:text="@string/details"
-                android:textSize="9sp"
-
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:translationZ="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/see_more_details"
                 app:layout_constraintEnd_toEndOf="@+id/see_more_details"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/see_more_details"
                 app:layout_constraintTop_toTopOf="@+id/see_more_details"
-                app:layout_constraintVertical_bias="0.100000024" />
+                app:layout_constraintVertical_bias="0.406" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

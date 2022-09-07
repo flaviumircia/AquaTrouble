@@ -70,11 +70,14 @@
     <style name="custom_cardView">
         <item name="backgroundTint">@color/not_so_dark_background</item>
     </style>
-    <style name="custom_button_details" parent="Widget.AppCompat.Button">
-        <item name="android:minHeight">0dp</item>
-        <item name="android:minWidth">0dp</item>
-    </style>
+
     <style name="custom_search_view_back" parent="Widget.AppCompat.SearchView">
         <item name="android:background">@drawable/outline_rectangle</item>
+    </style>
+    <style name="custom_button_details" parent="Widget.AppCompat.Button">
+        <item name="color">@color/light_blue</item>
+        <item name="colorPrimaryVariant">@color/background_white</item>
+        <item name="android:drawableTop">@drawable/ic_see_details_white</item>
+        <item name="colorPrimary">@color/light_blue</item>
     </style>
 </resources>

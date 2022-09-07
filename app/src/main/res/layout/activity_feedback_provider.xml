@@ -11,30 +11,31 @@
         android:id="@+id/welcome_bug_spotting_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:fontFamily="@font/comfortaa"
         android:text="@string/ai_o_sugestie"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/back_button_feedback"
-        app:layout_constraintTop_toBottomOf="@+id/back_button_feedback"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toEndOf="@+id/back_button_feedback"
+        app:layout_constraintTop_toTopOf="@+id/back_button_feedback"
+        app:layout_constraintVertical_bias="0.01" />
 
     <TextView
         android:id="@+id/info_bug_spot"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:fontFamily="@font/comfortaa_light"
         android:text="@string/experienta_utilizatorului_este_importanta_pentru_noi_n_te_rog_spune_ne_cum_putem_imbunatatii_aplicatia"
         android:textSize="12sp"
+        android:gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
-        app:layout_constraintStart_toStartOf="@+id/welcome_bug_spotting_text"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_bug_spotting_text"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_button_feedback"
         app:layout_constraintVertical_bias="0.0" />
 
     <ScrollView
@@ -218,7 +219,6 @@
         style="@style/custom_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:background="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

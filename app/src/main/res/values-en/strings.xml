@@ -52,7 +52,7 @@
     <string name="scurta_descriere_despre_imbunatatire">Short description of the improvement</string>
     <string name="descriere_precum_vreau_ca_aplicatia_sa_faca_asta">Description like: I want the app to do \"this\"</string>
     <string name="descrie_ce_imbunatatire_vrei_sa_vezi_in_urmatoarele_versiune_ale_aquatrouble">Describe what feature you want to see in the future versions of AquaTrouble</string>
-    <string name="experienta_utilizatorului_este_importanta_pentru_noi_n_te_rog_spune_ne_cum_putem_imbunatatii_aplicatia">User experience is important to us.  Please let us know how we can  improve the app!</string>
+    <string name="experienta_utilizatorului_este_importanta_pentru_noi_n_te_rog_spune_ne_cum_putem_imbunatatii_aplicatia">User experience is important to us. \n Please let us know how we can  improve the app!</string>
     <string name="search_act">Search</string>
     <string name="search_street_address_n_or_neighborhood">Street address</string>
     <string name="filter">Filter</string>
@@ -82,5 +82,7 @@
     <string name="subject_error">Subject field can NOT be empty!</string>
     <string name="content_field_error">Content field can NOT be empty!</string>
     <string name="language">Language</string>
+    <string name="Version">Version</string>
+    <string name="copyright_2022_flaviu_mircia_n_all_rights_reserved">© Copyright 2022, Flaviu Mircia.  All rights reserved!</string>
 
 </resources>

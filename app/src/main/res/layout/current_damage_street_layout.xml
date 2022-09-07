@@ -12,6 +12,7 @@
         style="@style/custom_cardView"
         android:background="@drawable/rectangle"
 
+        android:id="@+id/card_view_current"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:elevation="10dp"
@@ -30,7 +31,7 @@
 
 
             <EditText
-                android:id="@+id/street_title"
+                android:id="@+id/street_title_current_damage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -44,14 +45,14 @@
                 android:text="Title"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/damages_string"
+                app:layout_constraintEnd_toStartOf="@+id/days_left_string"
                 app:layout_constraintHorizontal_bias="0.234"
-                app:layout_constraintStart_toEndOf="@+id/show_on_map"
+                app:layout_constraintStart_toEndOf="@+id/see_more_details"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.19999999" />
 
             <EditText
-                android:id="@+id/damages_value"
+                android:id="@+id/days_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
@@ -65,14 +66,14 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/damages_string"
+                app:layout_constraintEnd_toEndOf="@+id/days_left_string"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/damages_string"
+                app:layout_constraintStart_toStartOf="@+id/days_left_string"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.285" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/show_on_map"
+                android:id="@+id/see_more_details"
                 style="@style/custom_image_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -85,10 +86,10 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_location" />
+                app:srcCompat="@drawable/ic_see_details" />
 
             <EditText
-                android:id="@+id/street_no_details_adapter"
+                android:id="@+id/street_no_current_damage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
@@ -101,23 +102,37 @@
                 android:singleLine="true"
                 android:text="Street no:."
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/damages_string"
-                app:layout_constraintStart_toStartOf="@+id/street_title"
-                app:layout_constraintTop_toBottomOf="@+id/street_title" />
+                app:layout_constraintEnd_toStartOf="@+id/days_left_string"
+                app:layout_constraintStart_toStartOf="@+id/street_title_current_damage"
+                app:layout_constraintTop_toBottomOf="@+id/street_title_current_damage" />
 
             <TextView
-                android:id="@+id/damages_string"
+                android:id="@+id/days_left_string"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/comfortaa"
-                android:text="@string/damage"
+                android:text="@string/days_left"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@+id/show_on_map"
-                app:layout_constraintTop_toBottomOf="@+id/damages_value"
+                app:layout_constraintStart_toEndOf="@+id/see_more_details"
+                app:layout_constraintTop_toBottomOf="@+id/days_left"
                 app:layout_constraintVertical_bias="0.333" />
+
+            <TextView
+                android:id="@+id/details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa"
+                android:text="@string/details"
+                android:textSize="9sp"
+
+                app:layout_constraintBottom_toBottomOf="@+id/see_more_details"
+                app:layout_constraintEnd_toEndOf="@+id/see_more_details"
+                app:layout_constraintStart_toStartOf="@+id/see_more_details"
+                app:layout_constraintTop_toTopOf="@+id/see_more_details"
+                app:layout_constraintVertical_bias="0.100000024" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

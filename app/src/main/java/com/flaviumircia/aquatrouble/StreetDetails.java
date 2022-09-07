@@ -1,12 +1,12 @@
 package com.flaviumircia.aquatrouble;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,10 +26,19 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
     private ImageButton back_arrow;
     private Button add_to_fav;
     private ImageView icon;
+    private final String file="LANGUAGE_PREF";
+
+    private void setLanguage() {
+        LanguageSetter languageSetter=new LanguageSetter();
+        //set the language
+        SharedPreferences sharedPreferences= this.getSharedPreferences(file, Context.MODE_PRIVATE);
+        String language=sharedPreferences.getString("lang",null);
+        languageSetter.setLocale(language,this);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setLanguage();
         setContentView(R.layout.activity_street_details);
         street_title=findViewById(R.id.streetTitleDetails);
         street_number=findViewById(R.id.numbersStreetDetails);
@@ -39,7 +48,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         back_arrow=findViewById(R.id.arrow_back_button);
         affected_agent=findViewById(R.id.affectedAgentDetails);
         icon=findViewById(R.id.sectorIconDetails);
-        add_to_fav=findViewById(R.id.addToFavButton);
+        add_to_fav=findViewById(R.id.showOnMapButton);
 
         int icon_res=getResourceIcon();
         icon.setImageResource(icon_res);

@@ -1,5 +1,6 @@
 package com.flaviumircia.aquatrouble.menufragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.flaviumircia.aquatrouble.settings_pref_activities.BugSpotting;
 import com.flaviumircia.aquatrouble.settings_pref_activities.FeedbackProvider;
 
 public class Settings extends PreferenceFragmentCompat {
+    private final String file="LANGUAGE_PREF";
     private ListPreference theme_switching;
     private Preference bug_spotting;
     private Preference feedback;
@@ -32,9 +34,10 @@ public class Settings extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
         LanguageSetter languageSetter=new LanguageSetter();
-        SharedPreferences sharedPreferences=PreferenceManager.getDefaultSharedPreferences(getActivity());
+        //set the language
+        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file, Context.MODE_PRIVATE);
         String language=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(language,getActivity());
+        languageSetter.setLocale(language,getContext());
     }
 
     @Override

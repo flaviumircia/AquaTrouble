@@ -1,5 +1,6 @@
 package com.flaviumircia.aquatrouble.fragments;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +12,12 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
 
 import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
 
 public class FirstFragment extends Fragment {
-
+    private final String file="LANGUAGE_PREF";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,8 +34,8 @@ public class FirstFragment extends Fragment {
                 {
                     String language = "en";
                     languageSetter.setLocale(language,getContext());
-                    SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getContext());
-
+//                    SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getContext());
+                    SharedPreferences sharedPreferences=getActivity().getSharedPreferences(file, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor=sharedPreferences.edit();
                     editor.putString("lang",language);
                     editor.apply();
@@ -46,7 +46,7 @@ public class FirstFragment extends Fragment {
                     String language="ro-Ro";
                     languageSetter.setLocale(language,getContext());
 //                    SharedPreferences sharedPreferences=getActivity().getSharedPreferences("pref",0);
-                    SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getContext());
+                    SharedPreferences sharedPreferences=getActivity().getSharedPreferences(file, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor=sharedPreferences.edit();
                     editor.putString("lang",language);
                     editor.apply();

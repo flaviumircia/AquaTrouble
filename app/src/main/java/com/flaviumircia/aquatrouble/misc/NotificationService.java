@@ -3,6 +3,7 @@ package com.flaviumircia.aquatrouble.misc;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
@@ -172,8 +173,11 @@ public class NotificationService extends Service {
     private void pushNotif(String title,String content) {
         Intent intent = new Intent(getApplicationContext(), CurrentDamage.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
-
+        PendingIntent pendingIntent;
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.S)
+            pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+        else
+            pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
         NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),"CHANNEL_ID")
                 .setSmallIcon(R.drawable.ic_piggy_bank)
                 .setContentTitle(title)

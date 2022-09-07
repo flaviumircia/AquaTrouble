@@ -13,8 +13,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
 
+import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
 
 /**
@@ -23,7 +23,8 @@ import com.flaviumircia.aquatrouble.R;
  * create an instance of this fragment.
  */
 public class WebPageMap extends Fragment {
-
+    private final String file="LANGUAGE_PREF";
+    private String lang;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,6 +35,8 @@ public class WebPageMap extends Fragment {
     private String mParam2;
 
     public WebPageMap() {
+        //set the language
+
         // Required empty public constructor
     }
 
@@ -62,7 +65,12 @@ public class WebPageMap extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
+        LanguageSetter languageSetter=new LanguageSetter();
+        //set the language
+        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file,Context.MODE_PRIVATE);
+        String lang=sharedPreferences.getString("lang",null);
+        languageSetter.setLocale(lang,getContext());
+        this.lang=lang;
     }
 
 
@@ -90,9 +98,7 @@ public class WebPageMap extends Fragment {
         return val.intValue();
     }
     private void check_theme(WebView myWebView) {
-        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String lang="";
-        lang = sharedPreferences.getString("lang",null);
+
         int nightModeFlags =
                 getActivity().getResources().getConfiguration().uiMode &
                         android.content.res.Configuration.UI_MODE_NIGHT_MASK;
@@ -117,6 +123,7 @@ public class WebPageMap extends Fragment {
                     myWebView.loadUrl("http://18.159.213.37/output_ro.html");
 
                 break;
+            default: myWebView.loadUrl("http://18.159.213.37/output_ro.html");
         }
     }
 }

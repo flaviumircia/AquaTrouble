@@ -152,13 +152,10 @@ public class Favorites extends Fragment implements ThemeModeChecker {
     //TODO: Make Notifications vibrate
     //TODO: Change notifications icon
     //TODO: Add notifications startActivity()
-    //TODO: Customize street details map (it has 2 things)
-    //TODO: Change the cardview (street layouts) and other UI elements
     //TODO: Add notifications (add change to streeet number -> push notif)
     //TODO: Make EULA legal
     //TODO: Add Google admob
     //TODO: Donation link
-    //TODO: Add toast to favorites delete address
     //TODO: Add faq and about
     //TODO: Customize button and layouts in feedback(Both)
     @Override

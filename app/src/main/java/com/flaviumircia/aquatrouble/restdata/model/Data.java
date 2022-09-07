@@ -7,8 +7,9 @@ public class Data{
     private String expected_date,today_date;
     private String affected_agent;
     private int count;
-    private double lat,lng;
+    private double latitude;
 
+    private double longitude;
     public Data(){
 
     }
@@ -25,7 +26,7 @@ public class Data{
         this.address = address;
     }
 
-    public Data(int id, String sector, String address, String neighborhood, String numar,String concatanated_numbers, String affected_agent, String expected_date, String today_date, double lat, double lng, int frequency) {
+    public Data(int id, String sector, String address, String neighborhood, String numar,String concatanated_numbers, String affected_agent, String expected_date, String today_date, double latitude, double longitude, int frequency) {
         this.id = id;
         this.sector = sector;
         this.address = address;
@@ -33,8 +34,8 @@ public class Data{
         this.numar = numar;
         this.expected_date = expected_date;
         this.today_date = today_date;
-        this.lat = lat;
-        this.lng = lng;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.count = frequency;
         this.affected_agent=affected_agent;
         this.concatanated_numbers=concatanated_numbers;
@@ -48,6 +49,22 @@ public class Data{
         this.count = count;
     }
 
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
     public String getNumar() {
         return numar;
@@ -105,21 +122,7 @@ public class Data{
         this.neighborhood = neighborhood;
     }
 
-    public double getLat() {
-        return lat;
-    }
 
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
-    public double getLng() {
-        return lng;
-    }
-
-    public void setLng(double lng) {
-        this.lng = lng;
-    }
 
     public String getConcatanated_numbers() {
         return concatanated_numbers;

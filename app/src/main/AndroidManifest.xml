@@ -28,10 +28,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
-        <activity
-            android:name=".StreetDetailsMap"
-            android:exported="false"
-            android:theme="@style/map_theme"/>
+
         <activity
             android:name=".Search"
             android:exported="false"
@@ -70,6 +67,9 @@
         <activity
             android:name=".MapDetails"
             android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"
+
             android:theme="@style/map_theme" />
 
         <meta-data
@@ -94,6 +94,7 @@
             android:name=".MainMap"
             android:configChanges="locale|orientation"
             android:exported="false"
+            android:windowSoftInputMode="adjustNothing"
             android:hardwareAccelerated="true"
             android:theme="@style/map_theme" />
         <activity

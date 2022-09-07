@@ -8,33 +8,33 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.flaviumircia.aquatrouble.R;
-import com.flaviumircia.aquatrouble.restdata.model.ExtendedData;
 
 public class SectorDataViewHolder extends RecyclerView.ViewHolder {
     private TextView street_title,street_number;
-    private ExtendedData extendedData;
-    private ImageButton imageButton;
+    protected TextView days_until;
+    private ImageButton see_details;
     public SectorDataViewHolder(@NonNull View itemView) {
         super(itemView);
-        street_title=itemView.findViewById(R.id.txtTitle);
-        street_number=itemView.findViewById(R.id.txtContent);
-        imageButton=itemView.findViewById(R.id.seeDetailsArrow);
+        street_title=itemView.findViewById(R.id.street_title_current_damage);
+        street_number=itemView.findViewById(R.id.street_no_current_damage);
+        see_details=itemView.findViewById(R.id.see_more_details);
+        days_until=itemView.findViewById(R.id.days_left);
     }
 
-    public ImageButton getImageButton() {
-        return imageButton;
+    public TextView getDays_until() {
+        return days_until;
     }
 
-    public void setImageButton(ImageButton imageButton) {
-        this.imageButton = imageButton;
+    public void setDays_until(TextView days_until) {
+        this.days_until = days_until;
     }
 
-    public ExtendedData getExtendedData() {
-        return extendedData;
+    public ImageButton getSee_details() {
+        return see_details;
     }
 
-    public void setExtendedData(ExtendedData extendedData) {
-        this.extendedData = extendedData;
+    public void setSee_details(ImageButton see_details) {
+        this.see_details = see_details;
     }
 
     public TextView getStreet_title() {

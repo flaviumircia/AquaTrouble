@@ -54,7 +54,7 @@
     <string name="descrie_ce_imbunatatire_vrei_sa_vezi_in_urmatoarele_versiune_ale_aquatrouble">Describe what feature you want to see in the future versions of AquaTrouble</string>
     <string name="experienta_utilizatorului_este_importanta_pentru_noi_n_te_rog_spune_ne_cum_putem_imbunatatii_aplicatia">User experience is important to us.  Please let us know how we can  improve the app!</string>
     <string name="search_act">Search</string>
-    <string name="search_street_address_n_or_neighborhood">Street address or neighborhood</string>
+    <string name="search_street_address_n_or_neighborhood">Street address</string>
     <string name="filter">Filter</string>
     <string name="search_filter">Search Filter</string>
     <string name="showing_damages_from">Showing damages from:</string>
@@ -70,5 +70,9 @@
     <string name="remaining_days_until_fix">Days until fix</string>
     <string name="address_was_added">Address has been added to Favorites!</string>
     <string name="delete_this_address">You have deleted this address from favorites!</string>
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="show_on_map">Show on map</string>
+    <string name="days_left">Days left</string>
+    <string name="details">Details</string>
 
 </resources>

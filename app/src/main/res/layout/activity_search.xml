@@ -26,11 +26,10 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
-        style="@style/search_view_query"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:background="@drawable/outline_rectangle"
         android:focusable="true"
+        style="@style/custom_search_view_back"
         android:focusableInTouchMode="true"
         android:scrollbars="horizontal"
         app:iconifiedByDefault="false"

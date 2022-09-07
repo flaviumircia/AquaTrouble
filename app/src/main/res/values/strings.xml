@@ -81,7 +81,7 @@
     <string name="descrie_ce_imbunatatire_vrei_sa_vezi_in_urmatoarele_versiune_ale_aquatrouble">Descrie ce imbunatatire vrei sa vezi in urmatoarele versiune ale AquaTrouble</string>
     <string name="experienta_utilizatorului_este_importanta_pentru_noi_n_te_rog_spune_ne_cum_putem_imbunatatii_aplicatia">Experienta utilizatorului este importanta pentru noi! \n Te rog spune-ne cum putem imbunatatii aplicatia!</string>
     <string name="search_act">Căutare</string>
-    <string name="search_street_address_n_or_neighborhood">Numele străzii sau al unui cartier</string>
+    <string name="search_street_address_n_or_neighborhood">Numele străzii</string>
     <string name="filter">Filtru</string>
     <string name="search_filter">Filtrul căutării</string>
     <string name="showing_damages_from">Arată avarii din:</string>
@@ -97,4 +97,8 @@
     <string name="remaining_days_until_fix">Zile rămase până la reparare</string>
     <string name="address_was_added">Adresa a fost adaugata in sectiunea de favorite!</string>
     <string name="delete_this_address">Ai șters această adresă de la favorite!</string>
+    <string name="add_to_favorites">Adaugă la favorite</string>
+    <string name="show_on_map">Arată pe hartă</string>
+    <string name="days_left">Zile rămase</string>
+    <string name="details">Detalii</string>
 </resources>

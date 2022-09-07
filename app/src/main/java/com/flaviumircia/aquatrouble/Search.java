@@ -1,6 +1,7 @@
 package com.flaviumircia.aquatrouble;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -9,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,9 +38,19 @@ public class Search extends AppCompatActivity {
     private SectorDataSearchApi sectorDataApi;
     private DamageDataApi damageDataApi;
     private Retrofit retrofit;
+    private final String file="LANGUAGE_PREF";
+
+    private void setLanguage() {
+        LanguageSetter languageSetter=new LanguageSetter();
+        //set the language
+        SharedPreferences sharedPreferences= this.getSharedPreferences(file, Context.MODE_PRIVATE);
+        String language=sharedPreferences.getString("lang",null);
+        languageSetter.setLocale(language,this);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setLanguage();
         setContentView(R.layout.activity_search);
         arrow_back=findViewById(R.id.back_button_search);
         searchView=findViewById(R.id.searchView);
@@ -96,15 +108,21 @@ public class Search extends AppCompatActivity {
     private void displayData(List<Data> data) {
         SearchDataAdapter sectorDataAdapter=new SearchDataAdapter(this,data);
         recyclerView.setAdapter(sectorDataAdapter);
+        recyclerView.setAlpha(0.0f);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                recyclerView.setAlpha(1.0f);
                 sectorDataAdapter.filter(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if(newText.equals(""))
+                    recyclerView.setAlpha(0.0f);
+                else
+                    recyclerView.setAlpha(1.0f);
                 sectorDataAdapter.filter(newText);
                 return true;
             }
@@ -116,6 +134,12 @@ public class Search extends AppCompatActivity {
 
         super.onBackPressed();
         searchView.clearFocus();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //TODO: save searchtext here when rotate
     }
 
     @Override

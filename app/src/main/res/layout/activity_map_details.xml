@@ -5,23 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MapDetails"
->
+    android:fitsSystemWindows="true"
+    android:layout_centerVertical="true"   >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/street_recyclerview"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchView_map"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/neighborhoodText"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:layout_constraintVertical_bias="0.0">
 
         <org.osmdroid.views.MapView
@@ -36,14 +36,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/total_text"
+        app:layout_constraintTop_toBottomOf="@+id/searchView_map"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -51,12 +51,13 @@
         android:id="@+id/neighborhoodText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
         android:fontFamily="@font/comfortaa"
         android:text="TextView"
+        android:layout_marginTop="10dp"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/search_button_map"
+        app:layout_constraintEnd_toStartOf="@+id/total_text"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toEndOf="@+id/backArrowMap"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -69,8 +70,6 @@
         android:layout_marginStart="20dp"
         android:background="@color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/neighborhoodText"
-        app:layout_constraintEnd_toStartOf="@+id/search_button_map"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/neighborhoodText"
         app:layout_constraintVertical_bias="0.5"
@@ -80,30 +79,45 @@
         android:id="@+id/total_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:fontFamily="@font/comfortaa"
-        android:text="Total"
-        android:textSize="22sp"
+        android:text="XXX"
+        android:textSize="21sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/cardView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/neighborhoodText"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageButton
-        android:id="@+id/search_button_map"
-        style="@style/custom_image_button"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView_map"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        style="@style/custom_search_view_back"
+        android:layout_marginTop="100dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollbars="horizontal"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.21" />
+
+    <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:background="@color/transparent"
+        android:fontFamily="@font/comfortaa"
+        android:text="@string/damage"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/neighborhoodText"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/neighborhoodText"
-        app:layout_constraintVertical_bias="0.461"
-        app:srcCompat="@drawable/ic_group_17" />
+        app:layout_constraintTop_toBottomOf="@+id/total_text"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

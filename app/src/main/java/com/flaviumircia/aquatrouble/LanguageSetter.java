@@ -18,9 +18,9 @@ public class LanguageSetter {
 
         //Initialize config
         Configuration configuration= resource.getConfiguration();
-
-
-        configuration.locale=new Locale(language);
+        if(language==null)
+            language="eng";
+        configuration.setLocale(new Locale(language.toLowerCase(Locale.ROOT)));
         resource.updateConfiguration(configuration,metrics);
     }
 

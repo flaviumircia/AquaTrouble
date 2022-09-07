@@ -1,5 +1,6 @@
 package com.flaviumircia.aquatrouble.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -31,18 +32,18 @@ import com.flaviumircia.aquatrouble.database.Database;
 import com.flaviumircia.aquatrouble.database.UserModel;
 
 public class SecondFragment extends Fragment {
+    private final String file="LANGUAGE_PREF";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_two, container, false);
 
-        SharedPreferences sharedPreferences=getActivity().getSharedPreferences("pref",0);
-        String language=sharedPreferences.getString("lang",null);
-
         LanguageSetter languageSetter=new LanguageSetter();
+        //set the language
+        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file, Context.MODE_PRIVATE);
+        String language=sharedPreferences.getString("lang",null);
         languageSetter.setLocale(language,getContext());
-
         ImageButton continueButton = v.findViewById(R.id.continueButton);
         Animation ranim = (Animation) AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
 

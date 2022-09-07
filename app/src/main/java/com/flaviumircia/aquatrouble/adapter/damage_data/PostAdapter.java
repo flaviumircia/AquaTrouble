@@ -2,8 +2,10 @@ package com.flaviumircia.aquatrouble.adapter.damage_data;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,10 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.flaviumircia.aquatrouble.R;
-import com.flaviumircia.aquatrouble.StreetDetailsMap;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 
+import org.osmdroid.api.IMapController;
+import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -27,7 +31,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
     private List<Data> postData;
     private List<Data> postDataCopy;
     private MapView mapview;
+    private View.OnClickListener onClickListener=new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
 
+        }
+    };
     public PostAdapter(Context context, List<Data> postData) {
         this.context = context;
         this.postData = postData;
@@ -38,7 +47,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
     public PostAdapter(Context context, List<Data> postData, MapView mapview) {
         this.context = context;
         this.postData = postData;
+        this.postDataCopy=new ArrayList<>();
+        this.postDataCopy.addAll(postData);
         this.mapview=mapview;
+
     }
 
     @NonNull
@@ -48,25 +60,42 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
         return new PostViewHolder(view);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         holder.getStreet_address().setText(String.valueOf(postData.get(position).getAddress()));
-        holder.getStreet_numbers().setText(context.getString(R.string.frequency)+" " + String.valueOf(postData.get(position).getCount())+" "+ context.getString(R.string.times));
-        Intent myIntent=new Intent(context, StreetDetailsMap.class);
-        int resource_id=0;
-        resource_id=getResourceId(postData.get(position).getSector());
-        myIntent.putExtra("sector",postData.get(position).getSector());
-        myIntent.putExtra("street_title",postData.get(position).getAddress());
-        myIntent.putExtra("street_number",postData.get(position).getConcatanated_numbers());
-        myIntent.putExtra("frequency",postData.get(position).getCount());
-        myIntent.putExtra("affected_agent",postData.get(position).getAffected_agent());
-        myIntent.putExtra("lat",postData.get(position).getLat());
-        myIntent.putExtra("lng",postData.get(position).getLng());
-        myIntent.putExtra("icon_id",resource_id);
+        holder.getStreet_numbers().setText(context.getString(R.string.street_numbers)+": "+String.valueOf(postData.get(position).getConcatanated_numbers()));
+        holder.getDamages().setText(String.valueOf(postData.get(position).getCount()));
+        holder.getSee_details().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    view.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#3EBE30")));
 
-        holder.getSee_details().setOnClickListener(view1 ->{
-            context.startActivity(myIntent);
+                }else if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    view.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.light_blue)));
+                    view.performClick();
+
+                }else if(motionEvent.getAction()==MotionEvent.ACTION_CANCEL){
+                    view.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.light_blue)));
+
+                }
+            return true;
+            }
         });
+        holder.getSee_details().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IMapController mapController=mapview.getController();
+                GeoPoint street_point=new GeoPoint(postData.get(holder.getAdapterPosition()).getLatitude(),postData.get(holder.getAdapterPosition()).getLongitude());
+                mapController.setCenter(street_point);
+                Marker marker=new Marker(mapview);
+                marker.setPosition(street_point);
+                mapview.getOverlays().add(marker);
+            }
+        });
+
+
     }
 
     @Override

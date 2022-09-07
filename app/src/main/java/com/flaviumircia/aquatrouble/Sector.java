@@ -1,5 +1,7 @@
 package com.flaviumircia.aquatrouble;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -31,12 +33,13 @@ public class Sector extends AppCompatActivity implements ThemeModeChecker {
     private CompositeDisposable compositeDisposable;
     private SectorDataApi sectorDataApi;
     private RecyclerView recyclerView;
+    private final String file="LANGUAGE_PREF";
     private Retrofit retrofit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setLanguage();
         setContentView(R.layout.activity_sector);
-
         //instantiate views
         TextView textView=findViewById(R.id.textView);
         icon=findViewById(R.id.sectorIcon);
@@ -59,6 +62,14 @@ public class Sector extends AppCompatActivity implements ThemeModeChecker {
         int sector_number=getTheSectorNumber(sector);
         fetchData(sector_number);
 
+    }
+
+    private void setLanguage() {
+        LanguageSetter languageSetter=new LanguageSetter();
+        //set the language
+        SharedPreferences sharedPreferences= this.getSharedPreferences(file, Context.MODE_PRIVATE);
+        String language=sharedPreferences.getString("lang",null);
+        languageSetter.setLocale(language,this);
     }
 
     private void fetchData(int sector_number) {

@@ -5,37 +5,39 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.flaviumircia.aquatrouble.R;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
-    private TextView street_address,street_numbers;
-    private ImageButton see_details;
-    private ConstraintLayout cardViewBackground;
+    private TextView street_address;
+    private TextView street_numbers;
+
+
+    private TextView damages;
+    private AppCompatImageButton see_details;
 
     public PostViewHolder(@NonNull View itemView) {
         super(itemView);
-        street_address=itemView.findViewById(R.id.txtTitle);
-        street_numbers=itemView.findViewById(R.id.txtContent);
-        see_details=itemView.findViewById(R.id.seeDetailsArrow);
-        cardViewBackground=itemView.findViewById(R.id.constraintLayout);
+        street_address=itemView.findViewById(R.id.street_title);
+        damages=itemView.findViewById(R.id.damages_value);
+        see_details=itemView.findViewById(R.id.show_on_map);
+        street_numbers=itemView.findViewById(R.id.street_no_details_adapter);
     }
 
+    public TextView getDamages() {
+        return damages;
+    }
+
+    public void setDamages(TextView damages) {
+        this.damages = damages;
+    }
     public ImageButton getSee_details() {
         return see_details;
     }
 
-
-    public ConstraintLayout getCardViewBackground() {
-        return cardViewBackground;
-    }
-
-    public void setCardViewBackground(ConstraintLayout cardViewBackground) {
-        this.cardViewBackground = cardViewBackground;
-    }
-    public void setSee_details(ImageButton see_details) {
+    public void setSee_details(AppCompatImageButton see_details) {
         this.see_details = see_details;
     }
 

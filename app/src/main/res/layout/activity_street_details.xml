@@ -14,7 +14,6 @@
         android:text="Sector x"
         android:fontFamily="@font/comfortaa"
         android:textSize="22sp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -35,85 +34,6 @@
         app:layout_constraintTop_toBottomOf="@+id/sectorTitle"
         app:layout_constraintVertical_bias="0.022" />
 
-    <TextView
-        android:id="@+id/streetTitleDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/comfortaa"
-        android:text="Strada Colentina"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sectorIconDetails"
-        app:layout_constraintVertical_bias="0.055" />
-
-    <TextView
-        android:id="@+id/numbersStreetDetails"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/comfortaa_light"
-        android:text="Numbers: A,B,C"
-        android:layout_marginEnd="20dp"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/streetTitleDetails"
-        app:layout_constraintTop_toBottomOf="@+id/streetTitleDetails"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/affectedAgentDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/comfortaa_light"
-        android:text="Affected Agent: ACC"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/streetTitleDetails"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/streetTitleDetails"
-        app:layout_constraintTop_toBottomOf="@+id/numbersStreetDetails"
-        app:layout_constraintVertical_bias="0.003" />
-
-    <TextView
-        android:id="@+id/frequencyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/comfortaa_light"
-        android:text="Expected fix date: dd.mm.yyyy"
-        android:textSize="13sp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/streetTitleDetails"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/streetTitleDetails"
-        app:layout_constraintTop_toBottomOf="@+id/affectedAgentDetails"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/daysCounter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/comfortaa_light"
-        android:text="Days until is fixed: xx days"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/frequencyText"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/frequencyText"
-        app:layout_constraintTop_toBottomOf="@+id/frequencyText"
-        app:layout_constraintVertical_bias="0.0" />
-
     <ImageButton
         android:id="@+id/arrow_back_button"
         android:layout_width="wrap_content"
@@ -128,25 +48,121 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sectorTitle" />
 
-    <Button
-        android:id="@+id/addToFavButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:drawableLeft="@drawable/ic_icon_favorite_settings"
-        android:fontFamily="@font/comfortaa"
-        android:text="Add to favorites"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textSize="12sp"
-        android:backgroundTint="@color/light_blue"
-        android:elevation="10dp"
-        android:background="@drawable/rectangle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/sectorIconDetails"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/sectorIconDetails"
-        app:layout_constraintTop_toBottomOf="@+id/daysCounter"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sectorIconDetails">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/showOnMapButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="@color/light_blue"
+                android:drawableLeft="@drawable/ic_icon_favorite_settings"
+                android:elevation="10dp"
+                android:fontFamily="@font/comfortaa"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/add_to_favorites"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/daysCounter"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/affectedAgentDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/comfortaa_light"
+                android:text="Affected Agent: ACC"
+                android:textSize="13sp"
+                android:layout_marginEnd="20dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.796"
+                app:layout_constraintStart_toStartOf="@+id/numbersStreetDetails"
+                app:layout_constraintTop_toBottomOf="@+id/numbersStreetDetails"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/daysCounter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/comfortaa_light"
+                android:text="Days until is fixed: xx days"
+                android:textSize="13sp"
+                android:layout_marginEnd="20dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.92"
+                app:layout_constraintStart_toStartOf="@+id/frequencyText"
+                app:layout_constraintTop_toBottomOf="@+id/frequencyText"
+                app:layout_constraintVertical_bias="0.101" />
+
+            <TextView
+                android:id="@+id/frequencyText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/comfortaa_light"
+                android:text="Expected fix date: dd.mm.yyyy"
+                android:textSize="13sp"
+                android:layout_marginEnd="20dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/affectedAgentDetails"
+                app:layout_constraintTop_toBottomOf="@+id/affectedAgentDetails"
+                app:layout_constraintVertical_bias="0.07" />
+
+            <TextView
+                android:id="@+id/numbersStreetDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/comfortaa_light"
+                android:text="Numbers: A,B,C"
+                android:textSize="13sp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/streetTitleDetails"
+                app:layout_constraintTop_toBottomOf="@+id/streetTitleDetails"
+                app:layout_constraintVertical_bias="0.032" />
+
+            <TextView
+                android:id="@+id/streetTitleDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa"
+                android:text="Strada Colentina"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.281"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.124" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

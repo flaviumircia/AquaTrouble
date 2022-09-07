@@ -82,8 +82,8 @@ public class SearchDataAdapter extends RecyclerView.Adapter<SearchDataViewHolder
         myIntent.putExtra("expected_date",sectorData.get(position).getExpected_date());
         myIntent.putExtra("affected_agent",sectorData.get(position).getAffected_agent());
         myIntent.putExtra("remaining_days",days_until_finished);
-        myIntent.putExtra("lat",sectorData.get(position).getLat());
-        myIntent.putExtra("lng",sectorData.get(position).getLng());
+        myIntent.putExtra("lat",sectorData.get(position).getLongitude());
+        myIntent.putExtra("lng",sectorData.get(position).getLatitude());
         myIntent.putExtra("icon_id",resource_id);
 
         holder.getBackground().setOnClickListener(view -> {

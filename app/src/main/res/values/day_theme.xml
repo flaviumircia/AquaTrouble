@@ -40,14 +40,7 @@
         <item name="dotsColor">@color/teal_custom</item>
         <item name="dotsStrokeColor">@color/dark_foreground</item>
     </style>
-    <style name="search_view_query" parent="Widget.AppCompat.SearchView">
-        <item name="fontFamily">@font/comfortaa_light</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColorHint">@color/background_white</item>
-        <item name="android:textColorPrimary">@color/background_white</item>
-        <item name="colorOnSecondary">@color/background_white</item>
-        <item name="tint">@color/background_white</item>
-    </style>
+
     <style name="custom_menu_nav_bar" parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/comfortaa</item>
         <item name="android:textSize">10sp</item>
@@ -90,5 +83,16 @@
     </style>
     <style name="custom_color_imageview">
         <item name="tint">@color/background_white</item>
+    </style>
+    <style name="custom_cardView">
+        <item name="android:backgroundTint">@color/background_contrast</item>
+    </style>
+    <style name="custom_button_details" parent="Widget.AppCompat.Button">
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+
+    </style>
+    <style name="custom_search_view_back" parent="Widget.AppCompat.SearchView">
+        <item name="android:background">@drawable/outline_rectangle_night</item>
     </style>
 </resources>

@@ -1,16 +1,21 @@
 package com.flaviumircia.aquatrouble;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,12 +60,21 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
     private DamageDataApi myApi;
     private ZoomKmlStyler styler;
     private RecyclerView recyclerView;
+    private SearchView searchView;
     private CompositeDisposable compositeDisposable=new CompositeDisposable();
+    private final String file="LANGUAGE_PREF";
 
+    private void setLanguage() {
+        LanguageSetter languageSetter=new LanguageSetter();
+        //set the language
+        SharedPreferences sharedPreferences= this.getSharedPreferences(file, Context.MODE_PRIVATE);
+        String language=sharedPreferences.getString("lang",null);
+        languageSetter.setLocale(language,this);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setLanguage();
         neighborhood=selectedNeighborhood();
 
         setContentView(R.layout.activity_map_details);
@@ -69,20 +83,22 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         myApi=retrofit.create(DamageDataApi.class);
         recyclerView=findViewById(R.id.street_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         title=findViewById(R.id.neighborhoodText);
         title.setText(neighborhood);
         total_text=findViewById(R.id.total_text);
         back_arrow=findViewById(R.id.backArrowMap);
         map = findViewById(R.id.zoomedMap);
-        search_button=findViewById(R.id.search_button_map);
+        searchView=findViewById(R.id.searchView_map);
+//        search_button=findViewById(R.id.search_button_map);
         KmlDocument kmlDocument=new KmlDocument();
         String pathToFile=return_the_path("codebeautify.kml");
         kmlDocument.parseKMLFile(new File(pathToFile));
+
         //map settings
 
         fetchData(neighborhood,map);
-        onClick(back_arrow,search_button);
+
+        onClick(back_arrow);
         setTheMap(kmlDocument);
 
         //get the kml document from the assets folder
@@ -91,14 +107,14 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
 
     }
 
-    private void onClick(ImageButton back_arrow, ImageButton search_button) {
+    private void onClick(ImageButton back_arrow) {
         this.back_arrow.setOnClickListener(view -> MapDetails.super.finish());
-        search_button.setOnClickListener(view_search->{
-            Intent myIntent=new Intent(this, Search.class);
-            myIntent.putExtra("sector",false);
-            myIntent.putExtra("neighborhood",neighborhood);
-            startActivity(myIntent);
-        });
+//        search_button.setOnClickListener(view_search->{
+//            Intent myIntent=new Intent(this, Search.class);
+//            myIntent.putExtra("sector",false);
+//            myIntent.putExtra("neighborhood",neighborhood);
+//            startActivity(myIntent);
+//        });
     }
 
     private void fetchData(String neighborhood, MapView map) {
@@ -112,8 +128,21 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
     private void displayData(List<Data> data, MapView map) {
         PostAdapter adapter=new PostAdapter(this,data,map);
         recyclerView.setAdapter(adapter);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.filter(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.filter(newText);
+                return true;
+            }
+        });
         ExtendedData extendedPostAdapter=new ExtendedData(data);
-        total_text.setText("Total: "+extendedPostAdapter.getTheTotalDamage() +" "+this.getString(R.string.damage));
+        total_text.setText(String.valueOf(extendedPostAdapter.getTheTotalDamage()));
 
 
     }
@@ -220,21 +249,42 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         setPolygonMarkerTitle(polygonCustomTitle,nightModeFlags);
 
         map.getOverlays().add(kmlOverlay);
-
         //reload the map with the overlay
         map.invalidate();
     }
     public void onResume(){
         super.onResume();
+        Log.d("MAP", "onResume: ");
         //this will refresh the osmdroid configuration on resuming.
         //if you make changes to the configuration, use
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("TAG", "onActivityResult: ");
+        if(requestCode==0 && resultCode==Activity.RESULT_OK && data!=null){
+            double latitude=data.getDoubleExtra("latitude",0);
+            double longitude=data.getDoubleExtra("longitude",0);
+            IMapController mapController=map.getController();
+
+            GeoPoint geoPoint=new GeoPoint(latitude,longitude);
+            Marker marker=new Marker(map);
+            marker.setPosition(geoPoint);
+            marker.setIcon(getResources().getDrawable(R.drawable.ic_location));
+            mapController.setCenter(geoPoint);
+            map.getOverlays().add(marker);
+        }
+    }
+
     public void onPause(){
         super.onPause();
+        Log.d("MAP", "onPause: ");
+
         //this will refresh the osmdroid configuration on resuming.
         //if you make changes to the configuration, use
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

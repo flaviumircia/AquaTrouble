@@ -1,6 +1,7 @@
 package com.flaviumircia.aquatrouble.menufragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,16 +78,7 @@ public class Home extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
-        View v=inflater.inflate(R.layout.fragment_home,container,false);
-        aSwitch=v.findViewById(R.id.switchHeat);
+        aSwitch=view.findViewById(R.id.switchHeat);
         aSwitch.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -108,7 +100,7 @@ public class Home extends Fragment {
             map_status=savedInstanceState.getInt("map_status");
 
             if(map_status==R.id.on_heat)
-            {
+            {//TODO: Bug first time rotating on webpagemap fragment's alpha =0.0f ?? (why)
                 replaceFragment(new WebPageMap());
             }
             else if(map_status==R.id.off_heat)
@@ -120,10 +112,15 @@ public class Home extends Fragment {
         {
             map_status=R.id.off_heat;
             replaceFragment(new OsmdroidMap());}
-        return v;
     }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
+        // Inflate the layout for this fragment
 
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
 
     private void replaceFragment(Fragment fragment)
     {

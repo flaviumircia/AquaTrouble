@@ -1,5 +1,6 @@
 package com.flaviumircia.aquatrouble;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceManager;
 
 import com.flaviumircia.aquatrouble.menufragments.CurrentDamage;
 import com.flaviumircia.aquatrouble.menufragments.Favorites;
@@ -19,7 +19,7 @@ import com.flaviumircia.aquatrouble.misc.NotificationService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainMap extends AppCompatActivity {
-
+    private final String file="LANGUAGE_PREF";
     private int position_index;
     private BottomNavigationView bottomNavigationView;
 
@@ -28,7 +28,8 @@ public class MainMap extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         LanguageSetter languageSetter=new LanguageSetter();
         //set the language
-        SharedPreferences sharedPreferences=PreferenceManager.getDefaultSharedPreferences(this);
+        //set the language
+        SharedPreferences sharedPreferences= this.getSharedPreferences(file, Context.MODE_PRIVATE);
         String language=sharedPreferences.getString("lang",null);
         languageSetter.setLocale(language,this);
         setContentView(R.layout.activity_map);

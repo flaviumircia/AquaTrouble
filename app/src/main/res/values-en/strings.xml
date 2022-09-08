@@ -84,5 +84,6 @@
     <string name="language">Language</string>
     <string name="Version">Version</string>
     <string name="copyright_2022_flaviu_mircia_n_all_rights_reserved">© Copyright 2022, Flaviu Mircia.  All rights reserved!</string>
+    <string name="close">Close</string>
 
 </resources>

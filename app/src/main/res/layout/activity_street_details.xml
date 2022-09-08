@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="@color/light_blue"
-                android:drawableLeft="@drawable/ic_icon_favorite_settings"
+                style="@style/custom_button_favorites"
                 android:elevation="10dp"
                 android:fontFamily="@font/comfortaa"
                 android:paddingStart="10dp"

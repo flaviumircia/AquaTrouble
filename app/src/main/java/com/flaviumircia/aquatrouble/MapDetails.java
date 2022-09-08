@@ -186,8 +186,8 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         if(savedBounds!=null)
         {
                 bounds[0]=savedBounds.getDouble("north")+offset;
-                bounds[1]= savedBounds.getDouble("south")+offset;
-                bounds[2]=savedBounds.getDouble("west")+offset;
+                bounds[1]= savedBounds.getDouble("south")-offset;
+                bounds[2]=savedBounds.getDouble("west")-offset;
                 bounds[3]=savedBounds.getDouble("east")+offset;
         }
         return bounds;
@@ -205,6 +205,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         GeoPoint startPoint=centerOf();
         map.setTilesScaledToDpi(true);
         //custom styler
+//        map.setTilesScaleFactor(1.2f);
 
         styler = new ZoomKmlStyler();
 
@@ -215,7 +216,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         //map controller for setting the zoom on the map
-        mapController.setZoom(16.00);
+        mapController.setZoom(14.00);
 
         //set the center of the map
         mapController.setCenter(startPoint);
@@ -223,7 +224,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         //hide the zoom in/out buttons of the map
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         map.setMaxZoomLevel(22.00);
-        map.setMinZoomLevel(16.00);
+        map.setMinZoomLevel(14.00);
 
         //set the pinch zoom
         map.setMultiTouchControls(true);
@@ -235,7 +236,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         setCustomTheme(window,nightModeFlags);
 
         //set scrollable limits
-        double [] bounds=getBounds(0);
+        double [] bounds=getBounds(0.005);
         map.setScrollableAreaLimitLatitude(bounds[0],bounds[1],1);
         map.setScrollableAreaLimitLongitude(bounds[2],bounds[3],1);
 

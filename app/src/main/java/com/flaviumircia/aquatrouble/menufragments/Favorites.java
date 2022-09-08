@@ -146,7 +146,6 @@ public class Favorites extends Fragment implements ThemeModeChecker {
             }
         }
     }
-    //TODO: Change map marker icon and window
     //TODO: Make EULA legal
     //TODO: Add Google admob
     //TODO: Donation link

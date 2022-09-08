@@ -21,6 +21,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoritesViewHolder> {
     private Context context;
     private List<NotificationsModel> list_of_model;
     private boolean state;
+    private final String file="LANGUAGE_PREF";
     public FavoriteAdapter(Context context, List<NotificationsModel> list_of_model) {
         this.context = context;
         this.list_of_model = list_of_model;
@@ -37,7 +38,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoritesViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull FavoritesViewHolder holder, int position) {
         holder.getStreet_address().setText(String.valueOf(list_of_model.get(position).getAddress()));
-        holder.getStreet_no().setText(context.getApplicationContext().getString(R.string.street_numbers)+": "+list_of_model.get(position).getStreet_no());
+        holder.getStreet_no().setText(new StringBuilder().append(context.getString(R.string.street_numbers)).append(": ").append(list_of_model.get(holder.getAdapterPosition()).getStreet_no()).toString());
         int nightModeFlags=context.getResources().getConfiguration().uiMode &
                 android.content.res.Configuration.UI_MODE_NIGHT_MASK;
         setTint(nightModeFlags,holder);

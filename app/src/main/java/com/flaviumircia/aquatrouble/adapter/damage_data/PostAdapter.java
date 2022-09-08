@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.flaviumircia.aquatrouble.R;
+import com.flaviumircia.aquatrouble.misc.CustomInfoWindow;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 
 import org.osmdroid.api.IMapController;
@@ -90,6 +92,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
                 GeoPoint street_point=new GeoPoint(postData.get(holder.getAdapterPosition()).getLatitude(),postData.get(holder.getAdapterPosition()).getLongitude());
                 mapController.setCenter(street_point);
                 Marker marker=new Marker(mapview);
+                int system_mode=context.getResources().getConfiguration().uiMode &
+                        android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+                if(system_mode== android.content.res.Configuration.UI_MODE_NIGHT_YES)
+                    marker.setIcon(AppCompatResources.getDrawable(context,R.drawable.ic_map_pin_icon_nonstop));
+                else
+                    marker.setIcon(AppCompatResources.getDrawable(context,R.drawable.ic_map_pin_icon_dark_nonstop));
+                View view1=LayoutInflater.from(context).inflate(R.layout.info_window_layout,null);
+                CustomInfoWindow infoWindow=new CustomInfoWindow(view1,mapview,postData.get(holder.getAdapterPosition()).getAddress(),postData.get(holder.getAdapterPosition()).getConcatanated_numbers());
+                marker.setInfoWindow(infoWindow);
+
+                    marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
                 marker.setPosition(street_point);
                 mapview.getOverlays().add(marker);
             }

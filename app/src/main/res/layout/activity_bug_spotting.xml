@@ -8,7 +8,7 @@
     tools:context=".settings_pref_activities.BugSpotting">
 
     <TextView
-        android:id="@+id/welcome_bug_spotting_text"
+        android:id="@+id/activity_title_faq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
@@ -33,9 +33,9 @@
         android:text="@string/let_us_know_about_it"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/welcome_bug_spotting_text"
+        app:layout_constraintEnd_toEndOf="@+id/activity_title_faq"
         app:layout_constraintHorizontal_bias="0.457"
-        app:layout_constraintStart_toStartOf="@+id/welcome_bug_spotting_text"
+        app:layout_constraintStart_toStartOf="@+id/activity_title_faq"
         app:layout_constraintTop_toBottomOf="@+id/back_button_fbug"
         app:layout_constraintVertical_bias="0.0" />
 

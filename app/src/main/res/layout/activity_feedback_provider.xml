@@ -9,7 +9,7 @@
     tools:context=".settings_pref_activities.BugSpotting">
 
     <TextView
-        android:id="@+id/welcome_bug_spotting_text"
+        android:id="@+id/activity_title_faq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/comfortaa"

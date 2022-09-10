@@ -87,8 +87,6 @@ public class Settings extends PreferenceFragmentCompat {
         notification_status=(ListPreference)getPreferenceManager().findPreference("notifications");
         language_pref=(ListPreference) getPreferenceManager().findPreference("language_settings");
         faq=getPreferenceScreen().findPreference("faq");
-        assert faq != null;
-        faq.setOnPreferenceClickListener(preference -> {startActivity(new Intent(requireActivity(), FaqActivity.class));return true;});
         setTheLanguage(language_pref);
         areNotifsOn(notification_status);
         theme_switch(theme_switching);
@@ -124,6 +122,7 @@ public class Settings extends PreferenceFragmentCompat {
     }
 
     private void onClickMethods(Preference bug_spotting, Preference feedback,Preference tos,Preference about,Preference support) {
+        faq.setOnPreferenceClickListener(preference -> {startActivity(new Intent(requireActivity(), FaqActivity.class));return true;});
 
         bug_spotting.setOnPreferenceClickListener(preference -> {
             startActivity(new Intent(getActivity(), BugSpotting.class));

@@ -21,6 +21,7 @@
         <item>dark</item>
         <item>light</item>
     </string-array>
+
     <string-array name="language">
         <item>Română</item>
         <item>English</item>
@@ -29,4 +30,5 @@
         <item>ro-Ro</item>
         <item>en</item>
     </string-array>
+
 </resources>

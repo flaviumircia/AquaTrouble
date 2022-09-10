@@ -1,5 +1,7 @@
 package com.flaviumircia.aquatrouble.menufragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.adapter.favorites_adapter.FavoriteAdapter;
 import com.flaviumircia.aquatrouble.adapter.favorites_adapter.FavoritesViewHolder;
@@ -25,6 +28,9 @@ import com.flaviumircia.aquatrouble.database.DbExists;
 import com.flaviumircia.aquatrouble.database.NotificationsModel;
 import com.flaviumircia.aquatrouble.misc.CurrentTime;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.huawei.hms.ads.AdParam;
+import com.huawei.hms.ads.BannerAdSize;
+import com.huawei.hms.ads.banner.BannerView;
 
 import java.util.List;
 
@@ -38,8 +44,9 @@ import io.reactivex.schedulers.Schedulers;
  * create an instance of this fragment.
  */
 public class Favorites extends Fragment implements ThemeModeChecker {
-
+    private final String file="LANGUAGE_PREF";
     private Database database;
+    private BannerView bannerView;
     private CompositeDisposable compositeDisposable;
     private DaoClass daoClass;
     private RecyclerView recyclerView;
@@ -55,6 +62,7 @@ public class Favorites extends Fragment implements ThemeModeChecker {
     int nightModeFlags;
 
     public Favorites() {
+
         // Required empty public constructor
     }
 
@@ -83,6 +91,11 @@ public class Favorites extends Fragment implements ThemeModeChecker {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        LanguageSetter languageSetter=new LanguageSetter();
+        //set the language
+        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file, Context.MODE_PRIVATE);
+        String language=sharedPreferences.getString("lang",null);
+        languageSetter.setLocale(language,getContext());
 
     }
 
@@ -90,7 +103,17 @@ public class Favorites extends Fragment implements ThemeModeChecker {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView=view.findViewById(R.id.favorites_recyclerView);
+        bannerView=view.findViewById(R.id.bannerView_favorites);
+        bannerViewSettings();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    private void bannerViewSettings() {
+        bannerView.setAdId("testw6vs28auh3");
+        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
+        bannerView.setBannerRefresh(60);
+        AdParam adParam=new AdParam.Builder().build();
+        bannerView.loadAd(adParam);
     }
 
     @Override
@@ -146,12 +169,10 @@ public class Favorites extends Fragment implements ThemeModeChecker {
             }
         }
     }
-    //TODO: Change map marker icon and window
     //TODO: Make EULA legal
-    //TODO: Add Google admob
-    //TODO: Donation link
+    //TODO: Add Google admob/Huawei ad mob
+    //TODO: Rotate bug at home
     //TODO: Add faq
-    //TODO: Add recaptcha to feedback and bug spotting
     @Override
     public void setCustomTheme(Window window, int system_mode) {
         switch (system_mode) {

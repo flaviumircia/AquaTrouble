@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MapDetails"
+    xmlns:hwads="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:layout_centerVertical="true"   >
 
@@ -67,12 +68,12 @@
         style="@style/custom_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:background="@color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/neighborhoodText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/neighborhoodText"
-        app:layout_constraintVertical_bias="0.5"
         app:srcCompat="@drawable/arrow_back" />
 
     <TextView
@@ -120,4 +121,16 @@
         app:layout_constraintTop_toBottomOf="@+id/total_text"
         app:layout_constraintVertical_bias="0.0" />
 
+    <com.huawei.hms.ads.banner.BannerView
+        android:id="@+id/banner_view_map_details"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/street_recyclerview"
+        app:layout_constraintVertical_bias="0.86"
+        hwads:adId="testw6vs28auh3"
+        hwads:bannerSize="BANNER_SIZE_360_50" />
 </androidx.constraintlayout.widget.ConstraintLayout>

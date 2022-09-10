@@ -29,6 +29,9 @@ import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.retrofit.DamageDataApi;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.huawei.hms.ads.AdParam;
+import com.huawei.hms.ads.BannerAdSize;
+import com.huawei.hms.ads.banner.BannerView;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.kml.KmlDocument;
@@ -61,6 +64,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
     private ZoomKmlStyler styler;
     private RecyclerView recyclerView;
     private SearchView searchView;
+    private BannerView bannerView;
     private CompositeDisposable compositeDisposable=new CompositeDisposable();
     private final String file="LANGUAGE_PREF";
 
@@ -89,7 +93,8 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         back_arrow=findViewById(R.id.backArrowMap);
         map = findViewById(R.id.zoomedMap);
         searchView=findViewById(R.id.searchView_map);
-//        search_button=findViewById(R.id.search_button_map);
+        bannerView=findViewById(R.id.banner_view_map_details);
+        setTheBanner();
         KmlDocument kmlDocument=new KmlDocument();
         String pathToFile=return_the_path("codebeautify.kml");
         kmlDocument.parseKMLFile(new File(pathToFile));
@@ -105,6 +110,14 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
 
 
 
+    }
+
+    private void setTheBanner() {
+        bannerView.setAdId("testw6vs28auh3");
+        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
+        bannerView.setBannerRefresh(60);
+        AdParam adParam=new AdParam.Builder().build();
+        bannerView.loadAd(adParam);
     }
 
     private void onClick(ImageButton back_arrow) {
@@ -186,8 +199,8 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         if(savedBounds!=null)
         {
                 bounds[0]=savedBounds.getDouble("north")+offset;
-                bounds[1]= savedBounds.getDouble("south")+offset;
-                bounds[2]=savedBounds.getDouble("west")+offset;
+                bounds[1]= savedBounds.getDouble("south")-offset;
+                bounds[2]=savedBounds.getDouble("west")-offset;
                 bounds[3]=savedBounds.getDouble("east")+offset;
         }
         return bounds;
@@ -205,6 +218,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         GeoPoint startPoint=centerOf();
         map.setTilesScaledToDpi(true);
         //custom styler
+//        map.setTilesScaleFactor(1.2f);
 
         styler = new ZoomKmlStyler();
 
@@ -215,7 +229,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         //map controller for setting the zoom on the map
-        mapController.setZoom(16.00);
+        mapController.setZoom(14.00);
 
         //set the center of the map
         mapController.setCenter(startPoint);
@@ -223,7 +237,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         //hide the zoom in/out buttons of the map
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         map.setMaxZoomLevel(22.00);
-        map.setMinZoomLevel(16.00);
+        map.setMinZoomLevel(14.00);
 
         //set the pinch zoom
         map.setMultiTouchControls(true);
@@ -235,7 +249,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         setCustomTheme(window,nightModeFlags);
 
         //set scrollable limits
-        double [] bounds=getBounds(0);
+        double [] bounds=getBounds(0.005);
         map.setScrollableAreaLimitLatitude(bounds[0],bounds[1],1);
         map.setScrollableAreaLimitLongitude(bounds[2],bounds[3],1);
 

@@ -88,10 +88,16 @@
     <style name="custom_button_details" parent="Widget.AppCompat.Button">
         <item name="color">@color/light_blue</item>
         <item name="colorPrimaryVariant">@color/background_white</item>
-        <item name="android:drawableTop">@drawable/ic_see_details</item>
+        <item name="android:drawableBottom">@drawable/ic_see_details</item>
         <item name="colorPrimary">@color/light_blue</item>
     </style>
     <style name="custom_search_view_back" parent="Widget.AppCompat.SearchView">
         <item name="android:background">@drawable/outline_rectangle_night</item>
+    </style>
+    <style name="custom_button_favorites" parent="Widget.AppCompat.Button">
+        <item name="color">@color/light_blue</item>
+        <item name="colorPrimaryVariant">@color/background_white</item>
+        <item name="android:drawableLeft">@drawable/ic_icon_favorite_settings</item>
+        <item name="colorPrimary">@color/light_blue</item>
     </style>
 </resources>

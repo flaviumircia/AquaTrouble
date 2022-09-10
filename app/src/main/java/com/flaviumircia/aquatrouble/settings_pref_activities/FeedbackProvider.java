@@ -12,6 +12,9 @@ import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.restdata.model.FeedbackModel;
 import com.flaviumircia.aquatrouble.restdata.retrofit.FeedbackApi;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
+import com.huawei.hms.ads.AdParam;
+import com.huawei.hms.ads.BannerAdSize;
+import com.huawei.hms.ads.banner.BannerView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,6 +34,7 @@ public class FeedbackProvider extends AppCompatActivity {
     private FeedbackApi feedbackApi;
     private ImageButton back_button;
     private String email,subject_string,content_string;
+    private BannerView bannerView;
     private CompositeDisposable compositeDisposable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class FeedbackProvider extends AppCompatActivity {
         subject=findViewById(R.id.subject_edittext);
         content=findViewById(R.id.content_edittext);
         sendTheReport=findViewById(R.id.sendTheRepButton);
+        bannerView=findViewById(R.id.banner_view_map_details);
+        setTheBanner();
         back_button=findViewById(R.id.back_button_feedback);
         back_button.setOnClickListener(view->finish());
         //api instantiation
@@ -83,6 +89,16 @@ public class FeedbackProvider extends AppCompatActivity {
         });
 
     }
+
+    private void setTheBanner() {
+        //bannerview settings
+        bannerView.setAdId("testw6vs28auh3");
+        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
+        bannerView.setBannerRefresh(60);
+        AdParam adParam=new AdParam.Builder().build();
+        bannerView.loadAd(adParam);
+    }
+
     private void puttingData(String email, String subject_string, String content_string) {
         compositeDisposable.add(feedbackApi.postFeedback(subject_string,content_string,email)
                 .subscribeOn(Schedulers.io())

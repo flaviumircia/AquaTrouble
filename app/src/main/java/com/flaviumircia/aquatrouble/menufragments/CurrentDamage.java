@@ -1,6 +1,8 @@
 package com.flaviumircia.aquatrouble.menufragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,10 +17,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.Search;
 import com.flaviumircia.aquatrouble.Sector;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.huawei.hms.ads.AdParam;
+import com.huawei.hms.ads.BannerAdSize;
+import com.huawei.hms.ads.HwAds;
+import com.huawei.hms.ads.banner.BannerView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +33,8 @@ import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
  * create an instance of this fragment.
  */
 public class CurrentDamage extends Fragment implements ThemeModeChecker {
-
+    private final String file="LANGUAGE_PREF";
+    private BannerView bannerView;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,8 +43,8 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     public CurrentDamage() {
+
         // Required empty public constructor
     }
 
@@ -65,12 +73,18 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        LanguageSetter languageSetter=new LanguageSetter();
+        //set the language
+        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file, Context.MODE_PRIVATE);
+        String language=sharedPreferences.getString("lang",null);
+        languageSetter.setLocale(language,getContext());
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        HwAds.init(requireContext());
+        bannerView=view.findViewById(R.id.hw_banner_view);
         Button s1=view.findViewById(R.id.sector1);
         Button s2=view.findViewById(R.id.sector2);
         Button s3=view.findViewById(R.id.sector3);
@@ -80,6 +94,13 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
         ImageButton search_button=view.findViewById(R.id.search_button);
         searchOnClick(search_button);
         buttonsListeners(s1,s2,s3,s4,s5,s6);
+
+        //bannerview settings
+        bannerView.setAdId("testw6vs28auh3");
+        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
+        bannerView.setBannerRefresh(60);
+        AdParam adParam=new AdParam.Builder().build();
+        bannerView.loadAd(adParam);
 
     }
 

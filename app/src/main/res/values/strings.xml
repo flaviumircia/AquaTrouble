@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">AquaTrouble</string>
     <string name="choose_language" translatable="false">Limba preferata   Choose your language</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Choose your language</string>
     <string name="welcomeText">Bine ai venit la,</string>
     <string name="appDescr">"aplicația ce îți face viața mai usoară. "</string>
@@ -33,7 +32,7 @@
     <string name="about">Despre</string>
     <string name="defectiuni_curente">Defecțiuni curente</string>
     <string name="harta_termografica">Hartă termică</string>
-    <string name="alege_sectorul">Alege sectorul sau \n apasă pe căutare</string>
+    <string name="alege_sectorul">Alege sectorul sau apasă pe căutare</string>
     <string name="motivational_text">Modifică aplicația cum îți place</string>
     <string name="watchlist">Cartierele urmărite</string>
     <string name="cele_mai_afectate_cartiere">Cele mai afectate cartiere</string>
@@ -72,14 +71,14 @@
     <string name="your_phone_model">Modelul de telefon</string>
     <string name="subject">Subiectul</string>
     <string name="subject_hint_desc">Scurta descriere a bug-ului*</string>
-    <string name="something_like_heatmap_doesn_t_load_n_or_app_crashes_when_i_set_notifications_on">Descriere precum: Harta termica nu se incarca \n sau Aplicatia se inchide cand pornesc notificarile</string>
+    <string name="something_like_heatmap_doesn_t_load_n_or_app_crashes_when_i_set_notifications_on">*Descriere precum: Harta termica nu se incarca sau \n aplicatia se inchide cand pornesc notificarile</string>
     <string name="content">Continut</string>
     <string name="describe_the_bug_as_good_as_you_can">Descrie bug-ul cat de bine poti</string>
     <string name="ai_o_sugestie">Ai o sugestie?</string>
     <string name="scurta_descriere_despre_imbunatatire">Scurta descriere despre imbunatatire</string>
     <string name="descriere_precum_vreau_ca_aplicatia_sa_faca_asta">Descriere precum: Vreau ca aplicatia sa faca \"asta\"</string>
     <string name="descrie_ce_imbunatatire_vrei_sa_vezi_in_urmatoarele_versiune_ale_aquatrouble">Descrie ce imbunatatire vrei sa vezi in urmatoarele versiune ale AquaTrouble</string>
-    <string name="experienta_utilizatorului_este_importanta_pentru_noi_n_te_rog_spune_ne_cum_putem_imbunatatii_aplicatia">Experienta utilizatorului este importanta pentru noi! \n Te rog spune-ne cum putem imbunatatii aplicatia!</string>
+    <string name="experienta_utilizatorului_este_importanta_pentru_noi_n_te_rog_spune_ne_cum_putem_imbunatatii_aplicatia">Experienta utilizatorului este importanta pentru noi!</string>
     <string name="search_act">Căutare</string>
     <string name="search_street_address_n_or_neighborhood">Numele străzii</string>
     <string name="filter">Filtru</string>
@@ -111,4 +110,6 @@
     <string name="language">Limbă</string>
     <string name="Version">Versiunea</string>
     <string name="copyright_2022_flaviu_mircia_n_all_rights_reserved">© Copyright 2022, Flaviu Mircia.\n Toate drepturile rezervate!</string>
+    <string name="close">Închide</string>
+    <string name="support_the_app">Susține aplicația</string>
 </resources>

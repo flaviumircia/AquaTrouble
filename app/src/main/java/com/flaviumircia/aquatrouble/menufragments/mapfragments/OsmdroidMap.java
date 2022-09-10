@@ -13,6 +13,7 @@ import android.view.Window;
 
 import androidx.fragment.app.Fragment;
 
+import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.MyKmlStyler;
 import com.flaviumircia.aquatrouble.NightModeTiles;
 import com.flaviumircia.aquatrouble.R;
@@ -42,6 +43,7 @@ import java.io.InputStream;
  * create an instance of this fragment.
  */
 public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeModeChecker, PolygonMarkerTitle, PathReturner {
+    private final String file="LANGUAGE_PREF";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,6 +87,11 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        LanguageSetter languageSetter=new LanguageSetter();
+        //set the language
+        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file, Context.MODE_PRIVATE);
+        String language=sharedPreferences.getString("lang",null);
+        languageSetter.setLocale(language,getContext());
     }
 
     @Override

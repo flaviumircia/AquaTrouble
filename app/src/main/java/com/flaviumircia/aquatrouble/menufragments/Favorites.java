@@ -1,5 +1,7 @@
 package com.flaviumircia.aquatrouble.menufragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.adapter.favorites_adapter.FavoriteAdapter;
 import com.flaviumircia.aquatrouble.adapter.favorites_adapter.FavoritesViewHolder;
@@ -38,7 +41,7 @@ import io.reactivex.schedulers.Schedulers;
  * create an instance of this fragment.
  */
 public class Favorites extends Fragment implements ThemeModeChecker {
-
+    private final String file="LANGUAGE_PREF";
     private Database database;
     private CompositeDisposable compositeDisposable;
     private DaoClass daoClass;
@@ -55,6 +58,7 @@ public class Favorites extends Fragment implements ThemeModeChecker {
     int nightModeFlags;
 
     public Favorites() {
+
         // Required empty public constructor
     }
 
@@ -83,6 +87,11 @@ public class Favorites extends Fragment implements ThemeModeChecker {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        LanguageSetter languageSetter=new LanguageSetter();
+        //set the language
+        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file, Context.MODE_PRIVATE);
+        String language=sharedPreferences.getString("lang",null);
+        languageSetter.setLocale(language,getContext());
 
     }
 
@@ -147,8 +156,8 @@ public class Favorites extends Fragment implements ThemeModeChecker {
         }
     }
     //TODO: Make EULA legal
-    //TODO: Add Google admob
-    //TODO: Donation link
+    //TODO: Add Google admob/Huawei ad mob
+    //TODO: rotate bug at home
     //TODO: Add faq
     //TODO: Add recaptcha to feedback and bug spotting
     @Override

@@ -1,6 +1,7 @@
 package com.flaviumircia.aquatrouble.database;
 
 import androidx.room.Dao;
+import androidx.room.Ignore;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -26,7 +27,6 @@ public interface DaoClass {
 
     @Query("UPDATE notifications SET date_time=:date_time WHERE address=:address")
     void updateDateTime(String date_time,String address);
-
     @Query("select id,address,date_time from notifications where address=:address")
     Maybe<NotificationsModel> getNotifData(String address);
 

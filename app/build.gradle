@@ -50,12 +50,12 @@ dependencies {
     //dots for slider
     implementation 'com.tbuonomo:dotsindicator:4.3'
     //osmdroid
-    implementation 'org.osmdroid:osmdroid-android:6.1.13'
+    implementation 'org.osmdroid:osmdroid-android:6.1.14'
     //osmbonusback
     implementation 'com.github.MKergall:osmbonuspack:6.9.0'
     //android browser
     implementation 'androidx.browser:browser:1.4.0'
-    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.preference:preference:1.2.0'
 
     //rxjava
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
@@ -77,6 +77,4 @@ dependencies {
     //Huawei mobile services
     implementation 'com.huawei.hms:ads-prime:3.4.55.302'
     implementation 'com.huawei.hms:ads-omsdk:1.3.35'
-
-
 }

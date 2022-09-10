@@ -23,6 +23,7 @@ import com.flaviumircia.aquatrouble.MainMap;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.settings_pref_activities.About;
 import com.flaviumircia.aquatrouble.settings_pref_activities.BugSpotting;
+import com.flaviumircia.aquatrouble.settings_pref_activities.FaqActivity;
 import com.flaviumircia.aquatrouble.settings_pref_activities.FeedbackProvider;
 import com.flaviumircia.aquatrouble.settings_pref_activities.MakeDonation;
 
@@ -38,14 +39,15 @@ public class Settings extends PreferenceFragmentCompat {
     private Preference tos;
     private Preference about;
     private Preference support;
+    private Preference faq;
     private LanguageSetter languageSetter;
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         languageSetter=new LanguageSetter();
         //set the language
-        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences= requireActivity().getSharedPreferences(file, Context.MODE_PRIVATE);
         String language=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(language,getContext());
+        languageSetter.setLocale(language,requireActivity());
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
         Log.d(TAG, "onCreatePreferences: "+languageSetter.getLanguage());
     }
@@ -84,7 +86,10 @@ public class Settings extends PreferenceFragmentCompat {
         about=getPreferenceScreen().findPreference("about");
         notification_status=(ListPreference)getPreferenceManager().findPreference("notifications");
         language_pref=(ListPreference) getPreferenceManager().findPreference("language_settings");
-//        setTheLanguage(language_pref);
+        faq=getPreferenceScreen().findPreference("faq");
+        assert faq != null;
+        faq.setOnPreferenceClickListener(preference -> {startActivity(new Intent(requireActivity(), FaqActivity.class));return true;});
+        setTheLanguage(language_pref);
         areNotifsOn(notification_status);
         theme_switch(theme_switching);
         onClickMethods(bug_spotting,feedback,tos,about,support);

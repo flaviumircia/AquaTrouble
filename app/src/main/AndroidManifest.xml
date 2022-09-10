@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.flaviumircia.aquatrouble" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.flaviumircia.aquatrouble">
     <!-- Include required permissions for Google Mobile Ads to run. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -18,17 +24,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AquaTrouble"
-        android:usesCleartextTraffic="true" >
+        android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true"
+        tools:ignore="UnusedAttribute">
         <activity
-            android:name=".settings_pref_activities.MakeDonation"
+            android:name=".settings_pref_activities.FaqActivity"
             android:theme="@style/map_theme"
             android:exported="false" />
+        <activity
+            android:name=".settings_pref_activities.MakeDonation"
+            android:exported="false"
+            android:theme="@style/map_theme" />
 
         <service
             android:name=".misc.NotificationService"
             android:exported="true"
             android:label="@string/app_name"
-            android:permission="android.permission.VIBRATE" >
+            android:permission="android.permission.VIBRATE">
             <intent-filter>
                 <action android:name=".misc.NotificationService" />
 
@@ -39,9 +51,10 @@
         <activity
             android:name=".Search"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
-            android:theme="@style/map_theme" >
+            android:screenOrientation="portrait"
+            android:theme="@style/map_theme"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -77,7 +90,8 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/map_theme"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
@@ -91,7 +105,8 @@
             android:configChanges="locale|orientation"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/day_theme" />
+            android:theme="@style/day_theme"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Eula"
             android:configChanges="locale|orientation"
@@ -108,7 +123,7 @@
             android:name=".Splash"
             android:configChanges="locale|orientation"
             android:exported="true"
-            android:theme="@style/SplashTheme" >
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

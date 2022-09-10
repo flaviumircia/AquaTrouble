@@ -67,10 +67,10 @@ public class WebPageMap extends Fragment {
         }
         LanguageSetter languageSetter=new LanguageSetter();
         //set the language
-        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file,Context.MODE_PRIVATE);
-        String lang=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(lang,getContext());
-        this.lang=lang;
+        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file, Context.MODE_PRIVATE);
+        String language=sharedPreferences.getString("lang",null);
+        languageSetter.setLocale(language,getContext());
+        this.lang=language;
     }
 
 

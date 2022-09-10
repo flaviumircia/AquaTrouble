@@ -1,16 +1,22 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".menufragments.Settings"
+    >
 
     <Preference
         android:key="@string/settings"
         android:layout="@layout/fragment_settings"
         android:title="@string/settings" />
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="@string/signature_title"
+        >
         <Preference
-        app:key="app_donation"
-        app:title="@string/signature_title" />
+            app:key="app_donation"
+            app:title="@string/signature_title" />
 
+    </PreferenceCategory>
+    <PreferenceCategory app:title="@string/messages_header">
         <ListPreference
             app:defaultValue="notif_on"
             app:entries="@array/reply_entries"
@@ -18,13 +24,15 @@
             app:key="notifications"
             app:title="@string/notif"
             app:useSimpleSummaryProvider="true" />
+
         <ListPreference
             app:defaultValue="ro-Ro"
             app:entries="@array/language"
             app:entryValues="@array/language_values"
-            app:key="language"
+            app:key="language_settings"
             app:title="@string/language"
             app:useSimpleSummaryProvider="true"/>
+
         <ListPreference
             app:defaultValue="default"
             app:entries="@array/theme_status"

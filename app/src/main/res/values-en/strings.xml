@@ -18,7 +18,7 @@
     <string name="defectiuni_curente">Current damage</string>
     <string name="harta_termografica">Heatmap</string>
     <string name="motivational_text">Customize the way you like it</string>
-    <string name="alege_sectorul">Choose the sector or \n tap the search bar</string>
+    <string name="alege_sectorul">Choose the sector or tap the search bar</string>
     <string name="watchlist">Watchlist</string>
     <string name="cele_mai_afectate_cartiere">Most frequently damaged</string>
     <string name="harta">Map</string>
@@ -84,5 +84,7 @@
     <string name="language">Language</string>
     <string name="Version">Version</string>
     <string name="copyright_2022_flaviu_mircia_n_all_rights_reserved">© Copyright 2022, Flaviu Mircia.  All rights reserved!</string>
+    <string name="close">Close</string>
+    <string name="support_the_app">Support the app</string>
 
 </resources>

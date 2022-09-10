@@ -75,7 +75,6 @@ public class SecondFragment extends Fragment {
         checkBox.setMovementMethod(LinkMovementMethod.getInstance());
 
         checkIfAccepted(checkBox, continueButton);
-        //TODO: make eula legal
 
         return v;
     }

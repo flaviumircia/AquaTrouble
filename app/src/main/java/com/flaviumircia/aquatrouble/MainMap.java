@@ -29,7 +29,6 @@ public class MainMap extends AppCompatActivity {
         startService(new Intent(this, NotificationService.class));
         LanguageSetter languageSetter=new LanguageSetter();
         //set the language
-        //set the language
         SharedPreferences sharedPreferences= this.getSharedPreferences(file, Context.MODE_PRIVATE);
         String language=sharedPreferences.getString("lang",null);
         languageSetter.setLocale(language,this);
@@ -45,9 +44,12 @@ public class MainMap extends AppCompatActivity {
                 replaceFragment(new Settings());
             else if(position_index==R.id.damage_icon)
                 replaceFragment(new CurrentDamage());
-            else
+            else if(position_index==R.id.favorites_icon)
                 replaceFragment(new Favorites());
+            else
+                replaceFragment(new Home());
         }
+        //TODO: Buggy logic here ^
         else
         {
             bottomNavigationView.setSelectedItemId(R.id.home_icon);

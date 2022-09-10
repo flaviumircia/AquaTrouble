@@ -28,6 +28,9 @@ import com.flaviumircia.aquatrouble.database.DbExists;
 import com.flaviumircia.aquatrouble.database.NotificationsModel;
 import com.flaviumircia.aquatrouble.misc.CurrentTime;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.huawei.hms.ads.AdParam;
+import com.huawei.hms.ads.BannerAdSize;
+import com.huawei.hms.ads.banner.BannerView;
 
 import java.util.List;
 
@@ -43,6 +46,7 @@ import io.reactivex.schedulers.Schedulers;
 public class Favorites extends Fragment implements ThemeModeChecker {
     private final String file="LANGUAGE_PREF";
     private Database database;
+    private BannerView bannerView;
     private CompositeDisposable compositeDisposable;
     private DaoClass daoClass;
     private RecyclerView recyclerView;
@@ -99,7 +103,17 @@ public class Favorites extends Fragment implements ThemeModeChecker {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView=view.findViewById(R.id.favorites_recyclerView);
+        bannerView=view.findViewById(R.id.bannerView_favorites);
+        bannerViewSettings();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    private void bannerViewSettings() {
+        bannerView.setAdId("testw6vs28auh3");
+        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
+        bannerView.setBannerRefresh(60);
+        AdParam adParam=new AdParam.Builder().build();
+        bannerView.loadAd(adParam);
     }
 
     @Override
@@ -157,9 +171,8 @@ public class Favorites extends Fragment implements ThemeModeChecker {
     }
     //TODO: Make EULA legal
     //TODO: Add Google admob/Huawei ad mob
-    //TODO: rotate bug at home
+    //TODO: Rotate bug at home
     //TODO: Add faq
-    //TODO: Add recaptcha to feedback and bug spotting
     @Override
     public void setCustomTheme(Window window, int system_mode) {
         switch (system_mode) {

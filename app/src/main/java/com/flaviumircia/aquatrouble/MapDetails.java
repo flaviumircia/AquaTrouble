@@ -29,6 +29,9 @@ import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.retrofit.DamageDataApi;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.huawei.hms.ads.AdParam;
+import com.huawei.hms.ads.BannerAdSize;
+import com.huawei.hms.ads.banner.BannerView;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.kml.KmlDocument;
@@ -61,6 +64,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
     private ZoomKmlStyler styler;
     private RecyclerView recyclerView;
     private SearchView searchView;
+    private BannerView bannerView;
     private CompositeDisposable compositeDisposable=new CompositeDisposable();
     private final String file="LANGUAGE_PREF";
 
@@ -89,7 +93,8 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         back_arrow=findViewById(R.id.backArrowMap);
         map = findViewById(R.id.zoomedMap);
         searchView=findViewById(R.id.searchView_map);
-//        search_button=findViewById(R.id.search_button_map);
+        bannerView=findViewById(R.id.banner_view_map_details);
+        setTheBanner();
         KmlDocument kmlDocument=new KmlDocument();
         String pathToFile=return_the_path("codebeautify.kml");
         kmlDocument.parseKMLFile(new File(pathToFile));
@@ -105,6 +110,14 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
 
 
 
+    }
+
+    private void setTheBanner() {
+        bannerView.setAdId("testw6vs28auh3");
+        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
+        bannerView.setBannerRefresh(60);
+        AdParam adParam=new AdParam.Builder().build();
+        bannerView.loadAd(adParam);
     }
 
     private void onClick(ImageButton back_arrow) {

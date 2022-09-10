@@ -20,6 +20,9 @@ import com.flaviumircia.aquatrouble.database.NotificationsModel;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.model.ExtendedData;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.huawei.hms.ads.AdParam;
+import com.huawei.hms.ads.BannerAdSize;
+import com.huawei.hms.ads.banner.BannerView;
 
 public class StreetDetails extends AppCompatActivity implements ThemeModeChecker {
     private TextView street_title,street_number,sector,expected_date,remaining_days,affected_agent;
@@ -27,6 +30,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
     private Button add_to_fav;
     private ImageView icon;
     private final String file="LANGUAGE_PREF";
+    private BannerView bannerView;
 
     private void setLanguage() {
         LanguageSetter languageSetter=new LanguageSetter();
@@ -35,6 +39,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         String language=sharedPreferences.getString("lang",null);
         languageSetter.setLocale(language,this);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +54,8 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         affected_agent=findViewById(R.id.affectedAgentDetails);
         icon=findViewById(R.id.sectorIconDetails);
         add_to_fav=findViewById(R.id.showOnMapButton);
-
+        bannerView=findViewById(R.id.bannerView_street_details);
+        setTheBanner();
         int icon_res=getResourceIcon();
         icon.setImageResource(icon_res);
 
@@ -68,6 +74,14 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         expected_date.setText(getString(R.string.expected_fixing_date)+": " + model.getData().getExpected_date());
         remaining_days.setText(getString(R.string.remaining_days_until_fix)+": " + model.getRemaining_days());
 
+    }
+
+    private void setTheBanner() {
+        bannerView.setAdId("testw6vs28auh3");
+        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_300_250);
+        bannerView.setBannerRefresh(60);
+        AdParam adParam=new AdParam.Builder().build();
+        bannerView.loadAd(adParam);
     }
 
     @SuppressLint("ClickableViewAccessibility")

@@ -21,6 +21,7 @@ import com.flaviumircia.aquatrouble.map.math.PolygonCustomTitle;
 import com.flaviumircia.aquatrouble.map.settings.MapPointCorrecter;
 import com.flaviumircia.aquatrouble.map.settings.PolygonMarkerTitle;
 import com.flaviumircia.aquatrouble.misc.PathReturner;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
 
 import org.osmdroid.api.IMapController;
@@ -87,11 +88,8 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        LanguageSetter languageSetter=new LanguageSetter();
-        //set the language
-        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file, Context.MODE_PRIVATE);
-        String language=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(language,getContext());
+        PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(requireContext(),file);
+        preferenceLanguageSetter.setTheLanguage();
     }
 
     @Override

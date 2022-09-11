@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.flaviumircia.aquatrouble.adapter.sector_data.SectorDataAdapter;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
 import com.flaviumircia.aquatrouble.restdata.retrofit.SectorDataApi;
@@ -38,7 +39,8 @@ public class Sector extends AppCompatActivity implements ThemeModeChecker {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setLanguage();
+        PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(this,file);
+        preferenceLanguageSetter.setTheLanguage();
         setContentView(R.layout.activity_sector);
         //instantiate views
         TextView textView=findViewById(R.id.textView);
@@ -64,13 +66,6 @@ public class Sector extends AppCompatActivity implements ThemeModeChecker {
 
     }
 
-    private void setLanguage() {
-        LanguageSetter languageSetter=new LanguageSetter();
-        //set the language
-        SharedPreferences sharedPreferences= this.getSharedPreferences(file, Context.MODE_PRIVATE);
-        String language=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(language,this);
-    }
 
     private void fetchData(int sector_number) {
             compositeDisposable.add(sectorDataApi.getData(sector_number)

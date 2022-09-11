@@ -38,6 +38,7 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqViewHolder> {
     public void onBindViewHolder(@NonNull FaqViewHolder holder, int position) {
         holder.getQuestion_title().setText(data.get(holder.getAdapterPosition()).getQuestion_title());
         holder.getContent().setVisibility(View.GONE);
+        holder.getContent().setText("");
         holder.getSee_more().setOnClickListener(view -> {
             if(holder.isState()) {
                 holder.getContent().setVisibility(View.VISIBLE);
@@ -45,6 +46,7 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqViewHolder> {
                 holder.setState(false);
             }else{
                 holder.getContent().setVisibility(View.GONE);
+                holder.getContent().setText("");
                 holder.setState(true);
             }
 

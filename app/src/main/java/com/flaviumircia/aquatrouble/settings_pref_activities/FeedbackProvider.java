@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.flaviumircia.aquatrouble.R;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.FeedbackModel;
 import com.flaviumircia.aquatrouble.restdata.retrofit.FeedbackApi;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
@@ -36,9 +37,13 @@ public class FeedbackProvider extends AppCompatActivity {
     private String email,subject_string,content_string;
     private BannerView bannerView;
     private CompositeDisposable compositeDisposable;
+    private final String file ="LANGUAGE_PREF";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(this,file);
+        preferenceLanguageSetter.setTheLanguage();
         setContentView(R.layout.activity_feedback_provider);
         email_address=findViewById(R.id.email_addres_edittext);
         phone_model=findViewById(R.id.phone_model_edittext);

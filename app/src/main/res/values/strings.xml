@@ -113,4 +113,22 @@
     <string name="close">Închide</string>
     <string name="support_the_app">Susține aplicația</string>
     <string name="frequent_asked_questions">Întrebări frecvente</string>
+    <string name="what_is_aquatrouble">Ce este AquaTrouble?</string>
+    <string name="aquatrouble_description">AquaTrouble este o aplicație menită să faciliteze mutarea în București sau alt cartier din capitală. \nAplicația crează o hartă termică cu toate avariile de apă din București, totodată AquaTrouble îți arată ce defecțiuni exista la momentul curent de timp.</string>
+    <string name="how_to_add_address_to_fav">Cum adaug o adresă la favorite?</string>
+    <string name="add_address_to_fav">Pentru a adăuga o adresă la favorite mergeți către meniul \"Defecțiuni curente\" apăsați pe unul dintre sectoare pentru a vă identifica adresa dorită, sau folosiți funcția de căutare din același meniu.\nApăsați pe butonul albastru \"Detalii\", iar apoi pe butonul \"Adaugă la favorite\".</string>
+    <string name="cant_find_my_address">Nu găsesc adresa mea în \"Defecțiuni curente\"!</string>
+    <string name="cant_find_my_address_explanation">Dacă adresa dumneavoastră nu există in secțiune \"Defecțiuni curente\", înseamnă că avaria a fost reparată sau la adresa dumneavoastră nu exista nicio avarie.</string>
+    <string name="when_i_should_receive_notifications">Când voi primi notificări legate de avarie?</string>
+    <string name="when_i_should_receive_notfi_explanations">Pentru a vă putea notifica cu starea avariei va trebuie ca: 1) Adresa dorită să fie adăugată în secțiunea de \"Favorite\" a aplicației 2) Notificările dumneavoastră să fie pornite din meniul \"Setări\", submeniul \"Notificări\" ale aplicației. 3) Data preconizată de reparare să fie prelungită.</string>
+    <string name="how_to_delete_an_address">Cum scot o adresă de la Favorite?</string>
+    <string name="how_to_delete_an_address_explanation">Pentru a scoate o adresă din meniul Favorite va trebui sa apăsați o dată pe clopoțelul din dreapta adresei.</string>
+    <string name="what_is_acc">Ce este ACC, respectiv ÎNC?</string>
+    <string name="what_is_acc_explanation">ACC reprezintă apa caldă de consum. ÎNC reprezintă încălzirea.</string>
+    <string name="street_address_is_partially_visible">Adresa străzii nu este vizibilă în totalitate!</string>
+    <string name="street_address_is_partially_visible_explanation">Pentru a putea fi vizualizată pe toate dispozitivele trageți de titlul adresei din stânga către dreapta.</string>
+    <string name="street_numbers_are_partially_visible">Numărul străzii nu este vizibil în totalitate!</string>
+    <string name="street_numbers_are_partially_visible_explanation">Pentru a putea fi vizualizat pe toate dispozitivele trageți de numărul adresei din stânga către dreapta.</string>
+    <string name="send_us_a_feedback">Vreau să comunic cu AquaTrouble pentru o îmbunătățire a aplicației.</string>
+    <string name="send_us_feedback_explanation">Ne bucurăm ca vreți sa ajutați! Pentru a ne putea trimite o cerere, vă rugăm să folosiți submeniul \"Feedback\" din meniul \"Setări\".</string>
 </resources>

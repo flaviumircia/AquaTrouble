@@ -87,5 +87,23 @@
     <string name="close">Close</string>
     <string name="support_the_app">Support the app</string>
     <string name="frequent_asked_questions">Frequently Asked Questions</string>
+    <string name="what_is_aquatrouble">What is AquaTrouble?</string>
+    <string name="aquatrouble_description">AquaTrouble is an application designed to facilitate moving to Bucharest or to another neighborhood in the capital city.\nThe application creates a heatmap with all the water damages in Bucharest, at the same time AquaTrouble shows you which damages exist at the current moment in time.</string>
+    <string name="how_to_add_address_to_fav">How to add an address to Favorites?</string>
+    <string name="add_address_to_fav">To add an address to your favorites, go to the \"Current Damages\" menu, press one of the sectors to identify the address you want, or use the search function in the same menu.\nClick the blue \"Details\" button and then the \"Add to Favorites\" button.</string>
+    <string name="cant_find_my_address">I can\'t find my address in \"Current Damages\"</string>
+    <string name="cant_find_my_address_explanation">If your address does not exist in the \"Current Damages\" section, it means that the fault has been repaired or there is no damage at your address.</string>
+    <string name="when_i_should_receive_notifications">When will I receive crash notifications?</string>
+    <string name="when_i_should_receive_notfi_explanations">"  If your address does not exist in the \"Current Damages\" section, it means that the fault has been repaired or there is no damage at your address. "</string>
+    <string name="how_to_delete_an_address">How to delete an address from Favorites?</string>
+    <string name="how_to_delete_an_address_explanation">To remove an address from the Favorites menu, you will have to press once on the bell to the right of the address.</string>
+    <string name="what_is_acc">What is HW, but H?</string>
+    <string name="what_is_acc_explanation">HW represents How Water. H represents Heating</string>
+    <string name="street_address_is_partially_visible">Street address is partially visible</string>
+    <string name="street_address_is_partially_visible_explanation">To view it on all devices, drag the address title from left to right.</string>
+    <string name="street_numbers_are_partially_visible">The street number is partially visible</string>
+    <string name="street_numbers_are_partially_visible_explanation">To be visible on all devices drag the address number from left to right.</string>
+    <string name="send_us_a_feedback">I want to contact AquaTrouble for a feature I want</string>
+    <string name="send_us_feedback_explanation">We are glad that you want to help! To be able to send us a request, please use the \"Feedback\" submenu in the \"Settings\" menu.</string>
 
 </resources>

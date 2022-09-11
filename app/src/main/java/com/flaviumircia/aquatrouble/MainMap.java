@@ -16,6 +16,7 @@ import com.flaviumircia.aquatrouble.menufragments.Favorites;
 import com.flaviumircia.aquatrouble.menufragments.Home;
 import com.flaviumircia.aquatrouble.menufragments.Settings;
 import com.flaviumircia.aquatrouble.misc.NotificationService;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainMap extends AppCompatActivity {
@@ -27,11 +28,10 @@ public class MainMap extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         startService(new Intent(this, NotificationService.class));
-        LanguageSetter languageSetter=new LanguageSetter();
-        //set the language
-        SharedPreferences sharedPreferences= this.getSharedPreferences(file, Context.MODE_PRIVATE);
-        String language=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(language,this);
+
+        PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(this,file);
+        preferenceLanguageSetter.setTheLanguage();
+
         setContentView(R.layout.activity_map);
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
         if(savedInstanceState!=null)

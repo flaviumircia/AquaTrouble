@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.flaviumircia.aquatrouble.R;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.FeedbackModel;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
 import com.flaviumircia.aquatrouble.restdata.retrofit.SpotABug;
@@ -32,9 +33,13 @@ public class BugSpotting extends AppCompatActivity {
     private ImageButton back_arrow;
     private String email,phone,subject_string,content_string;
     private CompositeDisposable compositeDisposable;
+    private final String file ="LANGUAGE_PREF";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(this,file);
+        preferenceLanguageSetter.setTheLanguage();
         setContentView(R.layout.activity_bug_spotting);
         //EditText views
         email_address=findViewById(R.id.email_addres_edittext);

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,12 +66,9 @@ public class WebPageMap extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        LanguageSetter languageSetter=new LanguageSetter();
-        //set the language
-        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file, Context.MODE_PRIVATE);
-        String language=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(language,getContext());
-        this.lang=language;
+        PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(requireContext(),file);
+        preferenceLanguageSetter.setTheLanguage();
+        this.lang=preferenceLanguageSetter.getCurrentLanguage();
     }
 
 

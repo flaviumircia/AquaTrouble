@@ -20,6 +20,7 @@ import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.menufragments.mapfragments.OsmdroidMap;
 import com.flaviumircia.aquatrouble.menufragments.mapfragments.WebPageMap;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 
@@ -76,12 +77,8 @@ public class Home extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        LanguageSetter languageSetter=new LanguageSetter();
-        //set the language
-        SharedPreferences sharedPreferences= getContext().getSharedPreferences(file, Context.MODE_PRIVATE);
-        String language=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(language,getContext());
-        //set the language
+        PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(requireContext(),file);
+        preferenceLanguageSetter.setTheLanguage();
     }
 
     @Override

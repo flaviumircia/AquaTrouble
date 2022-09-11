@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.flaviumircia.aquatrouble.database.Database;
 import com.flaviumircia.aquatrouble.database.NotificationsModel;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.model.ExtendedData;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
@@ -32,18 +33,12 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
     private final String file="LANGUAGE_PREF";
     private BannerView bannerView;
 
-    private void setLanguage() {
-        LanguageSetter languageSetter=new LanguageSetter();
-        //set the language
-        SharedPreferences sharedPreferences= this.getSharedPreferences(file, Context.MODE_PRIVATE);
-        String language=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(language,this);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setLanguage();
+        PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(this,file);
+        preferenceLanguageSetter.setTheLanguage();
         setContentView(R.layout.activity_street_details);
         street_title=findViewById(R.id.streetTitleDetails);
         street_number=findViewById(R.id.numbersStreetDetails);

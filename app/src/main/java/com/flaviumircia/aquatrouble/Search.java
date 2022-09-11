@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.flaviumircia.aquatrouble.adapter.damage_data.PostAdapter;
 import com.flaviumircia.aquatrouble.adapter.search_data.SearchDataAdapter;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.retrofit.DamageDataApi;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
@@ -40,17 +41,11 @@ public class Search extends AppCompatActivity {
     private Retrofit retrofit;
     private final String file="LANGUAGE_PREF";
 
-    private void setLanguage() {
-        LanguageSetter languageSetter=new LanguageSetter();
-        //set the language
-        SharedPreferences sharedPreferences= this.getSharedPreferences(file, Context.MODE_PRIVATE);
-        String language=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(language,this);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setLanguage();
+        PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(this,file);
+        preferenceLanguageSetter.setTheLanguage();
         setContentView(R.layout.activity_search);
         arrow_back=findViewById(R.id.back_button_search);
         searchView=findViewById(R.id.searchView);

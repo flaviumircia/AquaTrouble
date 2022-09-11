@@ -25,6 +25,7 @@ import com.flaviumircia.aquatrouble.map.math.PolygonCustomTitle;
 import com.flaviumircia.aquatrouble.map.settings.MapPointCorrecter;
 import com.flaviumircia.aquatrouble.map.settings.PolygonMarkerTitle;
 import com.flaviumircia.aquatrouble.misc.PathReturner;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.retrofit.DamageDataApi;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
@@ -68,17 +69,13 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
     private CompositeDisposable compositeDisposable=new CompositeDisposable();
     private final String file="LANGUAGE_PREF";
 
-    private void setLanguage() {
-        LanguageSetter languageSetter=new LanguageSetter();
-        //set the language
-        SharedPreferences sharedPreferences= this.getSharedPreferences(file, Context.MODE_PRIVATE);
-        String language=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(language,this);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setLanguage();
+
+        PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(this,file);
+        preferenceLanguageSetter.setTheLanguage();
+
         neighborhood=selectedNeighborhood();
 
         setContentView(R.layout.activity_map_details);

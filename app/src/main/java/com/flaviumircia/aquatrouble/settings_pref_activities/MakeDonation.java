@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 
 public class MakeDonation extends AppCompatActivity {
     private ImageButton back_arrow;
@@ -19,11 +20,8 @@ public class MakeDonation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LanguageSetter languageSetter=new LanguageSetter();
-        //set the language
-        SharedPreferences sharedPreferences= this.getSharedPreferences(file, Context.MODE_PRIVATE);
-        String language=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(language,this);
+        PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(this,file);
+        preferenceLanguageSetter.setTheLanguage();
         setContentView(R.layout.activity_make_donation);
         back_arrow=findViewById(R.id.backArrowMakeDonation);
         back_arrow.setOnClickListener(view->{finish();});

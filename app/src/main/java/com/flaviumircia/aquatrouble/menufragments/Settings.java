@@ -21,6 +21,7 @@ import com.flaviumircia.aquatrouble.Eula;
 import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.MainMap;
 import com.flaviumircia.aquatrouble.R;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.settings_pref_activities.About;
 import com.flaviumircia.aquatrouble.settings_pref_activities.BugSpotting;
 import com.flaviumircia.aquatrouble.settings_pref_activities.FaqActivity;
@@ -43,11 +44,8 @@ public class Settings extends PreferenceFragmentCompat {
     private LanguageSetter languageSetter;
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        languageSetter=new LanguageSetter();
-        //set the language
-        SharedPreferences sharedPreferences= requireActivity().getSharedPreferences(file, Context.MODE_PRIVATE);
-        String language=sharedPreferences.getString("lang",null);
-        languageSetter.setLocale(language,requireActivity());
+        PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(requireContext(),file);
+        preferenceLanguageSetter.setTheLanguage();
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
         Log.d(TAG, "onCreatePreferences: "+languageSetter.getLanguage());
     }

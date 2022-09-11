@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -29,6 +30,11 @@ import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.retrofit.DamageDataApi;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.huawei.hms.ads.AdParam;
 import com.huawei.hms.ads.BannerAdSize;
 import com.huawei.hms.ads.banner.BannerView;
@@ -64,7 +70,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
     private ZoomKmlStyler styler;
     private RecyclerView recyclerView;
     private SearchView searchView;
-    private BannerView bannerView;
+    private AdView bannerView;
     private CompositeDisposable compositeDisposable=new CompositeDisposable();
     private final String file="LANGUAGE_PREF";
 
@@ -109,21 +115,17 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
     }
 
     private void setTheBanner() {
-        bannerView.setAdId("testw6vs28auh3");
-        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
-        bannerView.setBannerRefresh(60);
-        AdParam adParam=new AdParam.Builder().build();
-        bannerView.loadAd(adParam);
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+            }
+        });
+        AdRequest adRequest=new AdRequest.Builder().build();
+        bannerView.loadAd(adRequest);
     }
 
     private void onClick(ImageButton back_arrow) {
-        this.back_arrow.setOnClickListener(view -> MapDetails.super.finish());
-//        search_button.setOnClickListener(view_search->{
-//            Intent myIntent=new Intent(this, Search.class);
-//            myIntent.putExtra("sector",false);
-//            myIntent.putExtra("neighborhood",neighborhood);
-//            startActivity(myIntent);
-//        });
+        back_arrow.setOnClickListener(view -> MapDetails.super.finish());
     }
 
     private void fetchData(String neighborhood, MapView map) {

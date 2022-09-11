@@ -29,6 +29,11 @@ import com.flaviumircia.aquatrouble.database.NotificationsModel;
 import com.flaviumircia.aquatrouble.misc.CurrentTime;
 import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.huawei.hms.ads.AdParam;
 import com.huawei.hms.ads.BannerAdSize;
 import com.huawei.hms.ads.banner.BannerView;
@@ -47,7 +52,7 @@ import io.reactivex.schedulers.Schedulers;
 public class Favorites extends Fragment implements ThemeModeChecker {
     private final String file="LANGUAGE_PREF";
     private Database database;
-    private BannerView bannerView;
+    private AdView bannerView;
     private CompositeDisposable compositeDisposable;
     private DaoClass daoClass;
     private RecyclerView recyclerView;
@@ -107,11 +112,14 @@ public class Favorites extends Fragment implements ThemeModeChecker {
     }
 
     private void bannerViewSettings() {
-        bannerView.setAdId("testw6vs28auh3");
-        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
-        bannerView.setBannerRefresh(60);
-        AdParam adParam=new AdParam.Builder().build();
-        bannerView.loadAd(adParam);
+        MobileAds.initialize(requireContext(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+
+            }
+        });
+        AdRequest adRequest=new AdRequest.Builder().build();
+        bannerView.loadAd(adRequest);
     }
 
     @Override

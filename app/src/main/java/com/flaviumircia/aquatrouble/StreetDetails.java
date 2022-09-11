@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.flaviumircia.aquatrouble.database.Database;
@@ -21,6 +22,11 @@ import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.model.ExtendedData;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.huawei.hms.ads.AdParam;
 import com.huawei.hms.ads.BannerAdSize;
 import com.huawei.hms.ads.banner.BannerView;
@@ -31,7 +37,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
     private Button add_to_fav;
     private ImageView icon;
     private final String file="LANGUAGE_PREF";
-    private BannerView bannerView;
+    private AdView bannerView;
 
 
     @Override
@@ -72,11 +78,14 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
     }
 
     private void setTheBanner() {
-        bannerView.setAdId("testw6vs28auh3");
-        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_300_250);
-        bannerView.setBannerRefresh(60);
-        AdParam adParam=new AdParam.Builder().build();
-        bannerView.loadAd(adParam);
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+
+            }
+        });
+        AdRequest adRequest=new AdRequest.Builder().build();
+        bannerView.loadAd(adRequest);
     }
 
     @SuppressLint("ClickableViewAccessibility")

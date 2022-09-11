@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.flaviumircia.aquatrouble.R;
@@ -13,6 +14,11 @@ import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.FeedbackModel;
 import com.flaviumircia.aquatrouble.restdata.retrofit.FeedbackApi;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.huawei.hms.ads.AdParam;
 import com.huawei.hms.ads.BannerAdSize;
 import com.huawei.hms.ads.banner.BannerView;
@@ -35,7 +41,7 @@ public class FeedbackProvider extends AppCompatActivity {
     private FeedbackApi feedbackApi;
     private ImageButton back_button;
     private String email,subject_string,content_string;
-    private BannerView bannerView;
+    private AdView bannerView;
     private CompositeDisposable compositeDisposable;
     private final String file ="LANGUAGE_PREF";
 
@@ -97,11 +103,14 @@ public class FeedbackProvider extends AppCompatActivity {
 
     private void setTheBanner() {
         //bannerview settings
-        bannerView.setAdId("testw6vs28auh3");
-        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
-        bannerView.setBannerRefresh(60);
-        AdParam adParam=new AdParam.Builder().build();
-        bannerView.loadAd(adParam);
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+
+            }
+        });
+        AdRequest adRequest=new AdRequest.Builder().build();
+        bannerView.loadAd(adRequest);
     }
 
     private void puttingData(String email, String subject_string, String content_string) {

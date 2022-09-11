@@ -39,7 +39,7 @@ public class SearchDataAdapter extends RecyclerView.Adapter<SearchDataViewHolder
     @NonNull
     @Override
     public SearchDataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.search_layout,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.current_damage_street_layout,parent,false);
 
         return new SearchDataViewHolder(view);
     }
@@ -47,46 +47,30 @@ public class SearchDataAdapter extends RecyclerView.Adapter<SearchDataViewHolder
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull SearchDataViewHolder holder, int position) {
-        holder.getTitle().setText(String.valueOf(sectorData.get(position).getAddress()));
-        holder.getContent().setText(String.valueOf(sectorData.get(position).getNumar()));
-
-        holder.getBackground().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    view.setBackgroundColor(context.getResources().getColor(R.color.light_blue));
-                }
-                else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    view.setBackgroundColor(holder.getColor());
-                    view.performClick();
-                }else if(motionEvent.getAction()==MotionEvent.ACTION_CANCEL)
-                {
-                    view.setBackgroundColor(holder.getColor());
-
-                }
-                return true;
-            }
-        });
-        Intent myIntent=new Intent(context, StreetDetails.class);
         CurrentDate currentDate=new CurrentDate();
+        holder.getStreet_title().setText(String.valueOf(sectorData.get(position).getAddress()));
+        holder.getStreet_number().setText(String.valueOf(sectorData.get(position).getNumar()));
+        Intent myIntent=new Intent(context, StreetDetails.class);
 
         DateDiff dateDiff=new DateDiff(sectorData.get(position).getExpected_date(),currentDate.getCurrent_date());
         long diff=dateDiff.makeDifference();
 
         String days_until_finished=String.valueOf(diff/1000/60/60/24);
-        int resource_id=0;
-        resource_id=getResourceId(sectorData.get(position).getSector());
+        int resourceId=0;
+        resourceId=getResourceId(sectorData.get(position).getSector());
         myIntent.putExtra("sector",sectorData.get(position).getSector());
         myIntent.putExtra("street_title",sectorData.get(position).getAddress());
         myIntent.putExtra("street_number",sectorData.get(position).getNumar());
         myIntent.putExtra("expected_date",sectorData.get(position).getExpected_date());
         myIntent.putExtra("affected_agent",sectorData.get(position).getAffected_agent());
         myIntent.putExtra("remaining_days",days_until_finished);
-        myIntent.putExtra("lat",sectorData.get(position).getLongitude());
-        myIntent.putExtra("lng",sectorData.get(position).getLatitude());
-        myIntent.putExtra("icon_id",resource_id);
+        myIntent.putExtra("lat",sectorData.get(position).getLatitude());
+        myIntent.putExtra("lng",sectorData.get(position).getLongitude());
 
-        holder.getBackground().setOnClickListener(view -> {
+        myIntent.putExtra("icon_id",resourceId);
+        holder.getDays_until().setText(days_until_finished);
+
+        holder.getSee_details().setOnClickListener(view -> {
             context.startActivity(myIntent);
         });
     }

@@ -7,51 +7,57 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.flaviumircia.aquatrouble.R;
 
 public class SearchDataViewHolder extends RecyclerView.ViewHolder {
-    private TextView title,content;
-    private ConstraintLayout background;
-    private int color;
+    private TextView street_title,street_number;
+    protected TextView days_until;
+    private AppCompatButton see_details;
     public SearchDataViewHolder(@NonNull View itemView) {
         super(itemView);
-        title= itemView.findViewById(R.id.title_search);
-        content=itemView.findViewById(R.id.content_search);
-        background=itemView.findViewById(R.id.background_layout_search);
-        int color = Color.TRANSPARENT;
-        Drawable background_drawable = background.getBackground();
-        if (background_drawable instanceof ColorDrawable)
-            this.color = ((ColorDrawable) background_drawable).getColor();
+        street_title= itemView.findViewById(R.id.street_title_current_damage);
+        street_number=itemView.findViewById(R.id.street_no_current_damage);
+        see_details=itemView.findViewById(R.id.see_more_details);
+        days_until=itemView.findViewById(R.id.days_left);
+//        int color = Color.TRANSPARENT;
+//        Drawable background_drawable = background.getBackground();
+//        if (background_drawable instanceof ColorDrawable)
+//            this.color = ((ColorDrawable) background_drawable).getColor();
     }
 
-    public int getColor() {
-        return color;
+    public TextView getStreet_title() {
+        return street_title;
     }
 
-    public ConstraintLayout getBackground() {
-        return background;
+    public void setStreet_title(TextView street_title) {
+        this.street_title = street_title;
     }
 
-    public void setBackground(ConstraintLayout background) {
-        this.background = background;
+    public TextView getStreet_number() {
+        return street_number;
     }
 
-    public TextView getContent() {
-        return content;
+    public void setStreet_number(TextView street_number) {
+        this.street_number = street_number;
     }
 
-    public void setContent(TextView content) {
-        this.content = content;
+    public TextView getDays_until() {
+        return days_until;
     }
 
-    public TextView getTitle() {
-        return title;
+    public void setDays_until(TextView days_until) {
+        this.days_until = days_until;
     }
 
-    public void setTitle(TextView title) {
-        this.title = title;
+    public AppCompatButton getSee_details() {
+        return see_details;
+    }
+
+    public void setSee_details(AppCompatButton see_details) {
+        this.see_details = see_details;
     }
 }

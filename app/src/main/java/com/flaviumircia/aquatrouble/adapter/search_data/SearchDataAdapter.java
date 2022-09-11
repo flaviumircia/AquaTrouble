@@ -56,8 +56,7 @@ public class SearchDataAdapter extends RecyclerView.Adapter<SearchDataViewHolder
         long diff=dateDiff.makeDifference();
 
         String days_until_finished=String.valueOf(diff/1000/60/60/24);
-        int resourceId=0;
-        resourceId=getResourceId(sectorData.get(position).getSector());
+        int resourceId=getResourceId(sectorData.get(position).getSector());
         myIntent.putExtra("sector",sectorData.get(position).getSector());
         myIntent.putExtra("street_title",sectorData.get(position).getAddress());
         myIntent.putExtra("street_number",sectorData.get(position).getNumar());

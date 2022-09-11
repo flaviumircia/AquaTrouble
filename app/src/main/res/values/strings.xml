@@ -120,7 +120,7 @@
     <string name="cant_find_my_address">Nu găsesc adresa mea în \"Defecțiuni curente\"!</string>
     <string name="cant_find_my_address_explanation">Dacă adresa dumneavoastră nu există in secțiune \"Defecțiuni curente\", înseamnă că avaria a fost reparată sau la adresa dumneavoastră nu exista nicio avarie.</string>
     <string name="when_i_should_receive_notifications">Când voi primi notificări legate de avarie?</string>
-    <string name="when_i_should_receive_notfi_explanations">Pentru a vă putea notifica cu starea avariei va trebuie ca: 1) Adresa dorită să fie adăugată în secțiunea de \"Favorite\" a aplicației 2) Notificările dumneavoastră să fie pornite din meniul \"Setări\", submeniul \"Notificări\" ale aplicației. 3) Data preconizată de reparare să fie prelungită.</string>
+    <string name="when_i_should_receive_notfi_explanations">Pentru a vă putea notifica cu starea avariei va trebuie ca:\n1) Adresa dorită să fie adăugată în secțiunea de \"Favorite\" a aplicației \n2) Notificările dumneavoastră să fie pornite din meniul \"Setări\", submeniul \"Notificări\" ale aplicației. \n3) Data preconizată de reparare să fie prelungită.</string>
     <string name="how_to_delete_an_address">Cum scot o adresă de la Favorite?</string>
     <string name="how_to_delete_an_address_explanation">Pentru a scoate o adresă din meniul Favorite va trebui sa apăsați o dată pe clopoțelul din dreapta adresei.</string>
     <string name="what_is_acc">Ce este ACC, respectiv ÎNC?</string>

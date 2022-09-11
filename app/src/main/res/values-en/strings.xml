@@ -94,13 +94,13 @@
     <string name="cant_find_my_address">I can\'t find my address in \"Current Damages\"</string>
     <string name="cant_find_my_address_explanation">If your address does not exist in the \"Current Damages\" section, it means that the fault has been repaired or there is no damage at your address.</string>
     <string name="when_i_should_receive_notifications">When will I receive crash notifications?</string>
-    <string name="when_i_should_receive_notfi_explanations">"  If your address does not exist in the \"Current Damages\" section, it means that the fault has been repaired or there is no damage at your address. "</string>
+    <string name="when_i_should_receive_notfi_explanations">To be able to notify you of the damage status, you must:\n1) Add the desired address to "Favorites" section of the application \n2) Your notifications should be turned on from the "Settings" menu, the "Notifications" submenu of the application. \n3) The expected repair date to be extended.</string>
     <string name="how_to_delete_an_address">How to delete an address from Favorites?</string>
     <string name="how_to_delete_an_address_explanation">To remove an address from the Favorites menu, you will have to press once on the bell to the right of the address.</string>
     <string name="what_is_acc">What is HW, but H?</string>
-    <string name="what_is_acc_explanation">HW represents How Water. H represents Heating</string>
+    <string name="what_is_acc_explanation">HW represents Hot Water. \nH represents Heating</string>
     <string name="street_address_is_partially_visible">Street address is partially visible</string>
-    <string name="street_address_is_partially_visible_explanation">To view it on all devices, drag the address title from left to right.</string>
+    <string name="street_address_is_partially_visible_explanation">To be visible on all devices, drag the address title from left to right.</string>
     <string name="street_numbers_are_partially_visible">The street number is partially visible</string>
     <string name="street_numbers_are_partially_visible_explanation">To be visible on all devices drag the address number from left to right.</string>
     <string name="send_us_a_feedback">I want to contact AquaTrouble for a feature I want</string>

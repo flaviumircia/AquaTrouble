@@ -47,19 +47,16 @@ public class Settings extends PreferenceFragmentCompat {
         PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(requireContext(),file);
         preferenceLanguageSetter.setTheLanguage();
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
-        Log.d(TAG, "onCreatePreferences: "+languageSetter.getLanguage());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop: "+languageSetter.getLanguage());
 
     }
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause: "+languageSetter.getLanguage());
     }
 
     @Override
@@ -71,7 +68,6 @@ public class Settings extends PreferenceFragmentCompat {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: "+languageSetter.getLanguage());
     }
 
     @Override

@@ -167,10 +167,10 @@ public class Favorites extends Fragment implements ThemeModeChecker {
             }
         }
     }
+    //TODO: Translate Oprire ACC/INC
     //TODO: Make EULA legal
-    //TODO: Add Google admob/Huawei ad mob
+    //TODO: Add Google admob
     //TODO: Rotate bug at home
-    //TODO: Add faq
     @Override
     public void setCustomTheme(Window window, int system_mode) {
         switch (system_mode) {

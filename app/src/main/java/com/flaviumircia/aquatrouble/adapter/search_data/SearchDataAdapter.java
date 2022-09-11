@@ -15,6 +15,7 @@ import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.StreetDetails;
 import com.flaviumircia.aquatrouble.misc.CurrentDate;
 import com.flaviumircia.aquatrouble.misc.DateDiff;
+import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 
 import java.text.Normalizer;
@@ -40,7 +41,6 @@ public class SearchDataAdapter extends RecyclerView.Adapter<SearchDataViewHolder
     @Override
     public SearchDataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.current_damage_street_layout,parent,false);
-
         return new SearchDataViewHolder(view);
     }
 

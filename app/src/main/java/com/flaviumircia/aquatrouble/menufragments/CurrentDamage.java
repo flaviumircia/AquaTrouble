@@ -1,8 +1,6 @@
 package com.flaviumircia.aquatrouble.menufragments;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,12 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.Search;
 import com.flaviumircia.aquatrouble.Sector;
 import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.huawei.hms.ads.AdParam;
 import com.huawei.hms.ads.BannerAdSize;
 import com.huawei.hms.ads.HwAds;
@@ -35,7 +37,7 @@ import com.huawei.hms.ads.banner.BannerView;
  */
 public class CurrentDamage extends Fragment implements ThemeModeChecker {
     private final String file="LANGUAGE_PREF";
-    private BannerView bannerView;
+    private AdView bannerView;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -81,8 +83,7 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        HwAds.init(requireContext());
-        bannerView=view.findViewById(R.id.hw_banner_view);
+        bannerView=view.findViewById(R.id.google_banner_view);
         Button s1=view.findViewById(R.id.sector1);
         Button s2=view.findViewById(R.id.sector2);
         Button s3=view.findViewById(R.id.sector3);
@@ -93,13 +94,13 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
         searchOnClick(search_button);
         buttonsListeners(s1,s2,s3,s4,s5,s6);
 
-        //bannerview settings
-        bannerView.setAdId("testw6vs28auh3");
-        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
-        bannerView.setBannerRefresh(60);
-        AdParam adParam=new AdParam.Builder().build();
-        bannerView.loadAd(adParam);
-
+        MobileAds.initialize(requireContext(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+            }
+        });
+        AdRequest adRequest=new AdRequest.Builder().build();
+        bannerView.loadAd(adRequest);
     }
 
     private void searchOnClick(ImageButton search_button) {

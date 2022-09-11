@@ -20,12 +20,9 @@ import java.util.List;
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoritesViewHolder> {
     private Context context;
     private List<NotificationsModel> list_of_model;
-    private boolean state;
-    private final String file="LANGUAGE_PREF";
     public FavoriteAdapter(Context context, List<NotificationsModel> list_of_model) {
         this.context = context;
         this.list_of_model = list_of_model;
-        this.state=true;
     }
 
     @NonNull

@@ -50,7 +50,7 @@ dependencies {
     //dots for slider
     implementation 'com.tbuonomo:dotsindicator:4.3'
     //osmdroid
-    implementation 'org.osmdroid:osmdroid-android:6.1.14'
+    implementation 'org.osmdroid:osmdroid-android:6.1.13'
     //osmbonusback
     implementation 'com.github.MKergall:osmbonuspack:6.9.0'
     //android browser

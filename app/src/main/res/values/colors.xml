@@ -16,6 +16,8 @@
     <color name="teal_custom">#FF3B8CA3</color>
     <color name="transparent">#003B8CA3</color>
     <color name="light_blue">#FF30A3BE</color>
-    <color name="aplha_background_white">#8FEFE9E3</color>
+    <color name="alpha_background_white">#8FEFE9E3</color>
     <color name="dark_foreground">#FF3B3B3B</color>
+    <color name="dark_contrast">#FF171717</color>
+    <color name="white_contrast">#FFB0ACA7</color>
 </resources>

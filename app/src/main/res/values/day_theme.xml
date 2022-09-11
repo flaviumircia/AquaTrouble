@@ -100,4 +100,12 @@
         <item name="android:drawableLeft">@drawable/ic_icon_favorite_settings</item>
         <item name="colorPrimary">@color/light_blue</item>
     </style>
+    <style name="see_content_image_button" parent="Widget.AppCompat.ImageButton">
+        <item name="android:tint">@color/dark_background</item>
+        <item name="android:background">@drawable/rounded_rectangle</item>
+        <item name="backgroundTint">@color/light_blue</item>
+    </style>
+    <style name="custom_background">
+        <item name="android:background">@color/white_contrast</item>
+    </style>
 </resources>

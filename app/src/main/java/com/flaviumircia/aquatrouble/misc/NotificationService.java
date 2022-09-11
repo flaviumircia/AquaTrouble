@@ -111,7 +111,7 @@ public class NotificationService extends Service {
                 handler.post(new Runnable() {
                     public void run() {
                         CurrentTime currentTime=new CurrentTime();
-                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(16):(39):[0-9]{2}$";
+                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(22):(15):[0-9]{2}$";
                         Pattern pattern=Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
                         Matcher matcher=pattern.matcher(currentTime.getCurrent_time());
                         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(notif_pref,MODE_PRIVATE);
@@ -148,18 +148,24 @@ public class NotificationService extends Service {
         for(NotificationsModel x:this.modelList){
             for(Data y:data)
             {
-                if(x.getAddress().equals(y.getAddress())){
+                if(x.getAddress().equals(y.getAddress()) && x.getStreet_no().equals(y.getNumar())){
                     if(!x.getDate_time().equals(y.getExpected_date()))
                     {   String title="The expected date has changed";
                         String content=x.getAddress()+" changed from: "+x.getDate_time()+", to: "+y.getExpected_date();
+
                         ExtendedData extendedData=new ExtendedData();
                         extendedData.setData(y);
                         CurrentDate currentDate=new CurrentDate();
+
                         DateDiff dateDiff=new DateDiff(extendedData.getData().getExpected_date(), currentDate.getCurrent_date());
+
                         long diff=dateDiff.makeDifference();
-                        String days_until_finished=String.valueOf(diff/1000/60/60/24);
-                        pushNotif(title,content,y.getAddress(),y.getAffected_agent(),y.getExpected_date(),days_until_finished,y.getNumar(),y.getSector());
-                        database.getDao().updateDateTime(y.getExpected_date(),x.getAddress());
+
+                        if(diff>=0){
+                            String days_until_finished=String.valueOf(diff/1000/60/60/24);
+                            pushNotif(title,content,y.getAddress(),y.getAffected_agent(),y.getExpected_date(),days_until_finished,y.getNumar(),y.getSector());
+                            database.getDao().updateDateTime(y.getExpected_date(),x.getAddress());
+                        }
                     }
                 }
             }
@@ -212,7 +218,7 @@ public class NotificationService extends Service {
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
 
         NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(getApplicationContext());
-        notificationManagerCompat.notify(1,builder.build());
+        notificationManagerCompat.notify((int) System.currentTimeMillis() ,builder.build());
     }
     private int getResourceId(String sector) {
         switch (sector)

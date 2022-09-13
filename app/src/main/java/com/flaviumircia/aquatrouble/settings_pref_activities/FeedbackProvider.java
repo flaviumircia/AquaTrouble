@@ -98,7 +98,7 @@ public class FeedbackProvider extends AppCompatActivity {
     private void setTheBanner() {
         //bannerview settings
         bannerView.setAdId("testw6vs28auh3");
-        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
+        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_100);
         bannerView.setBannerRefresh(60);
         AdParam adParam=new AdParam.Builder().build();
         bannerView.loadAd(adParam);

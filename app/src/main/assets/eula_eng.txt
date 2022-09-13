@@ -1,0 +1,41 @@
+1. Definition of Terms
+
+    The terms and conditions represent all the rules and procedures that govern the AquaTrouble platform. AquaTrouble – represents the online platform (available in two third-party stores represented by: Google LLC and Huawei Technologies Co., Ltd.) through which the user is informed about the damages occurring in the hot water and heating network in Bucharest.
+
+    User – any natural person who complies with the age limit (if any) imposed by the aforementioned third-party stores. It can also be represented by any legal entity that has obtained access through the means of communication made available by AquaTrouble (the feedback form in the application or the email) and that has explicitly received the consent of use.
+
+    Platform – the mobile application available in both Google Play and Huawei AppGallery.
+
+    Content – represents:
+        - all information within the AquaTrouble platform that can be viewed and/or accessed by the user using an electronic device
+        - the content of any e-mail, feedback form, error form, etc., communicated by any electronic means.
+
+    Feedback – the user's opinion sent through the form in the application, but also by posting a message on the dedicated Google Play and/or Huawei AppGallery store pages.
+
+2. Intellectual property rights
+
+    2.1. The Content, as defined above, including but not limited to logos, representations, trademarks, images (static or dynamic), text and/or multimedia content present in the AquaTrouble Application, are the exclusive property of AquaTrouble together with the creator Mircia Flaviu, all rights being reserved to them in this regard directly or indirectly (through licenses used and/or published).
+
+    2.2. The User is not allowed to copy, modify, distribute, publish, transfer to third parties, alter or include any Content in any context other than the original one. The inclusion of any content, within the AquaTrouble platform, in any other place, the modification or alteration of the signs signifying the copyright of AquaTrouble on the Content as well as the participation in the transfer, sale or distribution of materials made by reproducing, modifying or displaying the Content will only be done with the written consent of AquaTrouble.
+
+    2.3. Any Content to which the User has and/or obtains access by any means is subject to the Document, if the Content is not accompanied by a valid user agreement concluded between AquaTrouble and the User.
+
+    2.4. If AquaTrouble gives the User the right to use in any form described a user agreement for a certain Content, this right extends only to that Content or to those Contents defined in the agreement and ONLY for the period of its existence.
+
+    2.5. Use of the Content for any purpose other than those permitted herein or permitted by the accompanying user agreement, if any, is strictly prohibited.
+
+3. Responsibilities
+
+    3.1. AquaTrouble, together with Mircia Flaviu, does not accept any responsibility for any problems arising from the use of the application.
+
+    3.2. By accepting the terms and conditions presented in this document, the User assumes responsibility for complying with the conditions presented.
+
+    3.3. AquaTrouble reserves the right to periodically update and modify the Platform Terms and Conditions. In the event of such a change, AquaTrouble will publish the modified version of the Document, so please check the contents of this document periodically.
+
+    3.4. The information, in its unprocessed form, is provided by the Bucharest Termonenergetic Municipal Company and is accessed in accordance with Law 544/2001.
+
+    3.5. AquaTrouble, together with Mircia Flaviu, bears no responsibility for damages caused by the errors, inaccuracy or non-updating of the information published or maintained within the Platform, which is not due to its fault.
+
+    3.6. AquaTrouble cannot be held responsible for the unavailability of the platform for independent reasons.
+
+Last update: 13.09.2022

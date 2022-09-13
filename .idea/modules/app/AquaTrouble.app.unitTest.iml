@@ -137,5 +137,4 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.huawei.android.hms:security-ssl:1.1.5.301@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.huawei.hms:ads-omsdk:1.3.35@aar" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="AquaTrouble.app.main" />
 </module>

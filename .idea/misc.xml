@@ -5,6 +5,9 @@
       <map>
         <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/activity_eula.xml" value="0.2" />
         <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/activity_feedback_provider.xml" value="0.1" />
+        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/bottom_root.xml" value="0.11302083333333333" />
+        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/info_window_layout.xml" value="0.264" />
+        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/xml/root_preferences.xml" value="0.11302083333333333" />
       </map>
     </option>
   </component>

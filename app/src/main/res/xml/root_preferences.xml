@@ -76,6 +76,7 @@
 
 
     <Preference
+        app:key="bottom_root"
         app:layout="@layout/bottom_root"/>
 
 </PreferenceScreen>

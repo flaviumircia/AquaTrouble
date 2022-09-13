@@ -3,16 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/activity_feedback_provider.xml" value="0.264" />
-        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/activity_map_details.xml" value="0.19882246376811594" />
-        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/current_damage_street_layout.xml" value="0.22826086956521738" />
-        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/dropdown_layout.xml" value="0.19882246376811594" />
-        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/fragment_current_damage.xml" value="0.19882246376811594" />
-        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/fragment_favorites.xml" value="0.19882246376811594" />
-        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/search_layout.xml" value="0.22826086956521738" />
+        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/activity_eula.xml" value="0.2" />
+        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/activity_feedback_provider.xml" value="0.1" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

@@ -1,5 +1,7 @@
 package com.flaviumircia.aquatrouble.misc;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -25,7 +27,9 @@ import com.flaviumircia.aquatrouble.restdata.model.ExtendedData;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
 import com.flaviumircia.aquatrouble.restdata.retrofit.SectorDataSearchApi;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
@@ -111,7 +115,7 @@ public class NotificationService extends Service {
                 handler.post(new Runnable() {
                     public void run() {
                         CurrentTime currentTime=new CurrentTime();
-                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(22):(15):[0-9]{2}$";
+                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(20):(40):[0-9]{2}$";
                         Pattern pattern=Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
                         Matcher matcher=pattern.matcher(currentTime.getCurrent_time());
                         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(notif_pref,MODE_PRIVATE);
@@ -216,9 +220,11 @@ public class NotificationService extends Service {
                 .setAutoCancel(true)
                 .setVibrate(new long[]{100,60,200})
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
-
+        Random random = new Random();
+        int m = random.nextInt(9999 - 1000) + 1000;
+        m += random.nextInt(100) + 1;
         NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(getApplicationContext());
-        notificationManagerCompat.notify((int) System.currentTimeMillis() ,builder.build());
+        notificationManagerCompat.notify(m ,builder.build());
     }
     private int getResourceId(String sector) {
         switch (sector)

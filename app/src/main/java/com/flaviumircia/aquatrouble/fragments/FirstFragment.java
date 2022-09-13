@@ -25,6 +25,12 @@ public class FirstFragment extends Fragment {
         LanguageSetter languageSetter=new LanguageSetter();
         RadioGroup radioGroup=v.findViewById(R.id.radioGroup);
         RadioButton checkedRadioButton=(RadioButton) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
+        String language = "en";
+        languageSetter.setLocale(language,getContext());
+        SharedPreferences sharedPreferences=getActivity().getSharedPreferences(file, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString("lang",language);
+        editor.apply();
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {

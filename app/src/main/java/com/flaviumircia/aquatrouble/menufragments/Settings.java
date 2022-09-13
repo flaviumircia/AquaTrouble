@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +30,7 @@ import com.flaviumircia.aquatrouble.settings_pref_activities.FeedbackProvider;
 import com.flaviumircia.aquatrouble.settings_pref_activities.MakeDonation;
 
 public class Settings extends PreferenceFragmentCompat {
+    private TextView version;
     private static final String TAG = "Settings";
     private final String file="LANGUAGE_PREF";
     private final String notif_pref="NOTIFICATION_PREF";
@@ -41,6 +43,7 @@ public class Settings extends PreferenceFragmentCompat {
     private Preference about;
     private Preference support;
     private Preference faq;
+    private Preference bottom_root;
     private LanguageSetter languageSetter;
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -81,6 +84,7 @@ public class Settings extends PreferenceFragmentCompat {
         notification_status=(ListPreference)getPreferenceManager().findPreference("notifications");
         language_pref=(ListPreference) getPreferenceManager().findPreference("language_settings");
         faq=getPreferenceScreen().findPreference("faq");
+        bottom_root=getPreferenceScreen().findPreference("bottom_root");
         setTheLanguage(language_pref);
         areNotifsOn(notification_status);
         theme_switch(theme_switching);

@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.flaviumircia.aquatrouble.BuildConfig;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 
@@ -18,7 +19,8 @@ public class About extends AppCompatActivity {
         preferenceLanguageSetter.setTheLanguage();
         setContentView(R.layout.activity_about);
         version=findViewById(R.id.version);
-        version.setText(getString(R.string.Version)+" 1.0.0");
+        String buildVersion= BuildConfig.VERSION_NAME;
+        version.setText(getString(R.string.Version)+" "+buildVersion);
 
     }
 }

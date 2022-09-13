@@ -67,7 +67,6 @@ public class SecondFragment extends Fragment {
         SpannableString linkText;
         linkText=new SpannableString(getActivity().getString(R.string.tosText));
         linkText.setSpan(clickableSpan, 0, linkText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
         CharSequence cs = TextUtils.expandTemplate(
                 "Accept ^1 ", linkText);
 

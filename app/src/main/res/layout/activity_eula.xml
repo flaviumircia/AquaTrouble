@@ -3,38 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     tools:context=".Eula">
+
     <TextView
         android:id="@+id/topShape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/comfortaa"
         android:text="@string/tosText"
         android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/back_button_tos"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.354"
+        app:layout_constraintStart_toEndOf="@+id/back_button_tos"
+        app:layout_constraintTop_toTopOf="@+id/back_button_tos" />
 
     <ScrollView
         android:id="@+id/scrollViewTos"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fillViewport="true"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="10dp"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topShape">
+        app:layout_constraintTop_toBottomOf="@+id/back_button_tos">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,8 +43,24 @@
                 android:id="@+id/eulaText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/comfortaa"
+                android:gravity="fill_horizontal"
                 android:text=""
-                android:textAlignment="inherit" />
+                android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
+
+    <ImageButton
+        android:id="@+id/back_button_tos"
+        style="@style/custom_image_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/arrow_back" />
 </androidx.constraintlayout.widget.ConstraintLayout>

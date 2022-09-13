@@ -1,25 +1,44 @@
-END USER LICENSE FOR ANDROID { SOFTWARE NAME } SOFTWARE
-PLEASE READ THIS DOCUMENT CAREFULLY BEFORE USING THIS SOFTWARE. THIS LICENSE PROVIDES IMPORTANT INFORMATION CONCERNING THE SOFTWARE, PROVIDES YOU WITH A LICENSE TO USE THE SOFTWARE AND CONTAINS WARRANTY AND LIABILITY INFORMATION.
-BY USING THE SOFTWARE, YOU ARE ACCEPTING THE SOFTWARE "AS IS" AND AGREEING TO BE BOUND BY THE TERMS OF THIS LICENSE AGREEMENT.
-IN NO ENVENT WILL THE AUTHORS BE HELD LIABLE FOR ANY DAMASES ARISING FROM THE USE OF THIS SOFTWARE.
-IF YOU DO NOT WISH TO DO SO, DO NOT USE THE SOFTWARE.
+1.Definire Termeni
 
-1. Terms of License
-This license allows you to:
-(a) use the Software on a single device; and
-If you wish to use the Software on more than one device, you must license another copy of the
-Software.
+    Termenii și conditiile reprezintă totalitatea normelor și procedurilor care reglementează platforma AquaTrouble.
 
-2. Restrictions on Use
-Unless { Owner's name } (Owner) has authorized you to distribute the Software, you shall not make or distribute copies of the Software or transfer the Software from one device to another. You shall not decompile, reverse engineer, disassemble, include in other software, or translate the Software, or use the Software for any commercial purposes. You shall not modify, alter, change or otherwise make any modification to the Software or create derivative works based upon the Software. You shall not rent, lease, resell, sub-license, assign, distribute or otherwise transfer the Software or this license. Any attempt to do so shall be void and of no effect.
+    AquaTrouble – reprezintă platforma on-line (disponibilă in două magazine terțe reprezentate de: Google LLC și Huawei Technologies Co., Ltd.) prin care utilizatorul este informat despre avariile apărute la rețeaua de apă caldă și încălzire în București.
 
-3. Ownership
-This license provides you with limited rights to use the Software. The Owner retains all ownership, right, title and interest in, to and of the Software and all copies of it. All rights not specifically granted in this license, including domestic and international copyrights, are reserved by the Owner.
+    Utilizator – orice persoană fizică care respectă limita de vârstă (daca există) impusă de magazinele terțe anterior menționate. De asemenea, poate fi reprezentat de orice persoană juridică care a obținut acces prin mijloacele de comunicare puse la dispoziție de AquaTrouble (formularul de feedback din aplicație sau e-mailul) și care a primit în mod explicit acordul de utilizare.
 
-4. Proprietary Markings
-The Owner's logos, product names, manuals, documentation, and other support materials are either patented, copyrighted, trademarked, constitute valuable trade secrets (whether or not any portion of them may be copyrighted or patented) or are otherwise proprietary to the Owner. You shall not remove or obscure the Owner's copyright, trade mark or other proprietary notices from any of the materials contained in this package or downloaded together with the Software.
+    Platformă – aplicația mobilă disponibilă atât în Google Play, cât și in Huawei AppGallery.
 
-5. Disclaimer of Warranties and Technical Support
-The Software is provided to you after paying a licence and on an "AS IS" basis, without any technical support or warranty of any kind including, without limitation, any warranty or condition of merchantability, fitness for a particular purpose and non-infringement.
+    Conținut – reprezintă:
 
-SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, SO THE ABOVE EXCLUSION MAY NOT APPLY TO YOU. YOU MAY ALSO HAVE OTHER LEGAL RIGHTS WHICH VARY FROM JURISDICTION TO JURISDICTION.
+	    -toate informațiile din cadrul platformei AquaTrouble care pot fi vizualizate și/sau accesate de către utilizator prin utilizarea unui echipament electronicș
+	    -conținutul oricărui e-mail, formular de feedback, formular de eroare etc, comunicat prin orice mijloc electronic.
+
+    Feedback – părerea utilizatorului transmisă prin intermediul formularului din aplicație, dar și prin postarea unui mesaj pe paginile magazinelor Google Play și/sau Huawei AppGallery dedicate acestui lucru.
+
+2. Dreptul de proprietate intelectuală
+
+    2.1.	 Conținutul, după cum a fost definit anterior, incluzând, dar nelimitându-se la logo-uri, reprezentări, simboluri comerciale, imagini (statice sau dinamice), texte și/sau conținut multimedia prezent în aplicația AquaTrouble, sunt proprietate exclusivă a AquaTrouble împreună cu creatorul Mircia Flaviu, acestora fiindu-le rezervate toate drepturile în acest sens în mod direct sau indirect (prin licențe utilizate și/sau publicate).
+
+    2.2.	 Utilizatorului nu îi este permisă copierea, modificarea, distribuirea, publicarea, transferul către terți, alterarea sau includerea oricărui Conținut în orice alt context, în afara celui original. Includerea oricărui conținut, din cadrul platformei AquaTrouble, în orice alt loc, modificarea ori alterarea însemnelor care semnifică drepturile de autor ale AquaTrouble asupra Conținutului precum și participarea în transferul, vânzarea sau distribuția unor materiale realizate prin reproducerea, modificarea sau afișarea Conținutului se va face doar acordul scris al AquaTrouble.
+
+    2.3.	 Orice Conținut la care Utilizatorul are și/sau obține acces prin orice mijloc se află sub incidența Documentului, în cazul în care Conținutul nu este însoțit de un acord de utilizare valid încheiat între AquaTrouble și Utilizator.
+
+    2.4.	 Dacă AquaTrouble conferă Utilizatorului dreptul de a utiliza sub orice formă descrisă un acord de utilizare la un anumit Conținut, acest drept se extinde numai asupra acelui Conținut sau asupra acelor Conținuturi definte în acord și NUMAI pe perioada existentei acestuia.
+
+    2.5.	 Utilizarea Conținutului în orice alt scop decât cele permise în documentul prezent sau permise prin acordul de utilizare însoțit, în cazul în care există este strict interzisă.
+
+3. Răspunderi
+
+    3.1.	 AquaTrouble împreună cu Mircia Flaviu, nu acceptă nicio răspundere referitoare la eventualele probleme apărute în urma utilizării aplicației.
+
+    3.2.	 Prin acceptarea termenilor și condițiilor prezentate în acest document Utilizatorul își asumă răspunderea pentru respectarea condițiilor prezentate.
+
+    3.3.	 AquaTrouble își rezervă dreptul de a actualiza și modifica periodic Termenii și Condițiile platformei. În cazul unei astfel de modificări, AquaTrouble va publica versiunea modificată a Documentului, de aceea vă rugăm să verificați periodic conținutul acestui document.
+
+    3.4.	 Informațiile, în forma lor neprelucrată, sunt furnizate de către Compania Municipală Termonenergetic București și sunt accesate în conformitatea cu Legea 544/2001.
+
+    3.5.	 AquaTrouble, împreună cu Mircia Flaviu, nu poartă nicio responsabilitate pentru prejudiciile cauzate de erorile, neacuratețea sau neactualizarea informațiilor publicate sau menținute în cadrul Platformei, care nu se datorează culpei sale.
+
+    3.6.	 AquaTrouble nu poate răspunde pentru indisponibilitatea platformei din motive independente.
+
+Ultima actualizare: 13.09.2022 

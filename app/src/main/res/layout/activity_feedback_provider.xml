@@ -204,7 +204,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/content_edittext"
-                hwads:adId="testw6vs28auh3"
+                hwads:adId="m6fzetv1bb"
                 hwads:bannerSize="BANNER_SIZE_320_100" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

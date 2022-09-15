@@ -29,6 +29,7 @@ import com.flaviumircia.aquatrouble.database.NotificationsModel;
 import com.flaviumircia.aquatrouble.misc.CurrentTime;
 import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.huawei.hms.ads.AdListener;
 import com.huawei.hms.ads.AdParam;
 import com.huawei.hms.ads.BannerAdSize;
 import com.huawei.hms.ads.banner.BannerView;
@@ -102,16 +103,36 @@ public class Favorites extends Fragment implements ThemeModeChecker {
         super.onViewCreated(view, savedInstanceState);
         recyclerView=view.findViewById(R.id.favorites_recyclerView);
         bannerView=view.findViewById(R.id.bannerView_favorites);
+        bannerView.setAdId("x7aedjl3oq");
+        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
+        bannerView.setBannerRefresh(60);
+        AdParam adParam=new AdParam.Builder().build();
+        bannerView.loadAd(adParam);
+        bannerView.setAdListener(new AdListener(){
+            @Override
+            public void onAdClicked() {
+                super.onAdClicked();
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                Log.d("FAVORITES", "onAdLoaded: ");
+            }
+
+            @Override
+            public void onAdFailed(int i) {
+                super.onAdFailed(i);
+                Log.d("FAVORITES", "onAdFailed: "+i);
+
+            }
+        });
         bannerViewSettings();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void bannerViewSettings() {
-        bannerView.setAdId("testw6vs28auh3");
-        bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
-        bannerView.setBannerRefresh(60);
-        AdParam adParam=new AdParam.Builder().build();
-        bannerView.loadAd(adParam);
+
     }
 
     @Override

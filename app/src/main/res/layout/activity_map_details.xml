@@ -131,6 +131,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/street_recyclerview"
         app:layout_constraintVertical_bias="0.86"
-        hwads:adId="testw6vs28auh3"
+        hwads:adId="b2zccbjzhw"
         hwads:bannerSize="BANNER_SIZE_360_50" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -21,6 +22,7 @@ import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.model.ExtendedData;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.huawei.hms.ads.AdListener;
 import com.huawei.hms.ads.AdParam;
 import com.huawei.hms.ads.BannerAdSize;
 import com.huawei.hms.ads.banner.BannerView;
@@ -72,11 +74,30 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
     }
 
     private void setTheBanner() {
-        bannerView.setAdId("testw6vs28auh3");
+        bannerView.setAdId("s5n1xzxhun");
         bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_300_250);
         bannerView.setBannerRefresh(60);
         AdParam adParam=new AdParam.Builder().build();
         bannerView.loadAd(adParam);
+        bannerView.setAdListener(new AdListener(){
+            @Override
+            public void onAdClicked() {
+                super.onAdClicked();
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                Log.d("StreetDetails", "onAdLoaded: ");
+            }
+
+            @Override
+            public void onAdFailed(int i) {
+                super.onAdFailed(i);
+                Log.d("StreetDetails", "onAdFailed: "+i);
+
+            }
+        });
     }
 
     @SuppressLint("ClickableViewAccessibility")

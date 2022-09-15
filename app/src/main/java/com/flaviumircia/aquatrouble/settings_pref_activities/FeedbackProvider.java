@@ -1,6 +1,7 @@
 package com.flaviumircia.aquatrouble.settings_pref_activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -13,6 +14,7 @@ import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.FeedbackModel;
 import com.flaviumircia.aquatrouble.restdata.retrofit.FeedbackApi;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
+import com.huawei.hms.ads.AdListener;
 import com.huawei.hms.ads.AdParam;
 import com.huawei.hms.ads.BannerAdSize;
 import com.huawei.hms.ads.banner.BannerView;
@@ -97,11 +99,30 @@ public class FeedbackProvider extends AppCompatActivity {
 
     private void setTheBanner() {
         //bannerview settings
-        bannerView.setAdId("testw6vs28auh3");
+        bannerView.setAdId("m6fzetv1bb");
         bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_100);
         bannerView.setBannerRefresh(60);
         AdParam adParam=new AdParam.Builder().build();
         bannerView.loadAd(adParam);
+        bannerView.setAdListener(new AdListener(){
+            @Override
+            public void onAdClicked() {
+                super.onAdClicked();
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                Log.d("Feedback", "onAdLoaded: ");
+            }
+
+            @Override
+            public void onAdFailed(int i) {
+                super.onAdFailed(i);
+                Log.d("Feedback", "onAdFailed: "+i);
+
+            }
+        });
     }
 
     private void puttingData(String email, String subject_string, String content_string) {

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.flaviumircia.aquatrouble.Search;
 import com.flaviumircia.aquatrouble.Sector;
 import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.huawei.hms.ads.AdListener;
 import com.huawei.hms.ads.AdParam;
 import com.huawei.hms.ads.BannerAdSize;
 import com.huawei.hms.ads.HwAds;
@@ -94,12 +96,31 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
         buttonsListeners(s1,s2,s3,s4,s5,s6);
 
         //bannerview settings
-        bannerView.setAdId("testw6vs28auh3");
+        bannerView.setAdId("v1fp3llla2");
+
         bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
         bannerView.setBannerRefresh(60);
         AdParam adParam=new AdParam.Builder().build();
         bannerView.loadAd(adParam);
+        bannerView.setAdListener(new AdListener(){
+            @Override
+            public void onAdClicked() {
+                super.onAdClicked();
+            }
 
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                Log.d("Current Damage", "onAdLoaded: ");
+            }
+
+            @Override
+            public void onAdFailed(int i) {
+                super.onAdFailed(i);
+                Log.d("Current Damage", "onAdFailed: "+i);
+
+            }
+        });
     }
 
     private void searchOnClick(ImageButton search_button) {

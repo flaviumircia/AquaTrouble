@@ -43,15 +43,13 @@
         android:id="@+id/bannerView_favorites"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         app:layout_constraintBottom_toTopOf="@+id/favorites_recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/watchlistText"
-        hwads:adId="testw6vs28auh3"
+        hwads:adId="x7aedjl3oq"
         hwads:bannerSize="BANNER_SIZE_320_50" />
 
     <androidx.recyclerview.widget.RecyclerView

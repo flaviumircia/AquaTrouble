@@ -29,6 +29,7 @@ import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.retrofit.DamageDataApi;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
+import com.huawei.hms.ads.AdListener;
 import com.huawei.hms.ads.AdParam;
 import com.huawei.hms.ads.BannerAdSize;
 import com.huawei.hms.ads.banner.BannerView;
@@ -109,11 +110,30 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
     }
 
     private void setTheBanner() {
-        bannerView.setAdId("testw6vs28auh3");
+        bannerView.setAdId("b2zccbjzhw");
         bannerView.setBannerAdSize(BannerAdSize.BANNER_SIZE_320_50);
         bannerView.setBannerRefresh(60);
         AdParam adParam=new AdParam.Builder().build();
         bannerView.loadAd(adParam);
+        bannerView.setAdListener(new AdListener(){
+            @Override
+            public void onAdClicked() {
+                super.onAdClicked();
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                Log.d("MapDetails", "onAdLoaded: ");
+            }
+
+            @Override
+            public void onAdFailed(int i) {
+                super.onAdFailed(i);
+                Log.d("MapDetails", "onAdFailed: "+i);
+
+            }
+        });
     }
 
     private void onClick(ImageButton back_arrow) {

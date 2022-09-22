@@ -58,7 +58,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         interstitialAd=new InterstitialAd(this);
         interstitialAd.setAdId("y8celj9x7q");
         notifAd=new InterstitialAd(this);
-        notifAd.setAdId("testb4znbuh3n2");
+        notifAd.setAdId("r2b729a5ra");
 
         setTheBanner();
         int icon_res=getResourceIcon();
@@ -69,7 +69,8 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
                 android.content.res.Configuration.UI_MODE_NIGHT_MASK;
         setCustomTheme(window,nightModeFlags);
         ExtendedData model=getFields();
-
+        if(isFromNotif)
+            loadNotifAd();
         onClick(back_arrow,add_to_fav,model);
 
         sector.setText("Sector " + model.getData().getSector());

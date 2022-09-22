@@ -54,7 +54,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         add_to_fav=findViewById(R.id.showOnMapButton);
         bannerView=findViewById(R.id.bannerView_street_details);
         interstitialAd=new InterstitialAd(this);
-        interstitialAd.setAdId("testb4znbuh3n2");
+        interstitialAd.setAdId("y8celj9x7q");
         setTheBanner();
         int icon_res=getResourceIcon();
         icon.setImageResource(icon_res);

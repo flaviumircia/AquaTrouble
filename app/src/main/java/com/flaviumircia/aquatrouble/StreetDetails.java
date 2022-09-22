@@ -25,6 +25,7 @@ import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
 import com.huawei.hms.ads.AdListener;
 import com.huawei.hms.ads.AdParam;
 import com.huawei.hms.ads.BannerAdSize;
+import com.huawei.hms.ads.InterstitialAd;
 import com.huawei.hms.ads.banner.BannerView;
 
 public class StreetDetails extends AppCompatActivity implements ThemeModeChecker {
@@ -34,7 +35,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
     private ImageView icon;
     private final String file="LANGUAGE_PREF";
     private BannerView bannerView;
-
+    private InterstitialAd interstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,8 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         icon=findViewById(R.id.sectorIconDetails);
         add_to_fav=findViewById(R.id.showOnMapButton);
         bannerView=findViewById(R.id.bannerView_street_details);
+        interstitialAd=new InterstitialAd(this);
+        interstitialAd.setAdId("testb4znbuh3n2");
         setTheBanner();
         int icon_res=getResourceIcon();
         icon.setImageResource(icon_res);
@@ -128,9 +131,34 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
             model.setDate_time(data_model.getData().getExpected_date());
             Database.getDatabase(getApplicationContext()).getDao().insertNotifData(model);
             Toast.makeText(this, R.string.address_was_added, Toast.LENGTH_SHORT).show();
-            finish();
+            loadInterstitialAd();
         });
     }
+
+
+
+    private void showInterstitialAd() {
+        // Display the ad.
+        if (interstitialAd != null && interstitialAd.isLoaded()) {
+            interstitialAd.show(this);
+            finish();
+        } else {
+            Toast.makeText(this, "Ad did not load", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void loadInterstitialAd() {
+        AdParam adParam = new AdParam.Builder().build();
+        interstitialAd.loadAd(adParam);
+        interstitialAd.setAdListener(new AdListener(){
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                showInterstitialAd();
+            }
+        });
+    }
+
     private int getResourceIcon(){
         Bundle extras=getIntent().getExtras();
         if(extras!=null)

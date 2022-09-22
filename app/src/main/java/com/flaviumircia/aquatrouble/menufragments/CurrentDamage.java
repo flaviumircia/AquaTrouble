@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.Search;
 import com.flaviumircia.aquatrouble.Sector;
+import com.flaviumircia.aquatrouble.misc.NetworkChecker;
 import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
 import com.huawei.hms.ads.AdListener;
@@ -38,6 +40,7 @@ import com.huawei.hms.ads.banner.BannerView;
 public class CurrentDamage extends Fragment implements ThemeModeChecker {
     private final String file="LANGUAGE_PREF";
     private BannerView bannerView;
+    private NetworkChecker networkChecker;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,6 +81,7 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
         }
         PreferenceLanguageSetter preferenceLanguageSetter=new PreferenceLanguageSetter(requireContext(),file);
         preferenceLanguageSetter.setTheLanguage();
+        networkChecker=new NetworkChecker(requireContext());
     }
 
     @Override
@@ -93,7 +97,11 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
         Button s6=view.findViewById(R.id.sector6);
         ImageButton search_button=view.findViewById(R.id.search_button);
         searchOnClick(search_button);
-        buttonsListeners(s1,s2,s3,s4,s5,s6);
+        if(networkChecker.isNetworkAvailable())
+            buttonsListeners(s1,s2,s3,s4,s5,s6);
+        else
+            Toast.makeText(requireContext(), requireContext().getString(R.string.requires_connection), Toast.LENGTH_SHORT).show();
+
 
         //bannerview settings
         bannerView.setAdId("v1fp3llla2");
@@ -147,8 +155,6 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
             myIntent.putExtra("icon",R.drawable.ic_arc_triumf);
             myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             getContext().startActivity(myIntent);
-
-
         });
         s2.setOnClickListener(view -> {
             Intent myIntent=new Intent(getActivity(), Sector.class);

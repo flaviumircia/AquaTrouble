@@ -3,9 +3,11 @@ package com.flaviumircia.aquatrouble;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.widget.Toast;
 
 import com.flaviumircia.aquatrouble.map.math.CalculateAreaOfPoly;
 import com.flaviumircia.aquatrouble.map.math.PolygonCustomTitle;
+import com.flaviumircia.aquatrouble.misc.NetworkChecker;
 
 import org.osmdroid.bonuspack.kml.KmlFeature;
 import org.osmdroid.bonuspack.kml.KmlLineString;
@@ -24,10 +26,12 @@ public class MyKmlStyler implements KmlFeature.Styler {
     private Context theContext;
     private PolygonCustomTitle polygonMiscInfo;
     private String alphaValue;
+    private NetworkChecker checkForInternet;
     public MyKmlStyler(Context context)
     {
         this.theContext=context;
         alphaValue="#6B";
+        this.checkForInternet=new NetworkChecker(context);
     }
 
     public String getAlphaValue() {
@@ -90,6 +94,7 @@ public class MyKmlStyler implements KmlFeature.Styler {
         //some settings for the PolygonCustomTitle class
         miscSettingsForPolygon(polygon.getTitle(),polygon.getBounds().getCenterWithDateLine(),calculateAreaOfPoly.polyArea());
         //polygon on click listener
+
         polygon.setOnClickListener(new Polygon.OnClickListener() {
             @Override
             public boolean onClick(Polygon polygon, MapView mapView, GeoPoint eventPos) {
@@ -110,7 +115,10 @@ public class MyKmlStyler implements KmlFeature.Styler {
 
 
                 //start the activity
-                theContext.startActivity(myIntent);
+                if(checkForInternet.isNetworkAvailable())
+                    theContext.startActivity(myIntent);
+                else
+                    Toast.makeText(theContext, R.string.requires_connection, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

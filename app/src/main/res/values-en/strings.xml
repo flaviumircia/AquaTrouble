@@ -105,5 +105,6 @@
     <string name="street_numbers_are_partially_visible_explanation">To be visible on all devices drag the address number from left to right.</string>
     <string name="send_us_a_feedback">I want to contact AquaTrouble for a feature I want</string>
     <string name="send_us_feedback_explanation">We are glad that you want to help! To be able to send us a request, please use the \"Feedback\" submenu in the \"Settings\" menu.</string>
+    <string name="requires_connection">Internet connection is required for this feature!</string>
 
 </resources>

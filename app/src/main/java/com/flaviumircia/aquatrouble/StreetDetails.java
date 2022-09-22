@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -35,6 +36,8 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
     private final String file="LANGUAGE_PREF";
     private BannerView bannerView;
     private InterstitialAd interstitialAd;
+    private InterstitialAd notifAd;
+    private boolean isFromNotif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,10 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         add_to_fav=findViewById(R.id.showOnMapButton);
         bannerView=findViewById(R.id.bannerView_street_details);
         interstitialAd=new InterstitialAd(this);
+        notifAd=new InterstitialAd(this);
+        notifAd.setAdId("testb4znbuh3n2");
         interstitialAd.setAdId("testb4znbuh3n2");
+
         setTheBanner();
         int icon_res=getResourceIcon();
         icon.setImageResource(icon_res);
@@ -63,7 +69,8 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
                 android.content.res.Configuration.UI_MODE_NIGHT_MASK;
         setCustomTheme(window,nightModeFlags);
         ExtendedData model=getFields();
-
+        if(isFromNotif)
+            loadNotifAd();
         onClick(back_arrow,add_to_fav,model);
 
         sector.setText("Sector " + model.getData().getSector());
@@ -115,7 +122,32 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         });
     }
 
+    private void showNotifAd() {
+        // Display the ad.
+        if (notifAd != null && notifAd.isLoaded()) {
+            notifAd.show(this);
+        } else {
+            Toast.makeText(this, "Ad did not load", Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    private void loadNotifAd() {
+        AdParam adParam = new AdParam.Builder().build();
+        notifAd.loadAd(adParam);
+        notifAd.setAdListener(new AdListener(){
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                showNotifAd();
+            }
+
+            @Override
+            public void onAdFailed(int i) {
+                super.onAdFailed(i);
+                Log.d("Notif", "onAdFailed: "+i);
+            }
+        });
+    }
 
     private void showInterstitialAd() {
         // Display the ad.
@@ -160,6 +192,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
             temp_model.setAffected_agent(extras.getString("affected_agent"));
             data_model.setData(temp_model);
             data_model.setRemaining_days(extras.getString("remaining_days"));
+            isFromNotif=extras.getBoolean("from_notif");
         }
         return data_model;
     }

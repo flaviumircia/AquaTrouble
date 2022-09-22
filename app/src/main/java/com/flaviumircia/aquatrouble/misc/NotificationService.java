@@ -115,7 +115,7 @@ public class NotificationService extends Service {
                 handler.post(new Runnable() {
                     public void run() {
                         CurrentTime currentTime=new CurrentTime();
-                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(20):(40):[0-9]{2}$";
+                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(16):(43):[0-9]{2}$";
                         Pattern pattern=Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
                         Matcher matcher=pattern.matcher(currentTime.getCurrent_time());
                         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(notif_pref,MODE_PRIVATE);
@@ -202,7 +202,7 @@ public class NotificationService extends Service {
         intent.putExtra("remaining_days",days_counter);
         intent.putExtra("lat","0");
         intent.putExtra("lng","0");
-
+        intent.putExtra("from_notif",true);
         resource_id=getResourceId(sector);
         intent.putExtra("icon_id",resource_id);
 

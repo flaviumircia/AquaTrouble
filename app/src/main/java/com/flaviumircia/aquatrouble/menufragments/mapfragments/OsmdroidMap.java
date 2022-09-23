@@ -58,16 +58,14 @@ import java.io.OutputStream;
  * create an instance of this fragment.
  */
 public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeModeChecker, PolygonMarkerTitle, PathReturner {
-    private static final int MY_PERMISSION_REQUEST_STORAGE = 1;
     private final String file="LANGUAGE_PREF";
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
     private static final String TAG = "HomeMap";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private MapView map;
@@ -139,6 +137,7 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
 
         // map tile provider
         setOfflineMapSource();
+
         //map controller for setting the zoom on the map
         IMapController mapController = map.getController();
         mapController.setZoom(14.00);
@@ -152,13 +151,13 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
         //hide the zoom in/out buttons of the map
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         map.setMinZoomLevel(14.00);
-        map.setMaxZoomLevel(18.00);
+        map.setMaxZoomLevel(16.00);
         //set the pinch zoom
         map.setMultiTouchControls(true);
 
         //set scrollable limits
         map.setScrollableAreaLimitLatitude(44.549523,44.335193,1);
-        map.setScrollableAreaLimitLongitude(25.928859,26.242889,1);
+        map.setScrollableAreaLimitLongitude(25.948859,26.242889,1);
 
         //Class for adding the markers in the center of the polygons
         PolygonCustomTitle polygonCustomTitle=new PolygonCustomTitle();
@@ -196,7 +195,7 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
         if(!f.exists())
             assetToInternalStorage.copyAsset("4uMaps",dirPath);
         //set the offline tile source
-        map.setTileSource(new XYTileSource("4uMaps", 12, 15, 256, ".png", new String[] {dirPath}));
+        map.setTileSource(new XYTileSource("4uMaps", 13, 14, 512, ".png", new String[] {dirPath}));
 
     }
 
@@ -207,6 +206,7 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Configuration.getInstance().load(getActivity(), PreferenceManager.getDefaultSharedPreferences(getActivity()));
         map.setTilesScaledToDpi(false);
+
         map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
     }
 
@@ -217,7 +217,8 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Configuration.getInstance().save(getActivity(), prefs);
         map.setTilesScaledToDpi(false);
-            map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
+
+        map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
     }
 
 

@@ -23,6 +23,7 @@ import com.flaviumircia.aquatrouble.adapter.damage_data.PostAdapter;
 import com.flaviumircia.aquatrouble.map.math.PolygonCustomTitle;
 import com.flaviumircia.aquatrouble.map.settings.MapPointCorrecter;
 import com.flaviumircia.aquatrouble.map.settings.PolygonMarkerTitle;
+import com.flaviumircia.aquatrouble.misc.AssetToInternalStorage;
 import com.flaviumircia.aquatrouble.misc.PathReturner;
 import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
@@ -38,6 +39,7 @@ import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.kml.KmlDocument;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
@@ -138,12 +140,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
 
     private void onClick(ImageButton back_arrow) {
         this.back_arrow.setOnClickListener(view -> MapDetails.super.finish());
-//        search_button.setOnClickListener(view_search->{
-//            Intent myIntent=new Intent(this, Search.class);
-//            myIntent.putExtra("sector",false);
-//            myIntent.putExtra("neighborhood",neighborhood);
-//            startActivity(myIntent);
-//        });
+
     }
 
     private void fetchData(String neighborhood, MapView map) {
@@ -232,9 +229,9 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
 
         //the startPoint of the map
         GeoPoint startPoint=centerOf();
+
         map.setTilesScaledToDpi(true);
         //custom styler
-//        map.setTilesScaleFactor(1.2f);
 
         styler = new ZoomKmlStyler();
 
@@ -242,7 +239,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         PolygonCustomTitle polygonCustomTitle=new PolygonCustomTitle();
 
         // map tile provider
-        map.setTileSource(TileSourceFactory.MAPNIK);
+        setOfflineMapSource();
 
         //map controller for setting the zoom on the map
         mapController.setZoom(14.00);
@@ -252,7 +249,7 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
 
         //hide the zoom in/out buttons of the map
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
-        map.setMaxZoomLevel(22.00);
+        map.setMaxZoomLevel(20.00);
         map.setMinZoomLevel(14.00);
 
         //set the pinch zoom
@@ -287,10 +284,26 @@ public class MapDetails extends AppCompatActivity implements ThemeModeChecker, M
         Log.d("MAP", "onResume: ");
         //this will refresh the osmdroid configuration on resuming.
         //if you make changes to the configuration, use
-
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
+    }
+
+    private void setOfflineMapSource() {
+        //path to default osmdroid storage
+        String dirPath=Configuration.getInstance().getOsmdroidBasePath().getAbsolutePath()+"/";
+        //create file to check if path exists
+        File f=new File(dirPath);
+
+        //Class to copy assets file to internal storage
+        AssetToInternalStorage assetToInternalStorage=new AssetToInternalStorage(this);
+
+        //check if file exists
+        if(!f.exists())
+            assetToInternalStorage.copyAsset("4uMaps",dirPath);
+        //set the offline tile source
+        map.setTileSource(new XYTileSource("4uMaps", 12, 15, 256, ".png", new String[] {dirPath}));
+
     }
 
     @Override

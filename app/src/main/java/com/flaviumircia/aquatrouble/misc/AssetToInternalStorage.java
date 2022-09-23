@@ -18,13 +18,17 @@ public class AssetToInternalStorage {
 
     public void copyAsset(String filename,String dirPath){
         File dir=new File(dirPath);
+
         if(!dir.exists()){
             dir.mkdir();
         }
+
         AssetManager assetManager= context.getAssets();
         InputStream in=null;
         OutputStream out=null;
+
         try{
+
             in=assetManager.open(filename);
             File outfile=new File(dirPath,filename);
             out= new FileOutputStream(outfile);

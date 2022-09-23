@@ -1,16 +1,25 @@
 package com.flaviumircia.aquatrouble.menufragments.mapfragments;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.flaviumircia.aquatrouble.LanguageSetter;
@@ -20,6 +29,7 @@ import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.map.math.PolygonCustomTitle;
 import com.flaviumircia.aquatrouble.map.settings.MapPointCorrecter;
 import com.flaviumircia.aquatrouble.map.settings.PolygonMarkerTitle;
+import com.flaviumircia.aquatrouble.misc.AssetToInternalStorage;
 import com.flaviumircia.aquatrouble.misc.PathReturner;
 import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
@@ -28,15 +38,19 @@ import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.kml.KmlDocument;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.FolderOverlay;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +58,7 @@ import java.io.InputStream;
  * create an instance of this fragment.
  */
 public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeModeChecker, PolygonMarkerTitle, PathReturner {
+    private static final int MY_PERMISSION_REQUEST_STORAGE = 1;
     private final String file="LANGUAGE_PREF";
 
     // TODO: Rename parameter arguments, choose names that match
@@ -105,6 +120,7 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
         KmlDocument kmlDocument=new KmlDocument();
         String pathToFile=return_the_path("codebeautify.kml");
         kmlDocument.parseKMLFile(new File(pathToFile));
+
         //getting the R.id for the MapView
         map = v.findViewById(R.id.osmdroidMap);
 
@@ -115,22 +131,28 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
         return v;
     }
     private void setTheMap(KmlDocument kmlDocument) {
-        Window window=getActivity().getWindow();
-        int nightModeFlags=getContext().getResources().getConfiguration().uiMode &
-                android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+
+        //Window and night mode check
+        Window window=requireActivity().getWindow();
+        int nightModeFlags=requireContext().getResources().getConfiguration().uiMode &
+                            android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+
         // map tile provider
-        map.setTileSource(TileSourceFactory.MAPNIK);
+        setOfflineMapSource();
         //map controller for setting the zoom on the map
         IMapController mapController = map.getController();
         mapController.setZoom(14.00);
+
         //starting point (default) of the map
         GeoPoint startPoint = new GeoPoint(44.426164962,26.102332924);
+
         //set the center of the map
         mapController.setCenter(startPoint);
+
         //hide the zoom in/out buttons of the map
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         map.setMinZoomLevel(14.00);
-        map.setMaxZoomLevel(21.00);
+        map.setMaxZoomLevel(18.00);
         //set the pinch zoom
         map.setMultiTouchControls(true);
 
@@ -156,8 +178,26 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
         setPolygonMarkerTitle(polygonCustomTitle,nightModeFlags);
 
         map.getOverlays().add(kmlOverlay);
+
         //reload the map with the overlay
         map.invalidate();
+    }
+
+    private void setOfflineMapSource() {
+        //path to default osmdroid storage
+        String dirPath=Configuration.getInstance().getOsmdroidBasePath().getAbsolutePath()+"/";
+        //create file to check if path exists
+        File f=new File(dirPath);
+
+        //Class to copy assets file to internal storage
+        AssetToInternalStorage assetToInternalStorage=new AssetToInternalStorage(requireContext());
+
+        //check if file exists
+        if(!f.exists())
+            assetToInternalStorage.copyAsset("4uMaps",dirPath);
+        //set the offline tile source
+        map.setTileSource(new XYTileSource("4uMaps", 12, 15, 256, ".png", new String[] {dirPath}));
+
     }
 
     public void onResume(){
@@ -274,4 +314,7 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
         } catch (Exception e) { throw new RuntimeException(e); }
         return f.getPath();
     }
+
+
+
 }

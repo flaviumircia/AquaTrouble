@@ -6,6 +6,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.flaviumircia.aquatrouble.restdata.model.Data;
+
 @Entity(tableName = "notifications")
 public class NotificationsModel {
 

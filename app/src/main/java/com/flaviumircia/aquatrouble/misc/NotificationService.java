@@ -115,7 +115,7 @@ public class NotificationService extends Service {
                 handler.post(new Runnable() {
                     public void run() {
                         CurrentTime currentTime=new CurrentTime();
-                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(16):(43):[0-9]{2}$";
+                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(12):(34):[0-9]{2}$";
                         Pattern pattern=Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
                         Matcher matcher=pattern.matcher(currentTime.getCurrent_time());
                         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(notif_pref,MODE_PRIVATE);
@@ -167,7 +167,7 @@ public class NotificationService extends Service {
 
                         if(diff>=0){
                             String days_until_finished=String.valueOf(diff/1000/60/60/24);
-                            pushNotif(title,content,y.getAddress(),y.getAffected_agent(),y.getExpected_date(),days_until_finished,y.getNumar(),y.getSector());
+                            pushNotif(title,content,x.getAddress(),y.getAffected_agent(),y.getExpected_date(),days_until_finished,x.getStreet_no(),y.getSector());
                             database.getDao().updateDateTime(y.getExpected_date(),x.getAddress());
                         }
                     }

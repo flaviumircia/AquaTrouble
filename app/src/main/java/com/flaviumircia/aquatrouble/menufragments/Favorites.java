@@ -34,9 +34,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.huawei.hms.ads.AdParam;
-import com.huawei.hms.ads.BannerAdSize;
-import com.huawei.hms.ads.banner.BannerView;
+
 
 import java.util.List;
 

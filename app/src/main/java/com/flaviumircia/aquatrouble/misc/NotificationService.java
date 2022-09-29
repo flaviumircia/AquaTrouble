@@ -45,6 +45,7 @@ public class NotificationService extends Service {
     Timer timer;
     TimerTask timerTask;
     String TAG = "Timers";
+     static int counter;
     int Your_X_SECS = 60;
     CompositeDisposable compositeDisposable;
     Database database;
@@ -71,7 +72,7 @@ public class NotificationService extends Service {
     @Override
     public void onCreate() {
         Log.e(TAG, "onCreate");
-
+        counter=0;
 
     }
 
@@ -115,7 +116,7 @@ public class NotificationService extends Service {
                 handler.post(new Runnable() {
                     public void run() {
                         CurrentTime currentTime=new CurrentTime();
-                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(17):(25):[0-9]{2}$";
+                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(18):(41):[0-9]{2}$";
                         Pattern pattern=Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
                         Matcher matcher=pattern.matcher(currentTime.getCurrent_time());
                         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(notif_pref,MODE_PRIVATE);
@@ -145,6 +146,7 @@ public class NotificationService extends Service {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((data)->getTheData(data)));
+
         compositeDisposable.add(sectorDataSearchApi.getData().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(data -> getTheApiData(data)));
     }
 
@@ -208,7 +210,7 @@ public class NotificationService extends Service {
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         final int flag =  Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
-        PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(),0,intent,flag);
+        PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(),(int) System.currentTimeMillis(),intent,flag);
 
         NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),"CHANNEL_ID")
                 .setSmallIcon(R.drawable.ic_logo)
@@ -220,11 +222,9 @@ public class NotificationService extends Service {
                 .setAutoCancel(true)
                 .setVibrate(new long[]{100,60,200})
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
-        Random random = new Random();
-        int m = random.nextInt(9999 - 1000) + 1000;
-        m += random.nextInt(100) + 1;
+
         NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(getApplicationContext());
-        notificationManagerCompat.notify(m ,builder.build());
+        notificationManagerCompat.notify((int) System.currentTimeMillis() ,builder.build());
     }
     private int getResourceId(String sector) {
         switch (sector)

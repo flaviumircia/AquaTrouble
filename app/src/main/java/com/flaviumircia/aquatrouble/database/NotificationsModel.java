@@ -26,9 +26,18 @@ public class NotificationsModel {
     private String street_no;
 
     @ColumnInfo(name="neighborhood")
-    @NonNull
-
+    @Nullable
     private String neighborhood;
+    @Nullable
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(@Nullable String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+
 
     @ColumnInfo(name="sector")
     @NonNull
@@ -71,15 +80,6 @@ public class NotificationsModel {
 
     public void setStreet_no(@NonNull String street_no) {
         this.street_no = street_no;
-    }
-
-    @NonNull
-    public String getNeighborhood() {
-        return neighborhood;
-    }
-
-    public void setNeighborhood(@NonNull String neighborhood) {
-        this.neighborhood = neighborhood;
     }
 
     @NonNull

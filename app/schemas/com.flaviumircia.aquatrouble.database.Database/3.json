@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "faff85d07f5479562ab87a809ee78e4d",
+    "identityHash": "f8a90a6b2cfd0041fbed8d99a5d1f97e",
     "entities": [
       {
         "tableName": "user",
@@ -32,7 +32,7 @@
       },
       {
         "tableName": "notifications",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `address` TEXT NOT NULL, `date_time` TEXT NOT NULL, `street_no` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `address` TEXT NOT NULL, `date_time` TEXT NOT NULL, `street_no` TEXT, `neighborhood` TEXT NOT NULL, `sector` TEXT NOT NULL, `affected_agent` TEXT, `expected_date` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -57,6 +57,30 @@
             "columnName": "street_no",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "neighborhood",
+            "columnName": "neighborhood",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sector",
+            "columnName": "sector",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "affected_agent",
+            "columnName": "affected_agent",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "expected_date",
+            "columnName": "expected_date",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -72,7 +96,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'faff85d07f5479562ab87a809ee78e4d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f8a90a6b2cfd0041fbed8d99a5d1f97e')"
     ]
   }
 }

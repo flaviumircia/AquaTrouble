@@ -100,7 +100,7 @@ public class CurrentDamage extends Fragment implements ThemeModeChecker {
         if(networkChecker.isNetworkAvailable())
             buttonsListeners(s1,s2,s3,s4,s5,s6);
         else
-            Toast.makeText(requireContext(), requireContext().getString(R.string.requires_connection), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Network connection should be active!", Toast.LENGTH_SHORT).show();
 
 
         //bannerview settings

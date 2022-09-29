@@ -19,12 +19,25 @@ public class NotificationsModel {
     private String address;
 
     @ColumnInfo(name = "date_time")
-    @NonNull
     private String date_time;
 
     @ColumnInfo(name = "street_no")
-    @Nullable
+    @NonNull
     private String street_no;
+
+    @ColumnInfo(name="neighborhood")
+    @NonNull
+
+    private String neighborhood;
+
+    @ColumnInfo(name="sector")
+    @NonNull
+
+    private String sector;
+
+    @ColumnInfo(name="affected_agent")
+    @NonNull
+    private String affected_agent;
 
     public int getId() {
         return id;
@@ -43,21 +56,48 @@ public class NotificationsModel {
         this.address = address;
     }
 
-    @NonNull
     public String getDate_time() {
         return date_time;
     }
 
-    public void setDate_time(@NonNull String date_time) {
+    public void setDate_time(String date_time) {
         this.date_time = date_time;
     }
 
-    @Nullable
+    @NonNull
     public String getStreet_no() {
         return street_no;
     }
 
-    public void setStreet_no(@Nullable String street_no) {
+    public void setStreet_no(@NonNull String street_no) {
         this.street_no = street_no;
     }
+
+    @NonNull
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(@NonNull String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+    @NonNull
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(@NonNull String sector) {
+        this.sector = sector;
+    }
+
+    @NonNull
+    public String getAffected_agent() {
+        return affected_agent;
+    }
+
+    public void setAffected_agent(@NonNull String affected_agent) {
+        this.affected_agent = affected_agent;
+    }
 }
+

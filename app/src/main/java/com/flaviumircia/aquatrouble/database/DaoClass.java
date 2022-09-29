@@ -27,10 +27,8 @@ public interface DaoClass {
 
     @Query("UPDATE notifications SET date_time=:date_time WHERE address=:address")
     void updateDateTime(String date_time,String address);
-    @Query("select id,address,date_time from notifications where address=:address")
-    Maybe<NotificationsModel> getNotifData(String address);
 
 
-    @Query("select id,address,date_time,street_no from notifications")
+    @Query("select id,sector,neighborhood,address,affected_agent,date_time,street_no from notifications where id is not null and address is not null and date_time is not null and street_no is not null and neighborhood is not null and sector is not null and affected_agent is not null")
     Maybe<List<NotificationsModel>> getAllNotifData();
 }

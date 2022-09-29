@@ -118,7 +118,7 @@ public class MyKmlStyler implements KmlFeature.Styler {
                 if(checkForInternet.isNetworkAvailable())
                     theContext.startActivity(myIntent);
                 else
-                    Toast.makeText(theContext, R.string.requires_connection, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(theContext, "Network connection should be active!", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

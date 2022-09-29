@@ -115,7 +115,7 @@ public class NotificationService extends Service {
                 handler.post(new Runnable() {
                     public void run() {
                         CurrentTime currentTime=new CurrentTime();
-                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(20):(40):[0-9]{2}$";
+                        String regex="^(08):(20):[0-9]{2}$|^(11):(20):[0-9]{2}$|^(15):(20):[0-9]{2}$|^(22):(20):[0-9]{2}$|^(17):(25):[0-9]{2}$";
                         Pattern pattern=Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
                         Matcher matcher=pattern.matcher(currentTime.getCurrent_time());
                         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(notif_pref,MODE_PRIVATE);
@@ -164,10 +164,10 @@ public class NotificationService extends Service {
                         DateDiff dateDiff=new DateDiff(extendedData.getData().getExpected_date(), currentDate.getCurrent_date());
 
                         long diff=dateDiff.makeDifference();
-
                         if(diff>=0){
                             String days_until_finished=String.valueOf(diff/1000/60/60/24);
-                            pushNotif(title,content,y.getAddress(),y.getAffected_agent(),y.getExpected_date(),days_until_finished,y.getNumar(),y.getSector());
+                            Log.d(TAG, "getTheApiData: "+x.getSector());
+                            pushNotif(title,content, x.getAddress(), x.getAffected_agent(),x.getDate_time(),days_until_finished, x.getStreet_no(),x.getSector());
                             database.getDao().updateDateTime(y.getExpected_date(),x.getAddress());
                         }
                     }

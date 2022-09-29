@@ -16,7 +16,6 @@ public class ActivityChecker {
         return false;
     }
     public Disposable checkNotifDatabase(Context context){
-
             return Database.getDatabase(context).getDao().getAllNotifData().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(data->displayData(data));
     }
 

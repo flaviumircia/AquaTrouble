@@ -105,6 +105,9 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
             model.setAddress(data_model.getData().getAddress());
             model.setStreet_no(data_model.getData().getNumar());
             model.setDate_time(data_model.getData().getExpected_date());
+            model.setNeighborhood(data_model.getData().getNeighborhood());
+            model.setSector(data_model.getData().getSector());
+            model.setAffected_agent(data_model.getData().getAffected_agent());
             Database.getDatabase(getApplicationContext()).getDao().insertNotifData(model);
             Toast.makeText(this, R.string.address_was_added, Toast.LENGTH_SHORT).show();
             finish();

@@ -202,13 +202,13 @@ public class NotificationService extends Service {
         intent.putExtra("remaining_days",days_counter);
         intent.putExtra("lat","0");
         intent.putExtra("lng","0");
-
+        intent.putExtra("isFromNotif",true);
         resource_id=getResourceId(sector);
         intent.putExtra("icon_id",resource_id);
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         final int flag =  Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
-        PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(),0,intent,flag);
+        PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(),(int) System.currentTimeMillis(),intent,flag);
 
         NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),"CHANNEL_ID")
                 .setSmallIcon(R.drawable.ic_logo)
@@ -220,11 +220,8 @@ public class NotificationService extends Service {
                 .setAutoCancel(true)
                 .setVibrate(new long[]{100,60,200})
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
-        Random random = new Random();
-        int m = random.nextInt(9999 - 1000) + 1000;
-        m += random.nextInt(100) + 1;
         NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(getApplicationContext());
-        notificationManagerCompat.notify(m ,builder.build());
+        notificationManagerCompat.notify((int) System.currentTimeMillis() ,builder.build());
     }
     private int getResourceId(String sector) {
         switch (sector)

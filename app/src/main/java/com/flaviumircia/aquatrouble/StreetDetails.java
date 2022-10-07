@@ -42,7 +42,8 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
     private final String file="LANGUAGE_PREF";
     private AdView bannerView;
     private InterstitialAd mInterstitialAd;
-
+    private InterstitialAd notificationInterstitialAd;
+    private boolean isFromNotif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         icon=findViewById(R.id.sectorIconDetails);
         add_to_fav=findViewById(R.id.showOnMapButton);
         bannerView=findViewById(R.id.bannerView_street_details);
+        this.isFromNotif=false;
         setTheBanner();
         int icon_res=getResourceIcon();
         icon.setImageResource(icon_res);
@@ -108,6 +110,23 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
                         mInterstitialAd = null;
                     }
                 });
+        InterstitialAd.load(this,"ca-app-pub-2868080243569213/2420156619", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        notificationInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.d(TAG, loadAdError.toString());
+                        notificationInterstitialAd = null;
+                    }
+                });
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -143,6 +162,13 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
             } else {
                 Log.d("TAG", "The interstitial ad wasn't ready yet.");
             }
+            if(this.isFromNotif){
+            if (notificationInterstitialAd != null) {
+                notificationInterstitialAd.show(StreetDetails.this);
+            } else {
+                Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            }
+            }
         });
     }
     private int getResourceIcon(){
@@ -166,6 +192,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
             temp_model.setAffected_agent(extras.getString("affected_agent"));
             data_model.setData(temp_model);
             data_model.setRemaining_days(extras.getString("remaining_days"));
+            this.isFromNotif=extras.getBoolean("isFromNotifications");
         }
         return data_model;
     }

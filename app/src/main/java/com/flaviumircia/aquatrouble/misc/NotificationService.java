@@ -202,7 +202,7 @@ public class NotificationService extends Service {
         intent.putExtra("remaining_days",days_counter);
         intent.putExtra("lat","0");
         intent.putExtra("lng","0");
-
+        intent.putExtra("isFromNotifications",true);
         resource_id=getResourceId(sector);
         intent.putExtra("icon_id",resource_id);
 

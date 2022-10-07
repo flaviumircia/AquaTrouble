@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -24,18 +25,23 @@ import com.flaviumircia.aquatrouble.restdata.model.ExtendedData;
 import com.flaviumircia.aquatrouble.theme.ThemeModeChecker;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 
 public class StreetDetails extends AppCompatActivity implements ThemeModeChecker {
+    private static final String TAG = "STREET_DETAILS";
     private TextView street_title,street_number,sector,expected_date,remaining_days,affected_agent;
     private ImageButton back_arrow;
     private Button add_to_fav;
     private ImageView icon;
     private final String file="LANGUAGE_PREF";
     private AdView bannerView;
+    private InterstitialAd mInterstitialAd;
 
 
     @Override
@@ -84,6 +90,24 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         });
         AdRequest adRequest=new AdRequest.Builder().build();
         bannerView.loadAd(adRequest);
+
+        InterstitialAd.load(this,"ca-app-pub-2868080243569213/6358852887", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.d(TAG, loadAdError.toString());
+                        mInterstitialAd = null;
+                    }
+                });
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -114,7 +138,11 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
             model.setDate_time(data_model.getData().getExpected_date());
             Database.getDatabase(getApplicationContext()).getDao().insertNotifData(model);
             Toast.makeText(this, R.string.address_was_added, Toast.LENGTH_SHORT).show();
-            finish();
+            if (mInterstitialAd != null) {
+                mInterstitialAd.show(StreetDetails.this);
+            } else {
+                Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            }
         });
     }
     private int getResourceIcon(){

@@ -174,7 +174,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 ads:adSize="MEDIUM_RECTANGLE"
-                ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+                ads:adUnitId="ca-app-pub-2868080243569213/6099052331"
                 app:layout_constraintBottom_toTopOf="@+id/showOnMapButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

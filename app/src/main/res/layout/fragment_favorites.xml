@@ -45,13 +45,13 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-2868080243569213/7578858807"
         app:layout_constraintBottom_toTopOf="@+id/favorites_recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/watchlistText"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+        app:layout_constraintTop_toBottomOf="@+id/watchlistText" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favorites_recyclerView"

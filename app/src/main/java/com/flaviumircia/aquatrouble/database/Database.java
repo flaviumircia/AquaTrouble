@@ -8,7 +8,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.migration.AutoMigrationSpec;
 
-@androidx.room.Database(entities = {UserModel.class,NotificationsModel.class},version = 8,autoMigrations = {@AutoMigration(from = 7,to=8)})
+@androidx.room.Database(entities = {UserModel.class,NotificationsModel.class},version = 9,autoMigrations = {@AutoMigration(from = 8,to=9)})
 public abstract class Database extends RoomDatabase {
 
     public abstract DaoClass getDao();

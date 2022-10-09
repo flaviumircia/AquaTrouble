@@ -73,6 +73,13 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         setCustomTheme(window,nightModeFlags);
         ExtendedData model=getFields();
 
+        if(isFromNotif){
+            if (notifAd != null) {
+                notifAd.show(StreetDetails.this);
+            } else {
+                Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            }
+        }
         onClick(back_arrow,add_to_fav,model);
 
         sector.setText("Sector " + model.getData().getSector());
@@ -163,13 +170,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
             } else {
                 Log.d("TAG", "The interstitial ad wasn't ready yet.");
             }
-            if(isFromNotif){
-            if (notifAd != null) {
-                notifAd.show(StreetDetails.this);
-            } else {
-                Log.d("TAG", "The interstitial ad wasn't ready yet.");
-            }
-            }
+
         });
     }
     private int getResourceIcon(){

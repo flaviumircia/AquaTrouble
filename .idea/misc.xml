@@ -3,14 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/drawable/ic_roata_mare.xml" value="0.124" />
         <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/activity_eula.xml" value="0.2" />
         <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/activity_feedback_provider.xml" value="0.1" />
-        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/activity_map_details.xml" value="0.22644927536231885" />
-        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/activity_street_details.xml" value="0.22644927536231885" />
         <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/bottom_root.xml" value="0.11302083333333333" />
         <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/fragment_current_damage.xml" value="0.19791666666666666" />
-        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/fragment_favorites.xml" value="0.22644927536231885" />
         <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/layout/info_window_layout.xml" value="0.264" />
+        <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1075" />
         <entry key="..\:/AquaTrouble/AquaTrouble/app/src/main/res/xml/root_preferences.xml" value="0.11302083333333333" />
       </map>
     </option>

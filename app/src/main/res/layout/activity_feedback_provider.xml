@@ -42,11 +42,11 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/sendTheRepButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -181,6 +181,7 @@
                 android:hint="@string/descrie_ce_imbunatatire_vrei_sa_vezi_in_urmatoarele_versiune_ale_aquatrouble"
                 android:inputType="textMultiLine"
                 android:lines="7"
+                android:layout_marginBottom="50dp"
                 android:maxLength="255"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
@@ -199,12 +200,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                ads:adSize="BANNER"
+                android:layout_marginBottom="10dp"
+                ads:adUnitId="ca-app-pub-2868080243569213/9607585332"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/content_edittext"
-                ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-2868080243569213/9607585332"/>
+                app:layout_constraintTop_toBottomOf="@+id/content_edittext" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
@@ -215,18 +217,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/rectangle"
         android:backgroundTint="@color/light_blue"
         android:fontFamily="@font/comfortaa"
         android:text="@string/send_the_feedback"
         android:textAllCaps="false"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/back_button_feedback"

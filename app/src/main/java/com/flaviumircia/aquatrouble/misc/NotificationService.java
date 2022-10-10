@@ -15,6 +15,7 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.flaviumircia.aquatrouble.MainMap;
 import com.flaviumircia.aquatrouble.R;
 import com.flaviumircia.aquatrouble.StreetDetails;
 import com.flaviumircia.aquatrouble.database.ActivityChecker;
@@ -22,6 +23,7 @@ import com.flaviumircia.aquatrouble.database.DaoClass;
 import com.flaviumircia.aquatrouble.database.Database;
 import com.flaviumircia.aquatrouble.database.DbExists;
 import com.flaviumircia.aquatrouble.database.NotificationsModel;
+import com.flaviumircia.aquatrouble.menufragments.CurrentDamage;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.model.ExtendedData;
 import com.flaviumircia.aquatrouble.restdata.retrofit.RetrofitClient;
@@ -120,10 +122,25 @@ public class NotificationService extends Service {
                         Matcher matcher=pattern.matcher(currentTime.getCurrent_time());
                         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences(notif_pref,MODE_PRIVATE);
                         String notif_status=sharedPreferences.getString("notif_status","notif_on");
-                        Log.d(TAG, "run: "+currentTime.getCurrent_time());
+                        String engagement_regex="^(09):(00):[0-9]{2}$";
+                        String engagement_regex_2="^(17):(00):[0-9]{2}$|^(20):(00):[0-9]{2}$|^(13):(00):[0-9]{2}$|^(19):(21):[0-9]{2}$";
+                        Pattern engagement_pattern=Pattern.compile(engagement_regex,Pattern.CASE_INSENSITIVE);
+                        Matcher engagement_matcher=engagement_pattern.matcher(currentTime.getCurrent_time());
+                        Pattern engagement_pattern_2=Pattern.compile(engagement_regex_2,Pattern.CASE_INSENSITIVE);
+                        Matcher engagement_matcher_2=engagement_pattern_2.matcher(currentTime.getCurrent_time());
+                        String title_1=getString(R.string.new_day_new_damage);
+                        String content_1=getString(R.string.see_on_what_street);
+                        String title_2=getString(R.string.throw_an_eye);
+                        String content_2=getString(R.string.maybe_someting_changed);
+                        if(notif_status.equals("notif_on")){
+                            if(engagement_matcher.find())
+                                engagementNotifications(title_1,content_1);
+                            if(engagement_matcher_2.find())
+                                engagementNotifications(title_2,content_2);
+                        }
                         if(matcher.find() && notif_status.equals("notif_on"))
                         {
-                            pushNotif("Test","test dev","","","","","","");
+
                             if(isDatabase())
                             {
                                 compositeDisposable=new CompositeDisposable();
@@ -190,6 +207,25 @@ public class NotificationService extends Service {
             return true;
         }
         return false;
+    }
+
+    private void engagementNotifications(String title,String content){
+        Intent intent=new Intent(getApplicationContext(), MainMap.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        final int flag =  Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
+        PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(),(int) System.currentTimeMillis(),intent,flag);
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext(),"CHANNEL_ID")
+                .setSmallIcon(R.drawable.ic_logo)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .setVibrate(new long[]{200,60,200,60,200})
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
+        NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify((int) System.currentTimeMillis() ,builder.build());
     }
 
     private void pushNotif(String title,String content,String address,String affected_agent,String expected_date,String days_counter,String numbers,String sector) {

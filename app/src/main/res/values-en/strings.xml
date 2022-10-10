@@ -106,5 +106,9 @@
     <string name="send_us_a_feedback">I want to contact AquaTrouble for a feature I want</string>
     <string name="send_us_feedback_explanation">We are glad that you want to help! To be able to send us a request, please use the \"Feedback\" submenu in the \"Settings\" menu.</string>
     <string name="requires_connection">Internet connection is required for this feature!</string>
+    <string name="new_day_new_damage">New day, new damage</string>
+    <string name="see_on_what_street">See what streets have no hot water!</string>
+    <string name="throw_an_eye">Throw an eye on the newest damages!</string>
+    <string name="maybe_someting_changed">Maybe something has changed</string>
 
 </resources>

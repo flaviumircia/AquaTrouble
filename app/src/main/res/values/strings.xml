@@ -131,4 +131,9 @@
     <string name="street_numbers_are_partially_visible_explanation">Pentru a putea fi vizualizat pe toate dispozitivele trageți de numărul adresei din stânga către dreapta.</string>
     <string name="send_us_a_feedback">Vreau să comunic cu AquaTrouble pentru o îmbunătățire a aplicației.</string>
     <string name="send_us_feedback_explanation">Ne bucurăm ca vreți sa ajutați! Pentru a ne putea trimite o cerere, vă rugăm să folosiți submeniul \"Feedback\" din meniul \"Setări\".</string>
+    <string name="requires_connection">Este nevoie de o conexiune activă la internet!</string>
+    <string name="new_day_new_damage">O noua zi, o noua avarie</string>
+    <string name="see_on_what_street">Vezi pe ce străzi nu exista apă caldă azi!</string>
+    <string name="throw_an_eye">Arunca un ochi pe noile avarii!</string>
+    <string name="maybe_someting_changed">Poate s-a mai schimbat ceva</string>
 </resources>

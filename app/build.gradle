@@ -71,6 +71,8 @@ dependencies {
     def room_version = "2.4.2"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
-
+    //Huawei mobile services
+    implementation 'com.huawei.hms:ads-prime:3.4.55.302'
+    implementation 'com.huawei.hms:ads-omsdk:1.3.35'
     annotationProcessor "androidx.room:room-compiler:$room_version"
 }

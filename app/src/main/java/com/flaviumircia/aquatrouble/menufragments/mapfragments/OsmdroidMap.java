@@ -195,7 +195,7 @@ public class OsmdroidMap extends Fragment implements MapPointCorrecter, ThemeMod
         if(!f.exists())
             assetToInternalStorage.copyAsset("4uMaps",dirPath);
         //set the offline tile source
-        map.setTileSource(new XYTileSource("4uMaps", 13, 14, 512, ".png", new String[] {dirPath}));
+        map.setTileSource(new XYTileSource("4uMaps", 12, 14, 256, ".png", new String[] {dirPath}));
 
     }
 

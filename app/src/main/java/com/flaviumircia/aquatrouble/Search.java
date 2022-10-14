@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.flaviumircia.aquatrouble.adapter.damage_data.PostAdapter;
 import com.flaviumircia.aquatrouble.adapter.search_data.SearchDataAdapter;
+import com.flaviumircia.aquatrouble.misc.NetworkChecker;
 import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 import com.flaviumircia.aquatrouble.restdata.model.Data;
 import com.flaviumircia.aquatrouble.restdata.retrofit.DamageDataApi;
@@ -39,6 +41,7 @@ public class Search extends AppCompatActivity {
     private SectorDataSearchApi sectorDataApi;
     private DamageDataApi damageDataApi;
     private Retrofit retrofit;
+    private NetworkChecker networkChecker;
     private final String file="LANGUAGE_PREF";
 
     @Override
@@ -53,14 +56,13 @@ public class Search extends AppCompatActivity {
         recyclerView=findViewById(R.id.recyclerView_search);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         retrofit= RetrofitClient.getInstance();
+        networkChecker=new NetworkChecker(this);
         sectorDataApi=retrofit.create(SectorDataSearchApi.class);
         damageDataApi=retrofit.create(DamageDataApi.class);
         arrow_back.setOnClickListener(view-> finish());
-
         String neighborhood=getNeighborhood();
-        fetchData(neighborhood);
-
-
+        if(networkChecker.isNetworkAvailable())
+            fetchData(neighborhood);
     }
     public String getNeighborhood(){
         Bundle extras=getIntent().getExtras();

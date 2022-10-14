@@ -110,5 +110,6 @@
     <string name="see_on_what_street">See what streets have no hot water!</string>
     <string name="throw_an_eye">Throw an eye on the newest damages!</string>
     <string name="maybe_someting_changed">Maybe something has changed</string>
+    <string name="there_are_no_damages">There are no damages right now!</string>
 
 </resources>

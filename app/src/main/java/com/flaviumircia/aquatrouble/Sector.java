@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -36,6 +37,7 @@ public class Sector extends AppCompatActivity implements ThemeModeChecker {
     private RecyclerView recyclerView;
     private final String file="LANGUAGE_PREF";
     private Retrofit retrofit;
+    private TextView no_damaages;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class Sector extends AppCompatActivity implements ThemeModeChecker {
         //instantiate views
         TextView textView=findViewById(R.id.textView);
         icon=findViewById(R.id.sectorIcon);
+        no_damaages=findViewById(R.id.no_damages_text_view);
         compositeDisposable=new CompositeDisposable();
         recyclerView=findViewById(R.id.damaged_streets_sector_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -55,6 +58,10 @@ public class Sector extends AppCompatActivity implements ThemeModeChecker {
         //get the parameters passed
         String sector=sectorTitle();
         int icon_id=sectorIcon();
+
+        //hiding the no damage find textview
+        no_damaages.setVisibility(View.GONE);
+        no_damaages.setText(R.string.there_are_no_damages);
 
         //set the views
         icon.setImageResource(icon_id);
@@ -76,7 +83,11 @@ public class Sector extends AppCompatActivity implements ThemeModeChecker {
 
     private void displayData(List<Data> data) {
         SectorDataAdapter sectorDataAdapter=new SectorDataAdapter(this,data,sectorIcon());
-        recyclerView.setAdapter(sectorDataAdapter);
+        if(sectorDataAdapter.getItemCount()!=0)
+            recyclerView.setAdapter(sectorDataAdapter);
+        else{
+            recyclerView.setVisibility(View.GONE);
+            no_damaages.setVisibility(View.VISIBLE);}
 
     }
     @Override

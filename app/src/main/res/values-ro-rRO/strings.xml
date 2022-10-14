@@ -124,5 +124,6 @@
     <string name="see_on_what_street">Vezi pe ce străzi nu exista apă caldă azi!</string>
     <string name="throw_an_eye">Arunca un ochi pe noile avarii!</string>
     <string name="maybe_someting_changed">Poate s-a mai schimbat ceva</string>
+    <string name="there_are_no_damages">Nu există avarii în acest sector acum!</string>
 
 </resources>

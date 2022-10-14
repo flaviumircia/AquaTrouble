@@ -11,4 +11,5 @@ import retrofit2.http.Query;
 public interface SectorDataApi {
     @GET("street/sector_data/?format=json")
     Observable<List<Data>> getData(@Query("sector") int sector);
+
 }

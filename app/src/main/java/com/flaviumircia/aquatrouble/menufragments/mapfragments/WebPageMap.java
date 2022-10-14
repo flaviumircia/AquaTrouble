@@ -1,21 +1,27 @@
 package com.flaviumircia.aquatrouble.menufragments.mapfragments;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.flaviumircia.aquatrouble.LanguageSetter;
 import com.flaviumircia.aquatrouble.R;
+import com.flaviumircia.aquatrouble.misc.LoadingDialogCircle;
 import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 
 /**
@@ -26,6 +32,7 @@ import com.flaviumircia.aquatrouble.misc.PreferenceLanguageSetter;
 public class WebPageMap extends Fragment {
     private final String file="LANGUAGE_PREF";
     private String lang;
+    private LoadingDialogCircle dialogCircle;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,6 +85,8 @@ public class WebPageMap extends Fragment {
                              Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_webpage_map,container,false);
         WebView myWebView = (WebView) v.findViewById(R.id.webview);
+        dialogCircle=new LoadingDialogCircle(requireContext());
+
         // chromium, enable hardware acceleration
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setSupportZoom(true);
@@ -85,7 +94,20 @@ public class WebPageMap extends Fragment {
         myWebView.setPadding(0, 0, 0, 0);
         myWebView.setInitialScale(getScale());
         webSettings.setJavaScriptEnabled(true);
+
         check_theme(myWebView);
+        myWebView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                if(newProgress<100){
+                    dialogCircle.showDialog();
+
+                }else if (newProgress==100){
+                    dialogCircle.hideDialog();
+                }
+            }
+        });
         return v;
     }
     private int getScale(){

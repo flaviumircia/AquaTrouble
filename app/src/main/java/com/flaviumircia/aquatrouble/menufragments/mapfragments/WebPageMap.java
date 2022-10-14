@@ -96,17 +96,12 @@ public class WebPageMap extends Fragment {
         webSettings.setJavaScriptEnabled(true);
 
         check_theme(myWebView);
-        ProgressDialog p = new ProgressDialog(getActivity());
         myWebView.setWebChromeClient(new WebChromeClient(){
-
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                //TODO: Maybe bug if not an active internet connection
-                //TODO: Change this to progress bar/loading spinner when it's completed
-                Log.d("WebPageMap", "onProgressChanged: "+newProgress);
                 if(newProgress<100){
-                    dialogCircle.showDialog("Loading");
+                    dialogCircle.showDialog();
 
                 }else if (newProgress==100){
                     dialogCircle.hideDialog();

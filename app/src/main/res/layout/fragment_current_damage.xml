@@ -201,7 +201,7 @@
         app:layout_constraintHorizontal_bias="0.791"
         app:layout_constraintStart_toEndOf="@+id/current_damage_top_bar"
         app:layout_constraintTop_toTopOf="@+id/current_damage_top_bar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <com.huawei.hms.ads.banner.BannerView
         android:id="@+id/hw_banner_view"

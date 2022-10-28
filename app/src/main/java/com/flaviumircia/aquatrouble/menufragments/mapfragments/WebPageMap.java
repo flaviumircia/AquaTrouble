@@ -125,25 +125,25 @@ public class WebPageMap extends Fragment {
         switch (nightModeFlags) {
             case android.content.res.Configuration.UI_MODE_NIGHT_YES:
                 if(lang!=null && lang.equals("ro-Ro"))
-                    myWebView.loadUrl("http://18.159.213.37/output_ro_dark.html");
+                    myWebView.loadUrl("http://52.57.0.62/output_ro_dark.html");
                 else
-                    myWebView.loadUrl("http://18.159.213.37/output_dark_eng.html");
+                    myWebView.loadUrl("http://52.57.0.62/output_dark_eng.html");
                 break;
             case android.content.res.Configuration.UI_MODE_NIGHT_NO:
                 if(lang!=null && lang.equals("ro-Ro"))
-                    myWebView.loadUrl("http://18.159.213.37/output_ro.html");
+                    myWebView.loadUrl("http://52.57.0.62/output_ro.html");
                 else
-                    myWebView.loadUrl("http://18.159.213.37/output_eng.html");
+                    myWebView.loadUrl("http://52.57.0.62/output_eng.html");
 
                 break;
             case android.content.res.Configuration.UI_MODE_NIGHT_UNDEFINED:
                 if(lang!=null && lang.equals("en"))
-                    myWebView.loadUrl("http://18.159.213.37/output_eng.html");
+                    myWebView.loadUrl("http://52.57.0.62/output_eng.html");
                 else
-                    myWebView.loadUrl("http://18.159.213.37/output_ro.html");
+                    myWebView.loadUrl("http://52.57.0.62/output_ro.html");
 
                 break;
-            default: myWebView.loadUrl("http://18.159.213.37/output_ro.html");
+            default: myWebView.loadUrl("http://52.57.0.62/output_ro.html");
         }
     }
 }

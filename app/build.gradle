@@ -8,8 +8,8 @@ android {
         applicationId "com.flaviumircia.aquatrouble"
         minSdk 21
         targetSdk 32
-        versionCode 9
-        versionName "1.2.0"
+        versionCode 10
+        versionName "1.2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {

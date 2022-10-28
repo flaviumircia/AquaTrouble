@@ -202,7 +202,7 @@
                 android:layout_marginTop="20dp"
                 ads:adSize="BANNER"
                 android:layout_marginBottom="10dp"
-                ads:adUnitId="ca-app-pub-2868080243569213/9607585332"
+                ads:adUnitId="ca-app-pub-8119297243643514/2574322404"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -101,7 +101,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
         AdRequest adRequest=new AdRequest.Builder().build();
         bannerView.loadAd(adRequest);
 
-        InterstitialAd.load(this,"ca-app-pub-2868080243569213/6358852887", adRequest,
+        InterstitialAd.load(this,"ca-app-pub-8119297243643514/6493348129", adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -118,7 +118,7 @@ public class StreetDetails extends AppCompatActivity implements ThemeModeChecker
                         mInterstitialAd = null;
                     }
                 });
-        InterstitialAd.load(this, "ca-app-pub-2868080243569213/2420156619", adRequest,
+        InterstitialAd.load(this, "ca-app-pub-8119297243643514/1432593133", adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {

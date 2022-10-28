@@ -46,7 +46,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-2868080243569213/7578858807"
+        ads:adUnitId="ca-app-pub-8119297243643514/5184135889"
         app:layout_constraintBottom_toTopOf="@+id/favorites_recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
